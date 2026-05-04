@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#21070f"/>
+      <stop offset="1" stop-color="#0f1522"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="42" fill="url(#bg)"/>
+  <g transform="translate(80 96)">
+    <text x="0" y="0" fill="#f2c85b" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="3">REGULARIZACIÓN VEHICULAR</text>
+    <text x="0" y="86" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="74" font-weight="900">Expediente, validación</text>
+    <text x="0" y="164" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="74" font-weight="900">y seguimiento del trámite</text>
+  </g>
+  <g transform="translate(82 420)">
+    <rect x="0" y="176" width="770" height="18" rx="9" fill="#27354b"/>
+    <rect x="58" y="52" width="256" height="106" rx="30" fill="#d81f33"/>
+    <rect x="318" y="18" width="372" height="140" rx="32" fill="#eef1f6"/>
+    <rect x="370" y="54" width="174" height="34" rx="17" fill="#bcc5d7"/>
+    <rect x="560" y="54" width="90" height="34" rx="17" fill="#bcc5d7"/>
+    <rect x="358" y="104" width="280" height="18" rx="9" fill="#9ca9bf"/>
+    <circle cx="204" cy="192" r="58" fill="#151c2b"/>
+    <circle cx="204" cy="192" r="24" fill="#747e91"/>
+    <circle cx="556" cy="192" r="58" fill="#151c2b"/>
+    <circle cx="556" cy="192" r="24" fill="#747e91"/>
+  </g>
+  <g transform="translate(782 266)">
+    <rect width="320" height="360" rx="34" fill="#121928" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="34" y="40" width="252" height="166" rx="22" fill="#1b2438"/>
+    <rect x="56" y="68" width="118" height="18" rx="9" fill="#fff"/>
+    <rect x="56" y="106" width="202" height="16" rx="8" fill="#aeb8cb"/>
+    <rect x="56" y="136" width="182" height="16" rx="8" fill="#aeb8cb"/>
+    <rect x="56" y="166" width="120" height="16" rx="8" fill="#f2c85b"/>
+    <circle cx="92" cy="266" r="34" fill="#d81f33"/>
+    <path d="M78 267l8 8 19-21" stroke="#fff" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="144" y="250" width="126" height="14" rx="7" fill="#fff"/>
+    <rect x="144" y="276" width="108" height="14" rx="7" fill="#aeb8cb"/>
+  </g>
+</svg>

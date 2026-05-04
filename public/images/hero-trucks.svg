@@ -1,0 +1,53 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#081018"/>
+      <stop offset="0.65" stop-color="#111827"/>
+      <stop offset="1" stop-color="#2a0c12"/>
+    </linearGradient>
+    <linearGradient id="truckRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#ef2e45"/>
+      <stop offset="1" stop-color="#921726"/>
+    </linearGradient>
+    <linearGradient id="panel" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#1a2337"/>
+      <stop offset="1" stop-color="#121927"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="42" fill="url(#bg)"/>
+  <g opacity="0.10" stroke="#fff">
+    <path d="M0 180h1200M0 360h1200M0 540h1200M0 720h1200"/>
+    <path d="M160 0v900M340 0v900M520 0v900M700 0v900M880 0v900M1060 0v900"/>
+  </g>
+  <g transform="translate(70 90)">
+    <text x="0" y="0" fill="#f2c85b" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="3">TRANSPORTE DE CAMIONES</text>
+    <text x="0" y="90" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="80" font-weight="900">Operación terrestre</text>
+    <text x="0" y="172" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="80" font-weight="900">con visibilidad de ruta</text>
+    <text x="0" y="240" fill="#ccd4e4" font-family="Segoe UI, Arial, sans-serif" font-size="30">Contenido visual corregido para mostrar tractocamiones, carga y seguimiento.</text>
+  </g>
+  <g transform="translate(82 470)">
+    <rect x="0" y="160" width="980" height="24" rx="12" fill="#24344d" opacity="0.7"/>
+    <rect x="170" y="22" width="520" height="160" rx="18" fill="#d9dee8"/>
+    <rect x="0" y="56" width="220" height="126" rx="24" fill="url(#truckRed)"/>
+    <rect x="36" y="80" width="88" height="48" rx="12" fill="#bad8ee" opacity="0.9"/>
+    <rect x="250" y="50" width="356" height="26" rx="13" fill="#b9c2d7"/>
+    <rect x="250" y="92" width="260" height="18" rx="9" fill="#9aa8c3"/>
+    <rect x="250" y="126" width="210" height="18" rx="9" fill="#9aa8c3"/>
+    <circle cx="126" cy="204" r="54" fill="#151c2b"/>
+    <circle cx="126" cy="204" r="24" fill="#727f95"/>
+    <circle cx="318" cy="204" r="54" fill="#151c2b"/>
+    <circle cx="318" cy="204" r="24" fill="#727f95"/>
+    <circle cx="600" cy="204" r="54" fill="#151c2b"/>
+    <circle cx="600" cy="204" r="24" fill="#727f95"/>
+    <circle cx="776" cy="204" r="54" fill="#151c2b"/>
+    <circle cx="776" cy="204" r="24" fill="#727f95"/>
+  </g>
+  <g transform="translate(760 170)">
+    <rect width="350" height="210" rx="28" fill="url(#panel)" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="30" y="34" width="210" height="18" rx="9" fill="#fff"/>
+    <rect x="30" y="70" width="270" height="14" rx="7" fill="#a5b2ca"/>
+    <rect x="30" y="98" width="160" height="14" rx="7" fill="#a5b2ca"/>
+    <rect x="30" y="134" width="292" height="18" rx="9" fill="#f2c85b"/>
+    <rect x="30" y="164" width="206" height="18" rx="9" fill="#d81f33"/>
+  </g>
+</svg>

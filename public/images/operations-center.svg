@@ -1,0 +1,52 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0a1017"/>
+      <stop offset="1" stop-color="#21121a"/>
+    </linearGradient>
+    <linearGradient id="screen" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#17233a"/>
+      <stop offset="1" stop-color="#111725"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="42" fill="url(#bg)"/>
+  <g opacity="0.09" stroke="#fff">
+    <path d="M0 180h1200M0 360h1200M0 540h1200M0 720h1200"/>
+    <path d="M200 0v900M400 0v900M600 0v900M800 0v900M1000 0v900"/>
+  </g>
+  <g transform="translate(74 86)">
+    <text x="0" y="0" fill="#f2c85b" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="3">CONTROL OPERATIVO</text>
+    <text x="0" y="90" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="900">Centro de monitoreo</text>
+    <text x="0" y="168" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="76" font-weight="900">para unidades y rutas</text>
+  </g>
+  <g transform="translate(72 282)">
+    <rect width="530" height="420" rx="34" fill="url(#screen)" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="36" y="36" width="458" height="34" rx="17" fill="#22324f"/>
+    <rect x="36" y="96" width="458" height="214" rx="22" fill="#0d1422" stroke="rgba(255,255,255,0.08)"/>
+    <path d="M82 244 178 180 260 220 338 144 430 208" stroke="#f2c85b" stroke-width="10" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <circle cx="82" cy="244" r="10" fill="#d81f33"/>
+    <circle cx="178" cy="180" r="10" fill="#d81f33"/>
+    <circle cx="260" cy="220" r="10" fill="#d81f33"/>
+    <circle cx="338" cy="144" r="10" fill="#d81f33"/>
+    <circle cx="430" cy="208" r="10" fill="#d81f33"/>
+    <rect x="36" y="334" width="210" height="52" rx="18" fill="#1f2b43"/>
+    <rect x="260" y="334" width="234" height="52" rx="18" fill="#1f2b43"/>
+  </g>
+  <g transform="translate(656 282)">
+    <rect width="470" height="188" rx="28" fill="url(#screen)" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="30" y="34" width="160" height="18" rx="9" fill="#fff"/>
+    <rect x="30" y="74" width="408" height="18" rx="9" fill="#a6b4cb"/>
+    <rect x="30" y="106" width="366" height="18" rx="9" fill="#a6b4cb"/>
+    <rect x="30" y="138" width="210" height="18" rx="9" fill="#f2c85b"/>
+    <circle cx="394" cy="94" r="34" fill="#d81f33"/>
+    <path d="M379 95l10 10 21-24" stroke="#fff" stroke-width="9" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+  </g>
+  <g transform="translate(656 494)">
+    <rect width="470" height="208" rx="28" fill="url(#screen)" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="30" y="34" width="220" height="18" rx="9" fill="#fff"/>
+    <rect x="30" y="82" width="400" height="18" rx="9" fill="#a6b4cb"/>
+    <rect x="30" y="120" width="170" height="18" rx="9" fill="#d81f33"/>
+    <rect x="210" y="120" width="220" height="18" rx="9" fill="#f2c85b"/>
+    <rect x="30" y="160" width="400" height="18" rx="9" fill="#a6b4cb"/>
+  </g>
+</svg>

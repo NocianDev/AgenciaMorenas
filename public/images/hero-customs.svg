@@ -1,0 +1,51 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 900">
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#290810"/>
+      <stop offset="0.55" stop-color="#0d1220"/>
+      <stop offset="1" stop-color="#171a2a"/>
+    </linearGradient>
+    <linearGradient id="gold" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2c85b"/>
+      <stop offset="1" stop-color="#d8a72c"/>
+    </linearGradient>
+    <linearGradient id="red" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#d81f33"/>
+      <stop offset="1" stop-color="#8d1422"/>
+    </linearGradient>
+  </defs>
+  <rect width="1200" height="900" rx="42" fill="url(#bg)"/>
+  <g opacity="0.12" stroke="#fff">
+    <path d="M0 140h1200M0 280h1200M0 420h1200M0 560h1200M0 700h1200"/>
+    <path d="M140 0v900M320 0v900M500 0v900M680 0v900M860 0v900M1040 0v900"/>
+  </g>
+  <g transform="translate(84 82)">
+    <text x="0" y="0" fill="#f2c85b" font-family="Segoe UI, Arial, sans-serif" font-size="28" font-weight="800" letter-spacing="3">AGENCIA ADUANAL</text>
+    <text x="0" y="88" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="900">Regularización e</text>
+    <text x="0" y="170" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="900">importación con</text>
+    <text x="0" y="252" fill="#fff" font-family="Segoe UI, Arial, sans-serif" font-size="78" font-weight="900">control documental</text>
+    <text x="0" y="330" fill="#ccd4e4" font-family="Segoe UI, Arial, sans-serif" font-size="30">Estructura visual enfocada en inspección, expediente y acompañamiento claro.</text>
+  </g>
+  <g transform="translate(650 280)">
+    <rect x="0" y="0" width="430" height="380" rx="38" fill="#111726" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="40" y="50" width="350" height="250" rx="22" fill="#1b2337" stroke="rgba(255,255,255,0.12)"/>
+    <rect x="70" y="82" width="110" height="120" rx="18" fill="url(#red)"/>
+    <rect x="195" y="82" width="160" height="30" rx="15" fill="#f6f7fb" opacity="0.9"/>
+    <rect x="195" y="130" width="130" height="16" rx="8" fill="#92a1bb"/>
+    <rect x="195" y="158" width="145" height="16" rx="8" fill="#92a1bb"/>
+    <rect x="195" y="186" width="110" height="16" rx="8" fill="#92a1bb"/>
+    <rect x="70" y="226" width="285" height="18" rx="9" fill="url(#gold)"/>
+    <circle cx="110" cy="350" r="48" fill="#182136" stroke="rgba(255,255,255,0.12)"/>
+    <path d="M88 351l14 14 28-32" stroke="#48cf84" stroke-width="12" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    <rect x="182" y="330" width="190" height="16" rx="8" fill="#c2cbe0"/>
+    <rect x="182" y="360" width="140" height="16" rx="8" fill="#8b99b2"/>
+  </g>
+  <g transform="translate(70 612)">
+    <rect width="490" height="188" rx="34" fill="#111726" stroke="rgba(255,255,255,0.12)"/>
+    <circle cx="86" cy="92" r="50" fill="#1b2337"/>
+    <rect x="150" y="54" width="280" height="18" rx="9" fill="#f6f7fb"/>
+    <rect x="150" y="90" width="220" height="16" rx="8" fill="#a7b2c8"/>
+    <rect x="150" y="120" width="180" height="16" rx="8" fill="#a7b2c8"/>
+    <rect x="150" y="148" width="120" height="16" rx="8" fill="#f2c85b"/>
+  </g>
+</svg>

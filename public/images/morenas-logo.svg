@@ -1,0 +1,18 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 780 180">
+  <defs>
+    <linearGradient id="goldRed" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#f2c85b"/>
+      <stop offset="0.45" stop-color="#ffe9a8"/>
+      <stop offset="1" stop-color="#d81f33"/>
+    </linearGradient>
+  </defs>
+  <rect width="780" height="180" rx="40" fill="none"/>
+  <g transform="translate(22 18)">
+    <rect x="0" y="10" width="118" height="118" rx="28" fill="#0c1018" stroke="rgba(255,255,255,0.18)"/>
+    <path d="M26 102V36h19l14 19 14-19h19v66H75V63L59 84 43 63v39z" fill="url(#goldRed)"/>
+  </g>
+  <g fill="#ffffff">
+    <text x="156" y="86" font-family="Segoe UI, Arial, sans-serif" font-size="58" font-weight="800" letter-spacing="-2">Morenas</text>
+    <text x="159" y="118" font-family="Segoe UI, Arial, sans-serif" font-size="22" fill="#f2c85b" font-weight="700" letter-spacing="3">AGENCIA ADUANAL · TRANSPORTE DE CAMIONES</text>
+  </g>
+</svg>
