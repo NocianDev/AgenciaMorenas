@@ -45,7 +45,7 @@ export default function TrackingPage() {
   };
 
   const fetchUnit = async (id) => {
-    const response = await fetch(`/api/tracking/${encodeURIComponent(id)}`);
+    const response = await fetch(`/api/tracking/unit?id=${encodeURIComponent(id)}`);
     return readJson(response);
   };
 
