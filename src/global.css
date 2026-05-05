@@ -1940,3 +1940,98 @@ select option {
     transform: scale(1.18) !important;
   }
 }
+
+/* =========================================================
+   FIX DEFINITIVO MENÚ HAMBURGUESA MÓVIL
+   Pegar al FINAL de src/global.css
+========================================================= */
+
+@media (max-width: 960px) {
+  .site-header {
+    overflow: visible !important;
+  }
+
+  .navbar {
+    position: relative !important;
+    overflow: visible !important;
+    z-index: 9999 !important;
+  }
+
+  /* CERRADO por defecto */
+  .nav-panel {
+    position: absolute !important;
+    top: calc(100% + 12px) !important;
+    left: 12px !important;
+    right: 12px !important;
+    width: auto !important;
+
+    display: grid !important;
+    grid-template-columns: 1fr !important;
+    gap: 10px !important;
+
+    padding: 18px !important;
+    border-radius: 28px !important;
+    background: rgba(8, 11, 18, 0.98) !important;
+    border: 1px solid rgba(255, 255, 255, 0.12) !important;
+    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55) !important;
+    backdrop-filter: blur(18px) !important;
+
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+    transform: translateY(-12px) scale(0.98) !important;
+
+    transition:
+      opacity 0.22s ease,
+      visibility 0.22s ease,
+      transform 0.22s ease !important;
+  }
+
+  /* ABIERTO solo cuando React agrega .is-open */
+  .nav-panel.is-open {
+    opacity: 1 !important;
+    visibility: visible !important;
+    pointer-events: auto !important;
+    transform: translateY(0) scale(1) !important;
+  }
+
+  .nav-link,
+  .nav-cta {
+    width: 100% !important;
+    min-height: 54px !important;
+    display: flex !important;
+    align-items: center !important;
+    justify-content: flex-start !important;
+    padding: 0 18px !important;
+    border-radius: 20px !important;
+    font-size: 1rem !important;
+  }
+
+  .nav-cta {
+    justify-content: center !important;
+    margin-top: 8px !important;
+  }
+
+  .menu-button {
+    display: block !important;
+    position: relative !important;
+    z-index: 10001 !important;
+  }
+}
+
+/* Celular pequeño */
+@media (max-width: 520px) {
+  .nav-panel {
+    left: 10px !important;
+    right: 10px !important;
+    top: calc(100% + 10px) !important;
+    padding: 16px !important;
+    border-radius: 24px !important;
+  }
+
+  .nav-link,
+  .nav-cta {
+    min-height: 52px !important;
+    font-size: 0.98rem !important;
+  }
+}
