@@ -1,7 +1,8 @@
 import { useEffect, useMemo, useState } from 'react';
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
-import { assets, brand, gpsUnits } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { assets, brand, gpsUnits, mediaSections } from '../data/siteData';
 
 const initialEmail = 'cliente@morenas.com';
 
@@ -403,6 +404,7 @@ export default function TrackingPage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.tracking} />
     </>
   );
 }

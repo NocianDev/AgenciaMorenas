@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
-import { assets, brand, offices } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { assets, brand, offices, mediaSections } from '../data/siteData';
 
 export default function OfficesPage() {
   return (
@@ -38,6 +39,7 @@ export default function OfficesPage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.offices} />
     </>
   );
 }

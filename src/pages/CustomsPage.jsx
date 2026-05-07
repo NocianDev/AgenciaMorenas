@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
-import { assets, brand, customServices } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { assets, brand, customServices, mediaSections } from '../data/siteData';
 
 export default function CustomsPage() {
   return (
@@ -61,6 +62,7 @@ export default function CustomsPage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.customs} />
     </>
   );
 }

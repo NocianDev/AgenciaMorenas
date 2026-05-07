@@ -1608,9 +1608,9 @@ textarea:focus {
 }
 
 .brand-link img {
-  width: min(300px, 26vw) !important;
-  min-width: 190px !important;
-  max-height: 82px !important;
+  width: min(210px, 20vw) !important;
+  min-width: 135px !important;
+  max-height: 58px !important;
   object-fit: contain;
 }
 
@@ -1831,33 +1831,36 @@ select option {
   }
 }
 
+
 /* =========================================================
-   LOGO GRANDE ALTO NAVBAR - MORenas
-   Pegar al FINAL de src/global.css
+   MEDIA FINAL - LOGO MÓVIL GRANDE + HERO MARCA + GALERÍAS
+   Pegar al final. Este bloque gobierna la versión final.
 ========================================================= */
 
-.site-header {
-  overflow: visible !important;
+.header-strip .strip-inner > span:first-child {
+  font-size: clamp(0.9rem, 1.2vw, 1.08rem) !important;
+  letter-spacing: 0.16em !important;
 }
 
 .navbar {
-  min-height: 98px !important;
+  min-height: 96px !important;
+  height: 96px !important;
   display: grid !important;
-  grid-template-columns: minmax(270px, 340px) minmax(0, 1fr) auto !important;
+  grid-template-columns: minmax(260px, 330px) minmax(0, 1fr) auto !important;
   align-items: center !important;
   column-gap: 22px !important;
   overflow: visible !important;
 }
 
 .brand-link {
-  width: 320px !important;
-  height: 98px !important;
+  width: 330px !important;
+  height: 96px !important;
   display: flex !important;
   align-items: center !important;
   justify-content: flex-start !important;
   overflow: visible !important;
   position: relative !important;
-  z-index: 5 !important;
+  z-index: 10 !important;
 }
 
 .brand-link img {
@@ -1867,127 +1870,252 @@ select option {
   max-width: none !important;
   max-height: none !important;
   object-fit: contain !important;
-  transform: scale(1.45) !important;
+  transform: scale(1.5) !important;
   transform-origin: left center !important;
-  filter: drop-shadow(0 12px 28px rgba(225, 27, 51, 0.22)) !important;
+  filter: drop-shadow(0 12px 30px rgba(225, 27, 51, 0.32)) !important;
 }
 
-/* Mantiene el menú centrado y sin huecos raros */
-.nav-panel {
-  justify-self: center !important;
-  display: flex !important;
-  align-items: center !important;
-  justify-content: center !important;
-  gap: clamp(8px, 1vw, 16px) !important;
-  width: 100% !important;
+.hero-brand-title {
+  display: grid;
+  gap: 8px;
+  margin-bottom: 26px;
+  text-transform: uppercase;
 }
 
-.nav-link,
-.nav-cta {
-  white-space: nowrap !important;
+.hero-brand-title span {
+  display: block;
+  color: var(--gold);
+  font-size: clamp(2.2rem, 5vw, 4.2rem);
+  font-weight: 950;
+  line-height: 0.9;
+  letter-spacing: 0.1em;
+  text-shadow: 0 16px 40px rgba(245, 203, 100, 0.14);
 }
 
-/* Tablet / pantallas medianas */
+.hero-brand-title strong {
+  display: block;
+  color: #fff;
+  font-size: clamp(1.35rem, 2.4vw, 2.3rem);
+  font-weight: 950;
+  line-height: 1;
+  letter-spacing: 0.35em;
+  text-shadow: 0 16px 40px rgba(255, 255, 255, 0.12);
+}
+
+.media-section {
+  background:
+    radial-gradient(circle at 16% 10%, rgba(225, 27, 51, 0.18), transparent 30%),
+    radial-gradient(circle at 88% 18%, rgba(245, 203, 100, 0.14), transparent 24%),
+    linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006));
+}
+
+.media-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr 0.85fr;
+  grid-auto-rows: 315px;
+  gap: 20px;
+}
+
+.media-card {
+  position: relative;
+  overflow: hidden;
+  border-radius: 30px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  box-shadow: 0 30px 80px rgba(0,0,0,0.35);
+  transform-style: preserve-3d;
+}
+
+.media-card:hover {
+  transform: translateY(-6px);
+  border-color: rgba(245,203,100,0.28);
+}
+
+.media-card img,
+.media-card iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+}
+
+.media-card img {
+  object-fit: cover;
+}
+
+.media-card::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(180deg, transparent 20%, rgba(0,0,0,0.82) 100%),
+    linear-gradient(135deg, rgba(225,27,51,0.2), transparent 48%);
+  pointer-events: none;
+}
+
+.media-caption {
+  position: absolute;
+  left: 22px;
+  right: 22px;
+  bottom: 22px;
+  z-index: 2;
+}
+
+.media-caption span,
+.facebook-placeholder-content span {
+  display: inline-flex;
+  margin-bottom: 10px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(245,203,100,0.92);
+  color: #1b0905;
+  font-size: 0.78rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.media-caption h3 {
+  margin: 0;
+  color: #ffffff;
+  font-size: clamp(1.25rem, 2vw, 2rem);
+  max-width: 12ch;
+}
+
+.media-large {
+  grid-row: span 2;
+}
+
+.facebook-media-card iframe {
+  background: #05070c;
+  position: relative;
+  z-index: 1;
+}
+
+.facebook-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.facebook-placeholder img {
+  filter: brightness(0.64) saturate(1.1);
+}
+
+.facebook-placeholder-content {
+  position: absolute;
+  inset: 18px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 24px;
+  border-radius: 24px;
+  border: 1px dashed rgba(245,203,100,0.42);
+  background: rgba(5,7,12,0.62);
+  backdrop-filter: blur(10px);
+}
+
+.facebook-placeholder-content strong {
+  color: #fff;
+  font-size: 1.35rem;
+  margin-bottom: 8px;
+}
+
+.facebook-placeholder-content p {
+  margin: 0;
+  color: rgba(255,255,255,0.78);
+}
+
 @media (max-width: 1120px) {
   .navbar {
-    min-height: 90px !important;
-    grid-template-columns: minmax(220px, 270px) minmax(0, 1fr) 48px !important;
+    grid-template-columns: minmax(230px, 280px) minmax(0, 1fr) 54px !important;
   }
 
   .brand-link {
-    width: 250px !important;
-    height: 90px !important;
+    width: 280px !important;
   }
 
   .brand-link img {
-    height: 82px !important;
-    transform: scale(1.32) !important;
+    height: 88px !important;
+    transform: scale(1.42) !important;
   }
 }
 
-/* Móvil */
+@media (max-width: 980px) {
+  .media-grid {
+    grid-template-columns: 1fr 1fr;
+    grid-auto-rows: 285px;
+  }
+
+  .media-large {
+    grid-row: span 1;
+  }
+}
+
 @media (max-width: 960px) {
+  .site-header,
   .navbar {
-    min-height: 86px !important;
+    overflow: visible !important;
+  }
+
+  .navbar {
+    min-height: 112px !important;
+    height: 112px !important;
     display: flex !important;
     justify-content: space-between !important;
+    padding: 0 18px !important;
   }
 
   .brand-link {
-    width: 230px !important;
-    height: 86px !important;
-  }
-
-  .brand-link img {
-    height: 76px !important;
-    transform: scale(1.25) !important;
-  }
-}
-
-/* Celular pequeño */
-@media (max-width: 520px) {
-  .navbar {
-    min-height: 78px !important;
-  }
-
-  .brand-link {
-    width: 190px !important;
-    height: 78px !important;
-  }
-
-  .brand-link img {
-    height: 68px !important;
-    transform: scale(1.18) !important;
-  }
-}
-
-/* =========================================================
-   FIX DEFINITIVO MENÚ HAMBURGUESA MÓVIL
-   Pegar al FINAL de src/global.css
-========================================================= */
-
-@media (max-width: 960px) {
-  .site-header {
+    width: 300px !important;
+    height: 112px !important;
     overflow: visible !important;
   }
 
-  .navbar {
+  .brand-link img {
+    height: 102px !important;
+    transform: scale(1.62) !important;
+    transform-origin: left center !important;
+  }
+
+  .menu-button {
+    width: 60px !important;
+    height: 60px !important;
+    border-radius: 20px !important;
     position: relative !important;
-    overflow: visible !important;
-    z-index: 9999 !important;
+    z-index: 10001 !important;
+    flex: 0 0 auto !important;
   }
 
-  /* CERRADO por defecto */
+  .menu-button span {
+    width: 30px !important;
+    height: 3px !important;
+    margin: 6px auto !important;
+  }
+
   .nav-panel {
     position: absolute !important;
     top: calc(100% + 12px) !important;
     left: 12px !important;
     right: 12px !important;
     width: auto !important;
-
     display: grid !important;
     grid-template-columns: 1fr !important;
     gap: 10px !important;
-
     padding: 18px !important;
     border-radius: 28px !important;
     background: rgba(8, 11, 18, 0.98) !important;
-    border: 1px solid rgba(255, 255, 255, 0.12) !important;
-    box-shadow: 0 28px 80px rgba(0, 0, 0, 0.55) !important;
+    border: 1px solid rgba(255,255,255,0.12) !important;
+    box-shadow: 0 28px 80px rgba(0,0,0,0.55) !important;
     backdrop-filter: blur(18px) !important;
-
     opacity: 0 !important;
     visibility: hidden !important;
     pointer-events: none !important;
     transform: translateY(-12px) scale(0.98) !important;
-
-    transition:
-      opacity 0.22s ease,
-      visibility 0.22s ease,
-      transform 0.22s ease !important;
+    transition: opacity 0.22s ease, visibility 0.22s ease, transform 0.22s ease !important;
   }
 
-  /* ABIERTO solo cuando React agrega .is-open */
   .nav-panel.is-open {
     opacity: 1 !important;
     visibility: visible !important;
@@ -1999,8 +2127,6 @@ select option {
   .nav-cta {
     width: 100% !important;
     min-height: 54px !important;
-    display: flex !important;
-    align-items: center !important;
     justify-content: flex-start !important;
     padding: 0 18px !important;
     border-radius: 20px !important;
@@ -2012,26 +2138,56 @@ select option {
     margin-top: 8px !important;
   }
 
-  .menu-button {
-    display: block !important;
-    position: relative !important;
-    z-index: 10001 !important;
+  .hero-brand-title span {
+    font-size: clamp(2.3rem, 9vw, 3.4rem);
+    letter-spacing: 0.08em;
+  }
+
+  .hero-brand-title strong {
+    font-size: clamp(1.25rem, 6vw, 2rem);
+    letter-spacing: 0.24em;
   }
 }
 
-/* Celular pequeño */
-@media (max-width: 520px) {
-  .nav-panel {
-    left: 10px !important;
-    right: 10px !important;
-    top: calc(100% + 10px) !important;
-    padding: 16px !important;
-    border-radius: 24px !important;
+@media (max-width: 620px) {
+  .media-grid {
+    grid-template-columns: 1fr;
+    grid-auto-rows: 265px;
   }
 
-  .nav-link,
-  .nav-cta {
-    min-height: 52px !important;
-    font-size: 0.98rem !important;
+  .media-card {
+    border-radius: 24px;
+  }
+
+  .media-caption h3 {
+    max-width: 16ch;
+  }
+}
+
+@media (max-width: 520px) {
+  .navbar {
+    min-height: 104px !important;
+    height: 104px !important;
+    padding: 0 14px !important;
+  }
+
+  .brand-link {
+    width: 245px !important;
+    height: 104px !important;
+  }
+
+  .brand-link img {
+    height: 96px !important;
+    transform: scale(1.55) !important;
+  }
+
+  .menu-button {
+    width: 56px !important;
+    height: 56px !important;
+  }
+
+  .header-strip .strip-inner > span:first-child {
+    font-size: 0.86rem !important;
+    line-height: 1.45 !important;
   }
 }

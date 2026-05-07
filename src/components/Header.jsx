@@ -11,7 +11,7 @@ export default function Header() {
     <header className="site-header">
       <div className="header-strip">
         <div className="container strip-inner">
-          <span>Agencia aduanal · Regularización vehicular · Transporte de camiones</span>
+          <span>Aduana y transportes · Morenas</span>
           <span>
             Atención directa <span className="strip-separator">•</span>
             <a href={`tel:${brand.phoneMX}`}>{brand.phoneMX}</a>

@@ -1,79 +1,112 @@
 # Morenas Agencia Aduanal y Transporte
 
-Proyecto web final para **Morenas**, enfocado en:
+Versión final preparada para:
 
 - Agencia aduanal
 - Regularización e importación vehicular
 - Transporte terrestre en camión
-- Rastreo por correo e ID de transporte
-- Solicitud de transporte desde la web
+- Rastreo por correo e ID
+- Galerías de imágenes reales en todas las pestañas
+- Videos embebidos de Facebook en todas las pestañas
 
-## Desarrollo local
-
-Instala dependencias:
+## Instalar
 
 ```bash
 npm install
 ```
 
-### Terminal 1: backend
+## Correr local
+
+Terminal 1:
 
 ```bash
 npm run backend
 ```
 
-El backend corre en:
-
-```bash
-http://localhost:4000
-```
-
-### Terminal 2: frontend
+Terminal 2:
 
 ```bash
 npm run dev
 ```
 
-El frontend corre en:
+## Desplegar en Vercel
 
-```bash
-http://localhost:5173
-```
-
-## Prueba rápida del rastreo
-
-En la sección **Rastreo**, puedes consultar con:
+Configuración:
 
 ```txt
-cliente@morenas.com
+Framework: Vite
+Root Directory: ./
+Build Command: npm run build
+Output Directory: dist
+Install Command: npm install --registry=https://registry.npmjs.org/
 ```
 
-También puedes crear una solicitud nueva desde el formulario. La plataforma generará un ID tipo:
+## Imágenes reales
+
+Coloca tus imágenes reales en:
 
 ```txt
-MOR-25003
+public/images/morenas/
 ```
 
-## Endpoints incluidos
+Puedes reemplazar estos archivos sin tocar código:
 
-Backend local Express:
+```txt
+aduana-hero.jpg
+transporte-hero.jpg
+rastreo-hero.jpg
+oficinas-hero.jpg
+contacto-hero.jpg
+aduana-1.jpg
+aduana-2.jpg
+transporte-1.jpg
+transporte-2.jpg
+rastreo-1.jpg
+rastreo-2.jpg
+oficina-1.jpg
+oficina-2.jpg
+contacto-1.jpg
+```
 
-- `GET /api/health`
-- `GET /api/tracking`
-- `GET /api/tracking/MOR-401`
-- `GET /api/orders`
-- `POST /api/orders`
-- `GET /api/orders/by-email?email=cliente@morenas.com`
-- `GET /api/orders/MOR-25001`
+## Videos de Facebook
 
-Serverless Vercel:
+Los videos se configuran en:
 
+```txt
+src/data/siteData.js
+```
+
+Busca:
+
+```txt
+facebookVideos
+```
+
+Y reemplaza cada valor:
+
+```txt
+REEMPLAZA_CON_LINK_DE_VIDEO_FACEBOOK...
+```
+
+por el link real del video de Facebook.
+
+Ejemplo:
+
+```js
+facebookUrl: 'https://www.facebook.com/tuPagina/videos/123456789/'
+```
+
+La web convierte automáticamente ese link a embed de Facebook.
+
+## APIs incluidas
+
+- `/api/health`
 - `/api/tracking`
+- `/api/tracking/unit?id=MOR-401`
 - `/api/orders`
+- `/api/orders/by-email?email=cliente@morenas.com`
+- `/api/orders/MOR-25001`
 
-## Notas
+## Nota
 
-- El sistema de rastreo funciona como demo funcional.
-- El envío real de correo no está conectado todavía. Para producción se puede conectar Resend, SendGrid, Gmail API o SMTP.
-- Las solicitudes se guardan en memoria durante la ejecución local. Para producción conviene conectar MongoDB, Supabase, Firebase o PostgreSQL.
-- El ZIP no incluye `node_modules`, `dist` ni `package-lock.json` para evitar conflictos de instalación.
+El sistema de rastreo funciona como demo en memoria. Para producción con datos persistentes se recomienda conectar MongoDB, Supabase, Firebase o PostgreSQL.

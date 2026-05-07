@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
-import { assets, brand } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { assets, brand, mediaSections } from '../data/siteData';
 
 export default function ContactPage() {
   return (
@@ -56,6 +57,7 @@ export default function ContactPage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.contact} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
-import { assets, brand, truckServices } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { assets, brand, truckServices, mediaSections } from '../data/siteData';
 
 export default function TrucksPage() {
   return (
@@ -61,6 +62,7 @@ export default function TrucksPage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.trucks} />
     </>
   );
 }

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import SectionTitle from '../components/SectionTitle';
-import { brand, heroHighlights, homeServices, processSteps, valueProps, gallery, faqs } from '../data/siteData';
+import MediaShowcase from '../components/MediaShowcase';
+import { brand, heroHighlights, homeServices, processSteps, valueProps, gallery, faqs, mediaSections } from '../data/siteData';
 
 export default function HomePage() {
   return (
@@ -8,7 +9,10 @@ export default function HomePage() {
       <section className="home-hero">
         <div className="container home-hero-grid">
           <div>
-            <p className="eyebrow">Morenas · Aduanas y transporte terrestre</p>
+            <div className="hero-brand-title">
+              <span>Aduana y Transportes</span>
+              <strong>Morenas</strong>
+            </div>
             <h1>Regularización, importación y transporte de camiones con seguimiento claro.</h1>
             <p className="home-lead">
               Morenas acompaña a clientes que necesitan resolver trámites aduanales, coordinar
@@ -32,11 +36,11 @@ export default function HomePage() {
 
           <div className="hero-stack">
             <div className="hero-card large photo-card customs-card">
-              <img src="/images/photo-customs-hq.jpg" alt="Regularización vehicular y agencia aduanal" />
+              <img src="/images/morenas/aduana-hero.jpg" alt="Regularización vehicular y agencia aduanal" />
               <div className="floating-badge badge-gold">Agencia aduanal</div>
             </div>
             <div className="hero-card small offset photo-card truck-card">
-              <img src="/images/photo-trucks-hq.jpg" alt="Transporte terrestre de camiones" />
+              <img src="/images/morenas/transporte-hero.jpg" alt="Transporte terrestre de camiones" />
               <div className="floating-badge badge-red">Transporte terrestre</div>
             </div>
           </div>
@@ -87,7 +91,7 @@ export default function HomePage() {
             </div>
           </div>
           <div className="side-visual card-shell gradient-panel">
-            <img src="/images/photo-control-hq.jpg" alt="Centro de control operativo" />
+            <img src="/images/morenas/oficinas-hero.jpg" alt="Centro de control operativo" />
           </div>
         </div>
       </section>
@@ -150,6 +154,7 @@ export default function HomePage() {
           </div>
         </div>
       </section>
+      <MediaShowcase data={mediaSections.home} />
     </>
   );
 }
