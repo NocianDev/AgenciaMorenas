@@ -21,7 +21,7 @@ export default function TrucksPage() {
           <SectionTitle
             eyebrow="Servicios de transporte"
             title="Movimientos terrestres con información visible para el cliente"
-            description="El flujo permite registrar datos básicos del servicio, asignar una unidad de referencia y mostrar el estado del trayecto sin complicar la experiencia del usuario."
+            description="El servicio se presenta con una ruta clara: solicitud, registro de datos, unidad asignada y consulta del estado del recorrido."
           />
           <div className="card-grid two-up">
             {truckServices.map((service) => (
@@ -39,8 +39,8 @@ export default function TrucksPage() {
           <div>
             <SectionTitle
               eyebrow="Seguimiento amigable"
-              title="Un cliente no necesita entender telemetría para consultar su servicio"
-              description="La experiencia se simplifica: el cliente registra su correo, recibe un ID y puede ver unidad, trayecto, estatus y eventos principales."
+              title="Seguimiento claro para el cliente"
+              description="La consulta se mantiene sencilla: correo, ID de transporte, origen, destino, unidad asignada y eventos principales."
             />
             <div className="bullet-list">
               <div>

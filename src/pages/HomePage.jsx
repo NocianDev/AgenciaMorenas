@@ -15,9 +15,7 @@ export default function HomePage() {
             </div>
             <h1>Regularización, importación y transporte de camiones con seguimiento claro.</h1>
             <p className="home-lead">
-              Morenas acompaña a clientes que necesitan resolver trámites aduanales, coordinar
-              transporte terrestre y consultar el avance de sus servicios desde una plataforma
-              simple, ordenada y diseñada para tomar acción rápido.
+              Morenas atiende a clientes que necesitan asesoría aduanal, legalización de vehículos, traslados y seguimiento de servicio con canales directos de comunicación en México y Estados Unidos.
             </p>
             <div className="hero-actions">
               <a className="btn btn-primary" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">
@@ -36,11 +34,11 @@ export default function HomePage() {
 
           <div className="hero-stack">
             <div className="hero-card large photo-card customs-card">
-              <img src="/images/morenas/aduana-hero.jpg" alt="Regularización vehicular y agencia aduanal" />
+              <img src="/images/Aduana11.jpg" alt="Regularización vehicular y agencia aduanal" />
               <div className="floating-badge badge-gold">Agencia aduanal</div>
             </div>
             <div className="hero-card small offset photo-card truck-card">
-              <img src="/images/morenas/transporte-hero.jpg" alt="Transporte terrestre de camiones" />
+              <img src="/images/Aduana2.jpg" alt="Transporte terrestre de camiones" />
               <div className="floating-badge badge-red">Transporte terrestre</div>
             </div>
           </div>
@@ -52,7 +50,7 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Servicios"
             title="Atención aduanal y logística terrestre en un solo lugar"
-            description="Morenas concentra sus servicios en tres áreas: gestión aduanal, transporte de camiones y rastreo del servicio registrado. El cliente puede solicitar atención, crear una solicitud y consultar el avance con su correo o ID de transporte."
+            description="La atención se organiza en agencia aduanal, transportes y rastreo. Cada apartado explica el servicio, muestra material visual de la operación y conecta al cliente con WhatsApp, teléfono o consulta por correo."
           />
           <div className="card-grid service-grid three-up">
             {homeServices.map((service) => (
@@ -79,7 +77,7 @@ export default function HomePage() {
             <SectionTitle
               eyebrow="Operación y confianza"
               title="Información clara para decidir, solicitar y dar seguimiento"
-              description="La plataforma está pensada para clientes que necesitan respuestas concretas: qué servicio se atiende, qué datos deben entregar, cuál es el ID de seguimiento y cómo consultar el recorrido de una unidad asignada."
+              description="El sitio está diseñado para que el cliente identifique el servicio correcto, solicite atención y consulte el avance de un traslado sin perder tiempo buscando información en distintos canales."
             />
             <div className="value-grid">
               {valueProps.map((item) => (
@@ -90,9 +88,9 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-          <div className="side-visual card-shell gradient-panel">
-            <img src="/images/morenas/oficinas-hero.jpg" alt="Centro de control operativo" />
-          </div>
+         <article className="media-card banner-card">
+  <img src="/images/Aduana10.jpg" alt="Asesoría aduanal Morenas" />
+</article>
         </div>
       </section>
 
@@ -101,7 +99,7 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Flujo de servicio"
             title="Del primer contacto al seguimiento del recorrido"
-            description="El proceso se construyó para que el cliente pueda iniciar una solicitud, recibir un ID y consultar el estado de su transporte de forma sencilla."
+            description="El proceso comienza con una consulta directa y continúa con la revisión del caso, el registro del servicio y el seguimiento cuando existe una unidad o traslado asignado."
             align="center"
           />
           <div className="process-grid">
@@ -121,7 +119,7 @@ export default function HomePage() {
           <SectionTitle
             eyebrow="Áreas de atención"
             title="Aduanas, transporte y rastreo presentados con una imagen consistente"
-            description="La comunicación visual se enfoca en patios de revisión, unidades de camión, paneles de control y rutas monitoreadas para que el giro de la empresa se entienda desde el primer vistazo."
+            description="La comunicación visual utiliza vehículos, plataformas, asesoría y material de operación para presentar a Morenas como una empresa enfocada en aduana, legalización y transportes."
           />
           <div className="gallery-grid">
             {gallery.map((item) => (

@@ -152,7 +152,7 @@ export default function TrackingPage() {
       <PageHero
         eyebrow="Rastreo para clientes"
         title="Consulta tu transporte con correo o ID de seguimiento."
-        description="El cliente registra una solicitud, recibe un ID de transporte y puede consultar la unidad asignada, el trayecto y los eventos principales del recorrido usando su correo."
+        description="Consulta servicios registrados por correo o ID de transporte para revisar unidad asignada, trayecto y eventos principales del recorrido."
         image={assets.trackingMap}
         primaryCta={{ label: 'Crear solicitud', href: '#crear-solicitud' }}
         secondaryCta={{ label: 'Consultar por correo', href: '#consulta' }}
@@ -165,7 +165,7 @@ export default function TrackingPage() {
             <SectionTitle
               eyebrow="Consulta rápida"
               title="Busca un servicio registrado"
-              description="Ingresa el correo usado en la solicitud o el ID de transporte para consultar el estatus del recorrido."
+              description="Ingresa el correo del cliente o el ID de transporte para localizar un servicio registrado y revisar su información de seguimiento."
             />
 
             <div className="lookup-grid">
@@ -307,8 +307,7 @@ export default function TrackingPage() {
             <div className="shell-note">
               <strong>Forma fácil para el cliente</strong>
               <p>
-                El cliente no necesita entender GPS técnico. Solo registra su servicio,
-                guarda su ID y consulta con correo para ver unidad, ruta y eventos.
+                El cliente consulta su servicio con datos simples: correo, ID, unidad asignada, ruta y eventos principales del recorrido.
               </p>
             </div>
           </aside>
@@ -321,7 +320,7 @@ export default function TrackingPage() {
             <SectionTitle
               eyebrow="Nueva solicitud"
               title="Registra un transporte y genera un ID de seguimiento"
-              description="Este formulario crea una solicitud demo con unidad asignada. En producción puede conectarse a una base de datos, envío de correo y proveedor GPS real."
+              description="Completa los datos principales del servicio para generar un ID de seguimiento y vincular la solicitud a una unidad de referencia."
             />
             <div className="bullet-list">
               <div>

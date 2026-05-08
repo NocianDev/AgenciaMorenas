@@ -2191,3 +2191,356 @@ select option {
     line-height: 1.45 !important;
   }
 }
+
+
+/* =========================================================
+   FIX IMÁGENES EN GALERÍA - QUE NO QUEDEN ESPACIOS VACÍOS
+========================================================= */
+
+.media-card {
+  min-height: 320px !important;
+  background: #090d14 !important;
+}
+
+.media-card img,
+.media-card iframe {
+  width: 100% !important;
+  height: 100% !important;
+  display: block !important;
+}
+
+.media-card img {
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+/* Para banners muy horizontales como el de Morena's */
+.media-card.banner-image img {
+  object-fit: cover !important;
+  object-position: center top !important;
+}
+
+/* Evita que el caption o el botón WA tapen demasiado */
+.media-card .media-caption {
+  background: linear-gradient(
+    180deg,
+    transparent,
+    rgba(0, 0, 0, 0.82)
+  ) !important;
+  padding-top: 80px !important;
+}
+
+/* En celular que las tarjetas no sean tan altas */
+@media (max-width: 620px) {
+  .media-card {
+    min-height: 260px !important;
+  }
+}
+
+
+/* =========================================================
+   BANNER HORIZONTAL REAL
+========================================================= */
+
+.banner-card {
+  min-height: auto !important;
+  aspect-ratio: 16 / 6 !important;
+}
+
+.banner-card img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  object-position: center center !important;
+}
+
+@media (max-width: 620px) {
+  .banner-card {
+    aspect-ratio: 16 / 8 !important;
+  }
+}
+
+/* =========================================================
+   FIX VIDEOS FACEBOOK - MÁS GRANDES Y FÁCILES DE USAR
+   Pegar al FINAL de src/global.css
+========================================================= */
+
+.facebook-media-card,
+.video-wide-card {
+  min-height: 420px !important;
+  padding: 0 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  background: #05070c !important;
+  overflow: hidden !important;
+}
+
+/* Los videos no deben tener overlay encima porque tapa controles */
+.facebook-media-card::after,
+.video-wide-card::after {
+  display: none !important;
+}
+
+.facebook-video-frame {
+  position: relative !important;
+  width: 100% !important;
+  flex: 1 1 auto !important;
+  min-height: 340px !important;
+  background: #000 !important;
+  border-radius: 28px 28px 0 0 !important;
+  overflow: hidden !important;
+}
+
+/* El iframe llena la tarjeta */
+.facebook-video-frame iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  background: #000 !important;
+}
+
+/* El texto queda abajo, no encima del video */
+.facebook-media-card .media-caption,
+.video-wide-card .media-caption {
+  position: relative !important;
+  left: auto !important;
+  right: auto !important;
+  bottom: auto !important;
+  z-index: 2 !important;
+
+  padding: 18px 20px 22px !important;
+  background: linear-gradient(180deg, #080b12, #05070c) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
+}
+
+.facebook-media-card .media-caption h3,
+.video-wide-card .media-caption h3 {
+  max-width: 100% !important;
+  font-size: 1.35rem !important;
+  line-height: 1.15 !important;
+}
+
+/* Si el video es vertical de Facebook/Reels, lo centramos mejor */
+.facebook-media-card iframe {
+  object-fit: contain !important;
+}
+
+/* En tarjetas grandes, que el video tenga todavía más espacio */
+.media-large.facebook-media-card,
+.media-large.video-wide-card {
+  min-height: 620px !important;
+}
+
+.media-large.facebook-media-card .facebook-video-frame,
+.media-large.video-wide-card .facebook-video-frame {
+  min-height: 520px !important;
+}
+
+/* Mobile */
+@media (max-width: 620px) {
+  .facebook-media-card,
+  .video-wide-card {
+    min-height: 520px !important;
+  }
+
+  .facebook-video-frame {
+    min-height: 430px !important;
+    border-radius: 24px 24px 0 0 !important;
+  }
+
+  .facebook-media-card .media-caption,
+  .video-wide-card .media-caption {
+    padding: 16px 18px 20px !important;
+  }
+
+  .facebook-media-card .media-caption h3,
+  .video-wide-card .media-caption h3 {
+    font-size: 1.2rem !important;
+  }
+}
+
+/* =========================================================
+   FIX FINAL VIDEOS FACEBOOK COMO BLOQUE GRANDE
+   Pegar al FINAL de src/global.css
+========================================================= */
+
+.images-only-grid {
+  margin-bottom: 34px !important;
+}
+
+.video-embed-list {
+  display: grid !important;
+  gap: 28px !important;
+  margin-top: 34px !important;
+}
+
+.facebook-video-card {
+  display: grid !important;
+  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr) !important;
+  gap: 24px !important;
+  align-items: stretch !important;
+
+  border-radius: 34px !important;
+  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+  background:
+    radial-gradient(circle at 10% 10%, rgba(225, 27, 51, 0.18), transparent 34%),
+    linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025)) !important;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.38) !important;
+  padding: 22px !important;
+  overflow: hidden !important;
+}
+
+.facebook-video-info {
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 20px !important;
+}
+
+.facebook-video-info span {
+  width: fit-content !important;
+  display: inline-flex !important;
+  margin-bottom: 14px !important;
+  padding: 8px 14px !important;
+  border-radius: 999px !important;
+  background: rgba(245,203,100,0.95) !important;
+  color: #1b0905 !important;
+  font-size: 0.78rem !important;
+  font-weight: 900 !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.08em !important;
+}
+
+.facebook-video-info h3 {
+  margin: 0 0 12px !important;
+  color: #fff !important;
+  font-size: clamp(2rem, 3vw, 3.4rem) !important;
+  line-height: 0.95 !important;
+  letter-spacing: -0.04em !important;
+}
+
+.facebook-video-info p {
+  margin: 0 !important;
+  color: var(--muted) !important;
+  max-width: 42ch !important;
+}
+
+.facebook-video-frame {
+  position: relative !important;
+  width: 100% !important;
+  min-height: 520px !important;
+  border-radius: 28px !important;
+  overflow: hidden !important;
+  background: #000 !important;
+  border: 1px solid rgba(255,255,255,0.1) !important;
+}
+
+/* Facebook iframe grande y clickeable */
+.facebook-video-frame iframe {
+  position: absolute !important;
+  inset: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  border: 0 !important;
+  display: block !important;
+  background: #000 !important;
+}
+
+/* Quita overlays anteriores que tapaban clicks */
+.facebook-video-card::after,
+.facebook-video-frame::after,
+.facebook-media-card::after,
+.video-wide-card::after {
+  display: none !important;
+  content: none !important;
+}
+
+/* Placeholder cuando todavía no pegaste link de Facebook */
+.facebook-placeholder {
+  position: relative !important;
+  width: 100% !important;
+  height: 100% !important;
+  min-height: 520px !important;
+}
+
+.facebook-placeholder img {
+  width: 100% !important;
+  height: 100% !important;
+  object-fit: cover !important;
+  filter: brightness(0.55) saturate(1.1) !important;
+}
+
+.facebook-placeholder-content {
+  position: absolute !important;
+  inset: 22px !important;
+  z-index: 3 !important;
+  display: flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  padding: 28px !important;
+  border-radius: 24px !important;
+  border: 1px dashed rgba(245,203,100,0.45) !important;
+  background: rgba(5,7,12,0.66) !important;
+  backdrop-filter: blur(12px) !important;
+}
+
+.facebook-placeholder-content span {
+  width: fit-content !important;
+  margin-bottom: 12px !important;
+}
+
+.facebook-placeholder-content strong {
+  color: #fff !important;
+  font-size: 1.6rem !important;
+  margin-bottom: 8px !important;
+}
+
+.facebook-placeholder-content p {
+  margin: 0 !important;
+  color: rgba(255,255,255,0.76) !important;
+}
+
+/* Ya no uses caption encima de videos */
+.facebook-video-card .media-caption,
+.facebook-media-card .media-caption,
+.video-wide-card .media-caption {
+  display: none !important;
+}
+
+/* Responsive */
+@media (max-width: 980px) {
+  .facebook-video-card {
+    grid-template-columns: 1fr !important;
+  }
+
+  .facebook-video-info {
+    padding: 8px 4px 0 !important;
+  }
+
+  .facebook-video-frame {
+    min-height: 560px !important;
+  }
+}
+
+@media (max-width: 620px) {
+  .facebook-video-card {
+    padding: 14px !important;
+    border-radius: 26px !important;
+  }
+
+  .facebook-video-info h3 {
+    font-size: clamp(1.8rem, 9vw, 2.6rem) !important;
+  }
+
+  .facebook-video-frame {
+    min-height: 540px !important;
+    border-radius: 22px !important;
+  }
+
+  .facebook-placeholder {
+    min-height: 540px !important;
+  }
+}
