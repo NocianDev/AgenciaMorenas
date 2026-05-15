@@ -4,10 +4,10 @@ export const brand = {
   tagline: 'Aduana y transportes',
   shortDescription:
     'Morenas brinda atención en asesoría aduanal, legalización de vehículos, traslados y coordinación de transporte para clientes en México y Estados Unidos que necesitan un servicio claro, directo y con seguimiento.',
-  phoneMX: '+52 812-402-0614',
-  phoneUS: '+1 346-855-2516',
-  whatsapp: '528124020614',
-  email: 'contacto@agenciayenviosmorenas.com',
+  phoneMX: '+1 346 855 2516',
+  phoneUS: '+1 346 855 2516',
+  whatsapp: '13468552516',
+  email: 'paqueteriamorena@gmail.com',
   secondaryEmail: 'paqueteriamorena@gmail.com',
   address: 'Av. Concordia 324, Apodaca, Nuevo León, C.P. 66636',
   hours: 'Lunes a viernes · 9:00 a.m. a 6:00 p.m.',
@@ -289,17 +289,17 @@ export const gallery = [
 ];
 
 export const offices = [
-  { city: 'Apodaca, Nuevo León', title: 'Oficina México', address: 'Av. Concordia 324, Apodaca, N.L. C.P. 66636', phone: '+52 812-402-0614', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Lunes a viernes · 9:00 a.m. a 6:00 p.m.' },
-  { city: 'Houston, Texas', title: 'Atención operativa EE. UU.', address: '6540 Rupley Cir, Houston TX 77087', phone: '+1 346-855-2516', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Atención por llamada y canal digital.' },
+  { city: 'Apodaca, Nuevo León', title: 'Oficina México', address: 'Av. Concordia 324, Apodaca, N.L. C.P. 66636', phone: brand.phoneMX, email: brand.email, schedule: 'Lunes a viernes · 9:00 a.m. a 6:00 p.m.' },
+  { city: 'Houston, Texas', title: 'Atención operativa EE. UU.', address: '6540 Rupley Cir, Houston TX 77087', phone: brand.phoneUS, email: brand.email, schedule: 'Atención por llamada y canal digital.' },
   ...branches.map((branch) => ({
     city: branch.city,
     title: branch.title,
     address: branch.address,
-    phone: '+52 812-402-0614',
-    email: 'contacto@agenciayenviosmorenas.com',
+    phone: brand.phoneMX,
+    email: brand.email,
     schedule: 'Atención sujeta a coordinación operativa.',
   })),
-  { city: 'Cobertura adicional', title: 'Cobertura operativa', address: coverageCities.join(' · '), phone: '+52 812-402-0614', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Disponibilidad sujeta a coordinación operativa.' },
+  { city: 'Cobertura adicional', title: 'Cobertura operativa', address: coverageCities.join(' · '), phone: brand.phoneMX, email: brand.email, schedule: 'Disponibilidad sujeta a coordinación operativa.' },
 ];
 
 export const faqs = [

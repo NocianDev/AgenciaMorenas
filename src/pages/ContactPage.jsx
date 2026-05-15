@@ -26,13 +26,15 @@ export default function ContactPage() {
             />
             <div className="contact-card-grid">
               <article className="detail-card">
-                <h3>Teléfono México</h3>
+                <h3>Teléfono principal</h3>
                 <p><a href={`tel:${brand.phoneMX}`}>{brand.phoneMX}</a></p>
               </article>
-              <article className="detail-card">
-                <h3>Teléfono EE. UU.</h3>
-                <p><a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a></p>
-              </article>
+              {brand.phoneUS !== brand.phoneMX ? (
+                <article className="detail-card">
+                  <h3>Teléfono EE. UU.</h3>
+                  <p><a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a></p>
+                </article>
+              ) : null}
               <article className="detail-card">
                 <h3>WhatsApp</h3>
                 <p><a href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">Iniciar conversación</a></p>

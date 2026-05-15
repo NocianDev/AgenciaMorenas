@@ -24,7 +24,7 @@ export default function Footer() {
           <p className="footer-title">Contacto</p>
           <div className="footer-links">
             <a href={`tel:${brand.phoneMX}`}>{brand.phoneMX}</a>
-            <a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a>
+            {brand.phoneUS !== brand.phoneMX ? <a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a> : null}
             <a href={`mailto:${brand.email}`}>{brand.email}</a>
             <span>{brand.hours}</span>
           </div>

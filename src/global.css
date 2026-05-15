@@ -1193,20 +1193,27 @@ textarea:focus {
   right: 18px;
   bottom: 18px;
   z-index: 999;
-  width: 58px;
-  height: 58px;
+  width: 60px;
+  height: 60px;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   border-radius: 50%;
-  background: linear-gradient(135deg, #1fbf54, #25d366);
+  background: linear-gradient(135deg, #25d366, #128c7e);
   color: #fff;
-  font-weight: 900;
-  box-shadow: 0 20px 40px rgba(37, 211, 102, 0.28);
+  box-shadow: 0 18px 38px rgba(18, 140, 126, 0.34), 0 8px 18px rgba(0,0,0,0.3);
+  border: 1px solid rgba(255,255,255,0.22);
+}
+
+.floating-wa svg {
+  width: 31px;
+  height: 31px;
+  display: block;
 }
 
 .floating-wa:hover {
-  transform: translateY(-3px) scale(1.03);
+  transform: translateY(-3px) scale(1.04);
+  box-shadow: 0 24px 48px rgba(18, 140, 126, 0.42), 0 10px 22px rgba(0,0,0,0.34);
 }
 
 @keyframes float-card-1 {
@@ -1384,6 +1391,18 @@ textarea:focus {
 
   .coverage-actions .btn {
     width: 100%;
+  }
+
+  .floating-wa {
+    right: 14px;
+    bottom: 14px;
+    width: 54px;
+    height: 54px;
+  }
+
+  .floating-wa svg {
+    width: 28px;
+    height: 28px;
   }
 }
 
