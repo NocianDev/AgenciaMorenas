@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
 import SectionTitle from '../components/SectionTitle';
 import MediaShowcase from '../components/MediaShowcase';
-import { brand, heroHighlights, homeServices, processSteps, valueProps, gallery, faqs, mediaSections } from '../data/siteData';
+import { brand, heroHighlights, homeServices, processSteps, valueProps, gallery, faqs, mediaSections, operatingCoverage } from '../data/siteData';
 
 export default function HomePage() {
   return (
@@ -41,6 +41,33 @@ export default function HomePage() {
               <img src="/images/Aduana2.jpg" alt="Transporte terrestre de camiones" />
               <div className="floating-badge badge-red">Transporte terrestre</div>
             </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="section coverage-section">
+        <div className="container">
+          <SectionTitle
+            eyebrow="Cobertura operativa"
+            title="Cobertura operativa en frontera"
+            description="Morenas atiende servicios de aduana, regularización vehicular, importación y transporte en puntos estratégicos para clientes en México y Estados Unidos."
+          />
+          <div className="coverage-grid">
+            {operatingCoverage.map((item) => (
+              <article className="coverage-card" key={item.city}>
+                <span>{item.city}</span>
+                <h3>{item.focus}</h3>
+                <p>{item.text}</p>
+              </article>
+            ))}
+          </div>
+          <div className="coverage-actions">
+            <a className="btn btn-primary" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">
+              Solicitar atención
+            </a>
+            <Link className="btn btn-secondary" to="/oficinas">
+              Ver oficinas
+            </Link>
           </div>
         </div>
       </section>

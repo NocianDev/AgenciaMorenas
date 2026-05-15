@@ -46,7 +46,7 @@ export default function ContactPage() {
 
           <div className="form-card">
             <h3>Solicitud de información</h3>
-            <p>Este formulario puede conectarse después a un CRM o servicio de correo. Por ahora concentra los campos principales para una solicitud comercial.</p>
+            <p>Comparte los datos principales de tu trámite, ruta o consulta para que el equipo de Morenas pueda orientar la atención por los canales oficiales.</p>
             <form className="contact-form" onSubmit={(e) => e.preventDefault()}>
               <input type="text" placeholder="Nombre completo" />
               <input type="email" placeholder="Correo electrónico" />

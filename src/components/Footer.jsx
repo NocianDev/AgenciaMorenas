@@ -1,5 +1,5 @@
 import { Link } from 'react-router-dom';
-import { brand, navItems } from '../data/siteData';
+import { branches, brand, coverageCities, navItems } from '../data/siteData';
 
 export default function Footer() {
   return (
@@ -26,9 +26,17 @@ export default function Footer() {
             <a href={`tel:${brand.phoneMX}`}>{brand.phoneMX}</a>
             <a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a>
             <a href={`mailto:${brand.email}`}>{brand.email}</a>
-            <span>{brand.address}</span>
             <span>{brand.hours}</span>
           </div>
+          <div className="footer-branches">
+            {branches.map((branch) => (
+              <div className="footer-branch" key={branch.city}>
+                <strong>{branch.title}</strong>
+                <span>{branch.address}</span>
+              </div>
+            ))}
+          </div>
+          <p className="footer-coverage">Cobertura en {coverageCities.join(', ')}.</p>
         </div>
       </div>
       <div className="container footer-bottom">

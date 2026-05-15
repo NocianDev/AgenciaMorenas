@@ -105,7 +105,7 @@ code {
 }
 
 .section {
-  padding: 88px 0;
+  padding: 76px 0;
   position: relative;
 }
 
@@ -551,7 +551,7 @@ h3 {
 .faq-list,
 .contact-card-grid {
   display: grid;
-  gap: 22px;
+  gap: 20px;
 }
 
 .card-grid.two-up,
@@ -591,7 +591,7 @@ h3 {
 .tracking-card {
   position: relative;
   border-radius: 26px;
-  padding: 24px;
+  padding: 22px;
 }
 
 .service-card,
@@ -652,7 +652,7 @@ h3 {
 }
 
 .service-image {
-  height: 220px;
+  height: clamp(170px, 18vw, 210px);
   border: 1px solid rgba(255,255,255,0.08);
   margin-bottom: 4px;
 }
@@ -662,6 +662,103 @@ h3 {
   margin: 0;
   display: grid;
   gap: 10px;
+}
+
+.coverage-strip {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px 18px;
+  align-items: center;
+  margin-top: 24px;
+  padding: 18px 22px;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 22px;
+  background: rgba(255,255,255,0.035);
+}
+
+.coverage-strip span {
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.coverage-strip p {
+  margin: 0;
+  color: rgba(255,255,255,0.78);
+}
+
+.coverage-section {
+  background:
+    radial-gradient(circle at 12% 20%, rgba(245,203,100,0.1), transparent 26%),
+    linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006));
+}
+
+.coverage-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 18px;
+}
+
+.compact-coverage-grid {
+  margin-top: 22px;
+}
+
+.coverage-card {
+  position: relative;
+  min-height: 100%;
+  padding: 22px;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 24px;
+  background:
+    linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.025)),
+    rgba(10,16,25,0.72);
+  box-shadow: var(--shadow-soft);
+}
+
+.coverage-card::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(135deg, rgba(225,27,51,0.16), transparent 42%);
+}
+
+.coverage-card span {
+  position: relative;
+  display: inline-flex;
+  margin-bottom: 14px;
+  color: var(--gold);
+  font-size: 0.82rem;
+  font-weight: 900;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.coverage-card h3,
+.coverage-card p {
+  position: relative;
+}
+
+.coverage-card h3 {
+  margin-bottom: 10px;
+  color: #fff;
+  font-size: 1.12rem;
+  line-height: 1.18;
+}
+
+.coverage-card p {
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+.coverage-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 14px;
+  margin-top: 24px;
 }
 
 .value-card,
@@ -1053,6 +1150,36 @@ textarea:focus {
   color: var(--muted);
 }
 
+.footer-branches {
+  display: grid;
+  gap: 12px;
+  margin-top: 18px;
+}
+
+.footer-branch {
+  display: grid;
+  gap: 4px;
+  padding: 14px 0;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-branch strong {
+  color: #fff;
+  font-size: 0.9rem;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.footer-branch span,
+.footer-coverage {
+  color: var(--muted);
+}
+
+.footer-coverage {
+  margin: 16px 0 0;
+  font-size: 0.95rem;
+}
+
 .footer-bottom {
   margin-top: 28px;
   padding-top: 18px;
@@ -1103,7 +1230,8 @@ textarea:focus {
 @media (max-width: 1160px) {
   .card-grid.three-up,
   .gallery-grid,
-  .process-grid {
+  .process-grid,
+  .coverage-grid {
     grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
@@ -1190,7 +1318,8 @@ textarea:focus {
   .faq-list,
   .card-grid.three-up,
   .gallery-grid,
-  .process-grid {
+  .process-grid,
+  .coverage-grid {
     grid-template-columns: 1fr;
   }
 }
@@ -1199,7 +1328,7 @@ textarea:focus {
   .section,
   .home-hero,
   .page-hero {
-    padding: 70px 0;
+    padding: 58px 0;
   }
 
   .navbar {
@@ -1248,6 +1377,14 @@ textarea:focus {
   .timeline-item {
     grid-template-columns: 1fr;
   }
+
+  .coverage-actions {
+    flex-direction: column;
+  }
+
+  .coverage-actions .btn {
+    width: 100%;
+  }
 }
 
 @media (max-width: 520px) {
@@ -1277,8 +1414,9 @@ textarea:focus {
   .faq-item,
   .form-card,
   .tracking-card,
-  .value-card {
-    padding: 20px;
+  .value-card,
+  .coverage-card {
+    padding: 18px;
   }
 
   .stat-grid {
@@ -1911,17 +2049,18 @@ select option {
 
 .media-grid {
   display: grid;
-  grid-template-columns: 1.15fr 0.85fr 0.85fr;
-  grid-auto-rows: 315px;
-  gap: 20px;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-auto-rows: clamp(220px, 24vw, 300px);
+  gap: 18px;
 }
 
 .media-card {
   position: relative;
   overflow: hidden;
-  border-radius: 30px;
+  min-height: 0;
+  border-radius: 24px;
   border: 1px solid rgba(255,255,255,0.12);
-  background: rgba(255,255,255,0.04);
+  background: #090d14;
   box-shadow: 0 30px 80px rgba(0,0,0,0.35);
   transform-style: preserve-3d;
 }
@@ -1941,6 +2080,7 @@ select option {
 
 .media-card img {
   object-fit: cover;
+  object-position: center center;
 }
 
 .media-card::after {
@@ -1955,14 +2095,15 @@ select option {
 
 .media-caption {
   position: absolute;
-  left: 22px;
-  right: 22px;
-  bottom: 22px;
+  left: 0;
+  right: 0;
+  bottom: 0;
   z-index: 2;
+  padding: 74px 20px 20px;
+  background: linear-gradient(180deg, transparent, rgba(0,0,0,0.84));
 }
 
-.media-caption span,
-.facebook-placeholder-content span {
+.media-caption span {
   display: inline-flex;
   margin-bottom: 10px;
   padding: 7px 12px;
@@ -1978,53 +2119,23 @@ select option {
 .media-caption h3 {
   margin: 0;
   color: #ffffff;
-  font-size: clamp(1.25rem, 2vw, 2rem);
-  max-width: 12ch;
+  font-size: clamp(1.15rem, 1.7vw, 1.65rem);
+  max-width: 18ch;
+  line-height: 1.08;
 }
 
 .media-large {
   grid-row: span 2;
 }
 
-.facebook-media-card iframe {
-  background: #05070c;
-  position: relative;
-  z-index: 1;
+.banner-card {
+  grid-column: span 2;
+  aspect-ratio: auto;
 }
 
-.facebook-placeholder {
-  position: relative;
-  width: 100%;
-  height: 100%;
-}
-
-.facebook-placeholder img {
-  filter: brightness(0.64) saturate(1.1);
-}
-
-.facebook-placeholder-content {
-  position: absolute;
-  inset: 18px;
-  z-index: 3;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  padding: 24px;
-  border-radius: 24px;
-  border: 1px dashed rgba(245,203,100,0.42);
-  background: rgba(5,7,12,0.62);
-  backdrop-filter: blur(10px);
-}
-
-.facebook-placeholder-content strong {
-  color: #fff;
-  font-size: 1.35rem;
-  margin-bottom: 8px;
-}
-
-.facebook-placeholder-content p {
-  margin: 0;
-  color: rgba(255,255,255,0.78);
+.banner-card img {
+  object-fit: cover;
+  object-position: center center;
 }
 
 @media (max-width: 1120px) {
@@ -2045,11 +2156,15 @@ select option {
 @media (max-width: 980px) {
   .media-grid {
     grid-template-columns: 1fr 1fr;
-    grid-auto-rows: 285px;
+    grid-auto-rows: clamp(220px, 34vw, 280px);
   }
 
   .media-large {
     grid-row: span 1;
+  }
+
+  .banner-card {
+    grid-column: span 2;
   }
 }
 
@@ -2152,11 +2267,27 @@ select option {
 @media (max-width: 620px) {
   .media-grid {
     grid-template-columns: 1fr;
-    grid-auto-rows: 265px;
+    grid-auto-rows: auto;
   }
 
   .media-card {
-    border-radius: 24px;
+    min-height: 0;
+    aspect-ratio: 4 / 3;
+    border-radius: 20px;
+  }
+
+  .media-large,
+  .banner-card {
+    grid-column: auto;
+    grid-row: auto;
+  }
+
+  .banner-card {
+    aspect-ratio: 16 / 9;
+  }
+
+  .media-caption {
+    padding: 58px 16px 16px;
   }
 
   .media-caption h3 {
@@ -2194,353 +2325,248 @@ select option {
 
 
 /* =========================================================
-   FIX IMÁGENES EN GALERÍA - QUE NO QUEDEN ESPACIOS VACÍOS
-========================================================= */
-
-.media-card {
-  min-height: 320px !important;
-  background: #090d14 !important;
-}
-
-.media-card img,
-.media-card iframe {
-  width: 100% !important;
-  height: 100% !important;
-  display: block !important;
-}
-
-.media-card img {
-  object-fit: cover !important;
-  object-position: center center !important;
-}
-
-/* Para banners muy horizontales como el de Morena's */
-.media-card.banner-image img {
-  object-fit: cover !important;
-  object-position: center top !important;
-}
-
-/* Evita que el caption o el botón WA tapen demasiado */
-.media-card .media-caption {
-  background: linear-gradient(
-    180deg,
-    transparent,
-    rgba(0, 0, 0, 0.82)
-  ) !important;
-  padding-top: 80px !important;
-}
-
-/* En celular que las tarjetas no sean tan altas */
-@media (max-width: 620px) {
-  .media-card {
-    min-height: 260px !important;
-  }
-}
-
-
-/* =========================================================
-   BANNER HORIZONTAL REAL
-========================================================= */
-
-.banner-card {
-  min-height: auto !important;
-  aspect-ratio: 16 / 6 !important;
-}
-
-.banner-card img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  object-position: center center !important;
-}
-
-@media (max-width: 620px) {
-  .banner-card {
-    aspect-ratio: 16 / 8 !important;
-  }
-}
-
-/* =========================================================
-   FIX VIDEOS FACEBOOK - MÁS GRANDES Y FÁCILES DE USAR
-   Pegar al FINAL de src/global.css
-========================================================= */
-
-.facebook-media-card,
-.video-wide-card {
-  min-height: 420px !important;
-  padding: 0 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  background: #05070c !important;
-  overflow: hidden !important;
-}
-
-/* Los videos no deben tener overlay encima porque tapa controles */
-.facebook-media-card::after,
-.video-wide-card::after {
-  display: none !important;
-}
-
-.facebook-video-frame {
-  position: relative !important;
-  width: 100% !important;
-  flex: 1 1 auto !important;
-  min-height: 340px !important;
-  background: #000 !important;
-  border-radius: 28px 28px 0 0 !important;
-  overflow: hidden !important;
-}
-
-/* El iframe llena la tarjeta */
-.facebook-video-frame iframe {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0 !important;
-  display: block !important;
-  background: #000 !important;
-}
-
-/* El texto queda abajo, no encima del video */
-.facebook-media-card .media-caption,
-.video-wide-card .media-caption {
-  position: relative !important;
-  left: auto !important;
-  right: auto !important;
-  bottom: auto !important;
-  z-index: 2 !important;
-
-  padding: 18px 20px 22px !important;
-  background: linear-gradient(180deg, #080b12, #05070c) !important;
-  border-top: 1px solid rgba(255, 255, 255, 0.08) !important;
-}
-
-.facebook-media-card .media-caption h3,
-.video-wide-card .media-caption h3 {
-  max-width: 100% !important;
-  font-size: 1.35rem !important;
-  line-height: 1.15 !important;
-}
-
-/* Si el video es vertical de Facebook/Reels, lo centramos mejor */
-.facebook-media-card iframe {
-  object-fit: contain !important;
-}
-
-/* En tarjetas grandes, que el video tenga todavía más espacio */
-.media-large.facebook-media-card,
-.media-large.video-wide-card {
-  min-height: 620px !important;
-}
-
-.media-large.facebook-media-card .facebook-video-frame,
-.media-large.video-wide-card .facebook-video-frame {
-  min-height: 520px !important;
-}
-
-/* Mobile */
-@media (max-width: 620px) {
-  .facebook-media-card,
-  .video-wide-card {
-    min-height: 520px !important;
-  }
-
-  .facebook-video-frame {
-    min-height: 430px !important;
-    border-radius: 24px 24px 0 0 !important;
-  }
-
-  .facebook-media-card .media-caption,
-  .video-wide-card .media-caption {
-    padding: 16px 18px 20px !important;
-  }
-
-  .facebook-media-card .media-caption h3,
-  .video-wide-card .media-caption h3 {
-    font-size: 1.2rem !important;
-  }
-}
-
-/* =========================================================
-   FIX FINAL VIDEOS FACEBOOK COMO BLOQUE GRANDE
-   Pegar al FINAL de src/global.css
+   MEDIA SHOWCASE RESPONSIVE
 ========================================================= */
 
 .images-only-grid {
-  margin-bottom: 34px !important;
+  margin-bottom: 32px;
+}
+
+.media-video-section {
+  margin-top: 38px;
 }
 
 .video-embed-list {
-  display: grid !important;
-  gap: 28px !important;
-  margin-top: 34px !important;
+  display: grid;
+  gap: 32px;
 }
 
-.facebook-video-card {
-  display: grid !important;
-  grid-template-columns: minmax(260px, 0.42fr) minmax(0, 1fr) !important;
-  gap: 24px !important;
-  align-items: stretch !important;
-
-  border-radius: 34px !important;
-  border: 1px solid rgba(255, 255, 255, 0.12) !important;
+.video-feature-card {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(300px, 420px);
+  gap: clamp(24px, 4vw, 52px);
+  align-items: stretch;
+  padding: clamp(22px, 3vw, 34px);
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.12);
+  border-radius: 30px;
   background:
-    radial-gradient(circle at 10% 10%, rgba(225, 27, 51, 0.18), transparent 34%),
-    linear-gradient(180deg, rgba(255,255,255,0.055), rgba(255,255,255,0.025)) !important;
-  box-shadow: 0 30px 80px rgba(0,0,0,0.38) !important;
-  padding: 22px !important;
-  overflow: hidden !important;
+    radial-gradient(circle at 14% 18%, rgba(225, 27, 51, 0.18), transparent 32%),
+    radial-gradient(circle at 92% 12%, rgba(245, 203, 100, 0.12), transparent 26%),
+    linear-gradient(145deg, rgba(255,255,255,0.06), rgba(255,255,255,0.022));
+  box-shadow: 0 34px 90px rgba(0,0,0,0.38);
 }
 
-.facebook-video-info {
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  padding: 20px !important;
+.video-feature-card::before,
+.video-feature-card::after,
+.video-reel-frame::before,
+.video-reel-frame::after {
+  content: none;
+  display: none;
 }
 
-.facebook-video-info span {
-  width: fit-content !important;
-  display: inline-flex !important;
-  margin-bottom: 14px !important;
-  padding: 8px 14px !important;
-  border-radius: 999px !important;
-  background: rgba(245,203,100,0.95) !important;
-  color: #1b0905 !important;
-  font-size: 0.78rem !important;
-  font-weight: 900 !important;
-  text-transform: uppercase !important;
-  letter-spacing: 0.08em !important;
+.video-feature-copy {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  min-width: 0;
+  padding: 10px 0;
 }
 
-.facebook-video-info h3 {
-  margin: 0 0 12px !important;
-  color: #fff !important;
-  font-size: clamp(2rem, 3vw, 3.4rem) !important;
-  line-height: 0.95 !important;
-  letter-spacing: -0.04em !important;
+.video-feature-copy span,
+.video-feature-placeholder-content span {
+  width: fit-content;
+  display: inline-flex;
+  margin-bottom: 14px;
+  padding: 8px 13px;
+  border-radius: 999px;
+  background: rgba(245,203,100,0.95);
+  color: #1b0905;
+  font-size: 0.76rem;
+  font-weight: 900;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
 }
 
-.facebook-video-info p {
-  margin: 0 !important;
-  color: var(--muted) !important;
-  max-width: 42ch !important;
+.video-feature-copy h3 {
+  margin: 0 0 14px;
+  color: #fff;
+  font-size: clamp(1.7rem, 3vw, 3.2rem);
+  line-height: 1;
+  letter-spacing: 0;
+  max-width: 13ch;
 }
 
-.facebook-video-frame {
-  position: relative !important;
-  width: 100% !important;
-  min-height: 520px !important;
-  border-radius: 28px !important;
-  overflow: hidden !important;
-  background: #000 !important;
-  border: 1px solid rgba(255,255,255,0.1) !important;
+.video-feature-copy p {
+  margin: 0 0 22px;
+  color: var(--muted);
+  max-width: 46ch;
+  font-size: 1rem;
 }
 
-/* Facebook iframe grande y clickeable */
-.facebook-video-frame iframe {
-  position: absolute !important;
-  inset: 0 !important;
-  width: 100% !important;
-  height: 100% !important;
-  border: 0 !important;
-  display: block !important;
-  background: #000 !important;
+.video-feature-link {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 46px;
+  padding: 0 18px;
+  border: 1px solid rgba(245,203,100,0.36);
+  border-radius: 999px;
+  background: rgba(245,203,100,0.1);
+  color: #fff;
+  font-weight: 850;
 }
 
-/* Quita overlays anteriores que tapaban clicks */
-.facebook-video-card::after,
-.facebook-video-frame::after,
-.facebook-media-card::after,
-.video-wide-card::after {
-  display: none !important;
-  content: none !important;
+.video-feature-link:hover {
+  border-color: rgba(245,203,100,0.68);
+  background: rgba(245,203,100,0.18);
 }
 
-/* Placeholder cuando todavía no pegaste link de Facebook */
-.facebook-placeholder {
-  position: relative !important;
-  width: 100% !important;
-  height: 100% !important;
-  min-height: 520px !important;
+.video-feature-stage {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 0;
 }
 
-.facebook-placeholder img {
-  width: 100% !important;
-  height: 100% !important;
-  object-fit: cover !important;
-  filter: brightness(0.55) saturate(1.1) !important;
+.video-reel-frame {
+  position: relative;
+  width: min(100%, 390px);
+  aspect-ratio: 9 / 16;
+  overflow: hidden;
+  border: 1px solid rgba(255,255,255,0.18);
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.12), rgba(255,255,255,0.03)),
+    #05070c;
+  box-shadow:
+    0 24px 70px rgba(0,0,0,0.48),
+    inset 0 0 0 10px rgba(0,0,0,0.28);
+  padding: 12px;
 }
 
-.facebook-placeholder-content {
-  position: absolute !important;
-  inset: 22px !important;
-  z-index: 3 !important;
-  display: flex !important;
-  flex-direction: column !important;
-  justify-content: center !important;
-  padding: 28px !important;
-  border-radius: 24px !important;
-  border: 1px dashed rgba(245,203,100,0.45) !important;
-  background: rgba(5,7,12,0.66) !important;
-  backdrop-filter: blur(12px) !important;
+.video-reel-frame iframe {
+  width: 100%;
+  height: 100%;
+  border: 0;
+  display: block;
+  background: #000;
+  border-radius: 24px;
 }
 
-.facebook-placeholder-content span {
-  width: fit-content !important;
-  margin-bottom: 12px !important;
+.video-feature-placeholder {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 24px;
+  background: #080b12;
 }
 
-.facebook-placeholder-content strong {
-  color: #fff !important;
-  font-size: 1.6rem !important;
-  margin-bottom: 8px !important;
+.video-feature-placeholder img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  filter: brightness(0.55) saturate(1.1);
 }
 
-.facebook-placeholder-content p {
-  margin: 0 !important;
-  color: rgba(255,255,255,0.76) !important;
+.video-feature-placeholder-content {
+  position: absolute;
+  inset: 14px;
+  z-index: 3;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 22px;
+  border: 1px dashed rgba(245,203,100,0.45);
+  border-radius: 18px;
+  background: rgba(5,7,12,0.66);
+  backdrop-filter: blur(12px);
 }
 
-/* Ya no uses caption encima de videos */
-.facebook-video-card .media-caption,
-.facebook-media-card .media-caption,
-.video-wide-card .media-caption {
-  display: none !important;
+.video-feature-placeholder-content strong {
+  color: #fff;
+  font-size: 1.35rem;
+  line-height: 1.08;
+  margin-bottom: 8px;
 }
 
-/* Responsive */
+.video-feature-placeholder-content p {
+  margin: 0;
+  color: rgba(255,255,255,0.76);
+}
+
 @media (max-width: 980px) {
-  .facebook-video-card {
-    grid-template-columns: 1fr !important;
+  .video-feature-card {
+    grid-template-columns: 1fr;
+    max-width: 620px;
+    margin: 0 auto;
   }
 
-  .facebook-video-info {
-    padding: 8px 4px 0 !important;
+  .video-feature-copy {
+    order: 1;
+    padding: 0;
   }
 
-  .facebook-video-frame {
-    min-height: 560px !important;
+  .video-feature-copy h3 {
+    max-width: 18ch;
+  }
+
+  .video-feature-stage {
+    order: 2;
+  }
+
+  .video-reel-frame {
+    width: min(100%, 360px);
   }
 }
 
 @media (max-width: 620px) {
-  .facebook-video-card {
-    padding: 14px !important;
-    border-radius: 26px !important;
+  .images-only-grid {
+    margin-bottom: 24px;
   }
 
-  .facebook-video-info h3 {
-    font-size: clamp(1.8rem, 9vw, 2.6rem) !important;
+  .media-video-section {
+    margin-top: 26px;
   }
 
-  .facebook-video-frame {
-    min-height: 540px !important;
-    border-radius: 22px !important;
+  .video-embed-list {
+    gap: 22px;
   }
 
-  .facebook-placeholder {
-    min-height: 540px !important;
+  .video-feature-card {
+    gap: 18px;
+    padding: 16px;
+    border-radius: 24px;
+  }
+
+  .video-feature-copy h3 {
+    font-size: clamp(1.45rem, 7vw, 2.05rem);
+    max-width: 100%;
+  }
+
+  .video-feature-copy p {
+    margin-bottom: 18px;
+    font-size: 0.94rem;
+  }
+
+  .video-feature-link {
+    width: 100%;
+  }
+
+  .video-reel-frame {
+    width: min(100%, 320px);
+    border-radius: 30px;
+    padding: 10px;
+  }
+
+  .video-reel-frame iframe,
+  .video-feature-placeholder {
+    border-radius: 22px;
+  }
+
+  .video-feature-placeholder-content {
+    padding: 18px;
   }
 }

@@ -13,6 +13,49 @@ export const brand = {
   hours: 'Lunes a viernes · 9:00 a.m. a 6:00 p.m.',
 };
 
+export const branches = [
+  {
+    city: 'Tijuana',
+    title: 'Sucursal Tijuana',
+    address: 'José María Larroque 8800, Empleados Federales, 22010 Tijuana, B.C.',
+  },
+  {
+    city: 'Nogales',
+    title: 'Sucursal Nogales',
+    address: 'De Los Búhos 88, Colinas del Yaqui, 84093 Heroica Nogales, Son.',
+  },
+  {
+    city: 'Nuevo Laredo',
+    title: 'Sucursal Nuevo Laredo',
+    address: 'Av. Ocampo 1600, Ferrocarril, 88040 Nuevo Laredo, Tamps.',
+  },
+];
+
+export const coverageCities = ['Tijuana', 'Nogales', 'Nuevo Laredo', 'Reynosa'];
+
+export const operatingCoverage = [
+  {
+    city: 'Tijuana',
+    focus: 'Atención aduanal y regularización vehicular',
+    text: 'Apoyo para clientes que requieren orientación, revisión documental y coordinación de servicios en frontera.',
+  },
+  {
+    city: 'Nogales',
+    focus: 'Trámites y acompañamiento fronterizo',
+    text: 'Canal de atención para importación, legalización y seguimiento de unidades con comunicación directa.',
+  },
+  {
+    city: 'Nuevo Laredo',
+    focus: 'Cruce, transporte y coordinación terrestre',
+    text: 'Cobertura operativa para rutas, unidades y servicios vinculados a movimientos entre México y Estados Unidos.',
+  },
+  {
+    city: 'Reynosa',
+    focus: 'Cobertura comercial y logística',
+    text: 'Atención para solicitudes de traslado, asesoría y seguimiento de servicios con enfoque fronterizo.',
+  },
+];
+
 export const navItems = [
   { label: 'Inicio', path: '/' },
   { label: 'Agencia Aduanal', path: '/agencia-aduanal' },
@@ -38,13 +81,13 @@ export const facebookVideos = {
   home: [
     {
       title: 'Morenas en operación',
-      description: 'Video principal para mostrar traslados, legalizaciones o atención al cliente.',
+      description: 'Seguimiento visual de traslados, legalizaciones y atención directa para clientes de Morenas.',
       facebookUrl: 'https://www.facebook.com/reel/924585860574184',
       image: '/images/Aduana2.jpg',
     },
     {
       title: 'Asesoría y atención directa',
-      description: 'Video recomendado para presentar al equipo, testimonios o cobertura de servicio.',
+      description: 'Atención aduanal y logística para clientes que necesitan acompañamiento en México y Estados Unidos.',
       facebookUrl: 'https://www.facebook.com/reel/896216503235455',
       image: '/images/Aduana10.jpg',
     },
@@ -52,7 +95,7 @@ export const facebookVideos = {
   customs: [
     {
       title: 'Proceso de asesoría aduanal',
-      description: 'Video para explicar legalización, revisión de documentos o atención de vehículos.',
+      description: 'Material visual sobre legalización, revisión documental y atención de vehículos provenientes de Estados Unidos.',
       facebookUrl: 'https://www.facebook.com/reel/1452763742991994',
       image: '/images/Aduana11.jpg',
     },
@@ -60,7 +103,7 @@ export const facebookVideos = {
   trucks: [
     {
       title: 'Traslado de unidades',
-      description: 'Video de unidades en plataforma, salida de ruta o coordinación de transporte.',
+      description: 'Unidades, rutas y coordinación terrestre para servicios de traslado con seguimiento operativo.',
       facebookUrl: 'https://www.facebook.com/reel/1579946879769918',
       image: '/images/Aduana4.jpg',
     },
@@ -68,7 +111,7 @@ export const facebookVideos = {
   tracking: [
     {
       title: 'Seguimiento del servicio',
-      description: 'Video para explicar cómo el cliente consulta su transporte por correo o ID.',
+      description: 'Consulta de servicio, unidad asignada y avances principales para clientes con transporte registrado.',
       facebookUrl: 'https://www.facebook.com/reel/1623486238978442',
       image: '/images/Aduana8.png',
     },
@@ -76,7 +119,7 @@ export const facebookVideos = {
   offices: [
     {
       title: 'Atención y presencia de Morenas',
-      description: 'Video institucional, de oficina, atención o puntos de operación.',
+      description: 'Presencia de Morenas, puntos de atención y cobertura operativa para trámites y transportes.',
       facebookUrl: 'https://www.facebook.com/reel/2009021290021482',
       image: '/images/Aduana10.jpg',
     },
@@ -84,7 +127,7 @@ export const facebookVideos = {
   contact: [
     {
       title: 'Mensaje para clientes',
-      description: 'Video para invitar a solicitar asesoría o resolver dudas por los canales oficiales.',
+      description: 'Canales oficiales para solicitar asesoría, resolver dudas y dar seguimiento a servicios registrados.',
       facebookUrl: 'https://www.facebook.com/reel/3933716700253060',
       image: '/images/Aduana7.jpg',
     },
@@ -248,13 +291,21 @@ export const gallery = [
 export const offices = [
   { city: 'Apodaca, Nuevo León', title: 'Oficina México', address: 'Av. Concordia 324, Apodaca, N.L. C.P. 66636', phone: '+52 812-402-0614', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Lunes a viernes · 9:00 a.m. a 6:00 p.m.' },
   { city: 'Houston, Texas', title: 'Atención operativa EE. UU.', address: '6540 Rupley Cir, Houston TX 77087', phone: '+1 346-855-2516', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Atención por llamada y canal digital.' },
-  { city: 'Cobertura adicional', title: 'Puntos de operación complementaria', address: 'Commerce, California · Fresno, California · Tijuana, Baja California', phone: '+52 812-402-0614', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Disponibilidad sujeta a coordinación operativa.' },
+  ...branches.map((branch) => ({
+    city: branch.city,
+    title: branch.title,
+    address: branch.address,
+    phone: '+52 812-402-0614',
+    email: 'contacto@agenciayenviosmorenas.com',
+    schedule: 'Atención sujeta a coordinación operativa.',
+  })),
+  { city: 'Cobertura adicional', title: 'Cobertura operativa', address: coverageCities.join(' · '), phone: '+52 812-402-0614', email: 'contacto@agenciayenviosmorenas.com', schedule: 'Disponibilidad sujeta a coordinación operativa.' },
 ];
 
 export const faqs = [
   { q: '¿Cómo consulto mi transporte?', a: 'Puedes buscar con el correo registrado en la solicitud o con el ID de transporte generado por la plataforma.' },
   { q: '¿Qué información muestra el rastreo?', a: 'El panel muestra unidad asignada, ruta, origen, destino, estatus, última actualización y eventos principales del recorrido.' },
-  { q: '¿El sistema envía correos reales?', a: 'Esta versión deja el flujo listo para consulta por correo. Para envío real de emails se puede conectar después SendGrid, Resend, Gmail API o el proveedor que prefieran.' },
+  { q: '¿También puedo recibir atención directa?', a: 'Sí. Morenas mantiene canales por teléfono, WhatsApp y correo para orientar solicitudes, confirmar datos del servicio y dar seguimiento comercial.' },
 ];
 
 export const gpsUnits = [

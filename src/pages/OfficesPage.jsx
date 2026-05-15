@@ -1,7 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
 import MediaShowcase from '../components/MediaShowcase';
-import { assets, brand, offices, mediaSections } from '../data/siteData';
+import { assets, brand, coverageCities, offices, mediaSections, operatingCoverage } from '../data/siteData';
 
 export default function OfficesPage() {
   return (
@@ -34,6 +34,19 @@ export default function OfficesPage() {
                   <li>{office.email}</li>
                   <li>{office.schedule}</li>
                 </ul>
+              </article>
+            ))}
+          </div>
+          <div className="coverage-strip">
+            <span>Cobertura</span>
+            <p>{coverageCities.join(' · ')}</p>
+          </div>
+          <div className="coverage-grid compact-coverage-grid">
+            {operatingCoverage.map((item) => (
+              <article className="coverage-card" key={item.city}>
+                <span>{item.city}</span>
+                <h3>{item.focus}</h3>
+                <p>{item.text}</p>
               </article>
             ))}
           </div>
