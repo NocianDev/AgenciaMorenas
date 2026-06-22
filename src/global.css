@@ -1,11 +1,11 @@
 :root {
-  --bg: #06080e;
-  --bg-soft: #0b1018;
-  --panel: rgba(10, 16, 25, 0.8);
-  --panel-strong: rgba(14, 22, 34, 0.96);
+  --bg: #9f0000;
+  --bg-soft: #9f0000;
+  --panel: rgba(92, 0, 0, 0.88);
+  --panel-strong: rgba(112, 0, 0, 0.97);
   --panel-fade: rgba(255, 255, 255, 0.04);
   --text: #f7f9ff;
-  --muted: #b3bdcf;
+  --muted: #ffe5e5;
   --line: rgba(255, 255, 255, 0.08);
   --line-strong: rgba(255, 255, 255, 0.16);
   --red: #e11b33;
@@ -34,24 +34,11 @@ body {
   overflow-x: hidden;
   font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
   color: var(--text);
-  background:
-    radial-gradient(circle at 12% 8%, rgba(225, 27, 51, 0.24), transparent 22%),
-    radial-gradient(circle at 85% 12%, rgba(245, 203, 100, 0.16), transparent 20%),
-    radial-gradient(circle at 70% 68%, rgba(97, 194, 255, 0.07), transparent 20%),
-    linear-gradient(180deg, #05070c 0%, #090d14 46%, #05070c 100%);
+  background: #9f0000;
 }
 
 body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  pointer-events: none;
-  background-image:
-    linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
-  background-size: 80px 80px;
-  mask-image: linear-gradient(180deg, rgba(255,255,255,0.45), transparent 85%);
-  opacity: 0.15;
+  content: none;
 }
 
 img {
@@ -110,9 +97,9 @@ code {
 }
 
 .soft-section {
-  background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
-  border-top: 1px solid rgba(255,255,255,0.04);
-  border-bottom: 1px solid rgba(255,255,255,0.04);
+  background: rgba(112, 0, 0, 0.22);
+  border-top: 1px solid rgba(255,255,255,0.12);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
 }
 
 .eyebrow,
@@ -2094,10 +2081,7 @@ select option {
 }
 
 .media-section {
-  background:
-    radial-gradient(circle at 16% 10%, rgba(225, 27, 51, 0.18), transparent 30%),
-    radial-gradient(circle at 88% 18%, rgba(245, 203, 100, 0.14), transparent 24%),
-    linear-gradient(180deg, rgba(255,255,255,0.018), rgba(255,255,255,0.006));
+  background: rgba(112, 0, 0, 0.22);
 }
 
 .media-grid {
@@ -2652,5 +2636,245 @@ select option {
 
   .video-feature-placeholder-content {
     padding: 18px;
+  }
+}
+
+/* Mobile rendering budget: preserve hierarchy while avoiding costly compositing during scroll. */
+@media (max-width: 768px) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  .site-header,
+  .nav-panel,
+  .hero-card,
+  .signal-card,
+  .video-feature-placeholder-content {
+    backdrop-filter: none !important;
+  }
+
+  .site-header {
+    background: rgba(145, 0, 0, 0.98);
+  }
+
+  .media-card,
+  .video-feature-card,
+  .service-card,
+  .value-card,
+  .coverage-card,
+  .gallery-card,
+  .process-card {
+    box-shadow: 0 10px 24px rgba(60, 0, 0, 0.22) !important;
+  }
+
+  .media-card:hover {
+    transform: none;
+  }
+
+  .hero-orb,
+  .radar-rings,
+  .whatsapp-float::after {
+    display: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Contrast and hierarchy refinement for the red brand surface. */
+h1,
+h2,
+h3 {
+  color: #fff;
+  text-shadow: 0 2px 10px rgba(58, 0, 0, 0.26);
+}
+
+p,
+ul {
+  color: #ffeaea;
+}
+
+.section-description {
+  color: #fff0f0;
+}
+
+.hero-card,
+.visual-panel,
+.card-shell,
+.form-card,
+.tracking-card,
+.office-card,
+.detail-card,
+.value-card,
+.service-card,
+.gallery-card,
+.process-card,
+.faq-item {
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.92), rgba(74, 0, 0, 0.8));
+  border-color: rgba(255, 235, 235, 0.22);
+  box-shadow: 0 18px 40px rgba(67, 0, 0, 0.26);
+}
+
+.pill,
+.tag,
+.status-badge,
+.demo-chip span {
+  background: rgba(93, 0, 0, 0.7);
+  border-color: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+
+.home-lead {
+  margin: 26px 0 0;
+  max-width: 58ch;
+  padding: 18px 20px;
+  border: 1px solid rgba(255, 238, 238, 0.26);
+  border-left: 4px solid var(--gold);
+  border-radius: 18px;
+  background: rgba(85, 0, 0, 0.54);
+  color: #fff8f8;
+  font-size: clamp(1.05rem, 1.3vw, 1.2rem);
+  font-weight: 620;
+  line-height: 1.66;
+  box-shadow: 0 14px 30px rgba(67, 0, 0, 0.18);
+}
+
+.btn-secondary {
+  background: rgba(103, 0, 0, 0.72);
+  border-color: rgba(255, 255, 255, 0.32);
+  color: #fff;
+}
+
+@media (min-width: 769px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 0.88fr) minmax(0, 1.12fr);
+    gap: 48px;
+  }
+
+  .home-hero .hero-stack {
+    min-height: 630px;
+  }
+
+  .home-hero .hero-card.large {
+    width: min(100%, 620px);
+    height: 460px;
+  }
+
+  .home-hero .hero-card.small {
+    width: min(100%, 470px);
+    height: 330px;
+  }
+}
+
+@media (max-width: 620px) {
+  .home-lead {
+    margin-top: 20px;
+    padding: 16px;
+    font-size: 1rem;
+  }
+}
+
+/* Home brand lockup: balance the service name and Morenas as one title. */
+.hero-brand-title {
+  width: min(100%, 620px);
+  gap: 12px;
+  margin: 0 0 28px;
+  padding: 8px 0 12px 18px;
+  border-left: 4px solid var(--gold);
+  position: relative;
+}
+
+.hero-brand-title::after {
+  content: "";
+  display: block;
+  width: min(100%, 390px);
+  height: 1px;
+  margin-top: 2px;
+  background: linear-gradient(90deg, rgba(245, 203, 100, 0.85), rgba(255,255,255,0));
+}
+
+.hero-brand-title span {
+  color: #ffe49a;
+  font-size: clamp(2.3rem, 3.8vw, 3.75rem);
+  line-height: 0.96;
+  letter-spacing: 0.055em;
+  text-shadow: 0 4px 16px rgba(67, 0, 0, 0.35);
+}
+
+.hero-brand-title strong {
+  color: #fff;
+  font-size: clamp(1.9rem, 3.1vw, 3.25rem);
+  line-height: 0.94;
+  letter-spacing: 0.18em;
+  text-shadow: 0 4px 16px rgba(67, 0, 0, 0.35);
+}
+
+@media (min-width: 769px) {
+  .home-hero-grid {
+    grid-template-columns: minmax(0, 0.96fr) minmax(0, 1.04fr);
+  }
+}
+
+@media (max-width: 620px) {
+  .hero-brand-title {
+    gap: 9px;
+    margin-bottom: 22px;
+    padding: 6px 0 10px 14px;
+  }
+
+  .hero-brand-title span {
+    font-size: clamp(2rem, 9.4vw, 3rem);
+    letter-spacing: 0.035em;
+  }
+
+  .hero-brand-title strong {
+    font-size: clamp(1.65rem, 7.4vw, 2.35rem);
+    letter-spacing: 0.13em;
+  }
+}
+
+/* The brand line spans the hero before its content grid, giving it a full visual runway. */
+.hero-brand-title--wide {
+  width: 100%;
+  max-width: none;
+  margin-bottom: 34px;
+}
+
+@media (min-width: 981px) {
+  .hero-brand-title--wide {
+    display: grid;
+    gap: 6px;
+    padding-top: 12px;
+    padding-bottom: 18px;
+  }
+
+  .hero-brand-title--wide::after {
+    width: min(100%, 520px);
+    margin: 8px 0 0;
+  }
+
+  .hero-brand-title--wide span {
+    white-space: nowrap;
+    font-size: clamp(3.2rem, 5.25vw, 5.4rem);
+    letter-spacing: 0.045em;
+  }
+
+  .hero-brand-title--wide strong {
+    font-size: clamp(2.2rem, 3.35vw, 3.65rem);
+    letter-spacing: 0.14em;
+  }
+}
+
+@media (max-width: 980px) {
+  .hero-brand-title--wide {
+    margin-bottom: 26px;
   }
 }

@@ -99,7 +99,7 @@ export default function MediaShowcase({ data }) {
                           />
                         ) : (
                           <div className="video-feature-placeholder">
-                            {item.image ? <img src={item.image} alt={item.title} /> : null}
+                            {item.image ? <img src={item.image} alt={item.title} loading="lazy" decoding="async" /> : null}
                             <div className="video-feature-placeholder-content">
                               <span>{item.tag || 'Video'}</span>
                               <strong>Contenido multimedia de Morenas</strong>

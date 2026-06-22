@@ -58,7 +58,7 @@ export default function TrucksPage() {
             </div>
           </div>
           <div className="card-shell photo-frame">
-            <img src={assets.trailerUnit} alt="Camión de transporte Morenas" />
+            <img src={assets.trailerUnit} alt="Camión de transporte Morenas" loading="lazy" decoding="async" />
           </div>
         </div>
       </section>

@@ -7,12 +7,14 @@ export default function HomePage() {
   return (
     <>
       <section className="home-hero">
-        <div className="container home-hero-grid">
+        <div className="container">
+          <div className="hero-brand-title hero-brand-title--wide">
+            <span>Aduana y Transportes</span>
+            <strong>Morenas</strong>
+          </div>
+
+          <div className="home-hero-grid">
           <div>
-            <div className="hero-brand-title">
-              <span>Aduana y Transportes</span>
-              <strong>Morenas</strong>
-            </div>
             <h1>Regularización, importación y transporte de camiones con seguimiento claro.</h1>
             <p className="home-lead">
               Morenas atiende a clientes que necesitan asesoría aduanal, legalización de vehículos, traslados y seguimiento de servicio con canales directos de comunicación en México y Estados Unidos.
@@ -41,6 +43,7 @@ export default function HomePage() {
               <img src="/imagenes-nuevas/Morenas6.jpeg" alt="Unidad de Importaciones Morenas durante un traslado" />
               <div className="floating-badge badge-red">Transporte terrestre</div>
             </div>
+          </div>
           </div>
         </div>
       </section>
@@ -83,7 +86,7 @@ export default function HomePage() {
             {homeServices.map((service) => (
               <article className={`service-card accent-${service.accent}`} key={service.title}>
                 <div className="service-image">
-                  <img src={service.image} alt={service.title} />
+                  <img src={service.image} alt={service.title} loading="lazy" decoding="async" />
                 </div>
                 <p className="card-kicker">{service.eyebrow}</p>
                 <h3>{service.title}</h3>
@@ -157,7 +160,7 @@ export default function HomePage() {
             {gallery.map((item) => (
               <article className="gallery-card" key={item.title}>
                 <div className="gallery-image">
-                  <img src={item.image} alt={item.title} />
+                  <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
                 </div>
                 <span className="tag">{item.tag}</span>
                 <h3>{item.title}</h3>
