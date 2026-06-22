@@ -117,7 +117,7 @@ export default function HomePage() {
           </div>
           <article className="media-card banner-card">
             <img
-              src="/images/Aduana10.jpg"
+              src="/images/Morenas1.jpeg"
               alt="Equipo de asesoría aduanal de Importaciones Morenas"
               loading="lazy"
               decoding="async"
