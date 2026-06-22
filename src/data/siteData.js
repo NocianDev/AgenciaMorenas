@@ -4,9 +4,9 @@ export const brand = {
   tagline: 'Aduana y transportes',
   shortDescription:
     'Morenas brinda atención en asesoría aduanal, legalización de vehículos, traslados y coordinación de transporte para clientes en México y Estados Unidos que necesitan un servicio claro, directo y con seguimiento.',
-  phoneMX: '+1 346 855 2516',
-  phoneUS: '+1 346 855 2516',
-  whatsapp: '13468552516',
+  phoneMX: '+52 81 2402 0614',
+  phoneUS: '+52 81 2402 0614',
+  whatsapp: '528124020614',
   email: 'paqueteriamorena@gmail.com',
   secondaryEmail: 'paqueteriamorena@gmail.com',
   address: 'Av. Concordia 324, Apodaca, Nuevo León, C.P. 66636',
@@ -290,7 +290,7 @@ export const gallery = [
 
 export const offices = [
   { city: 'Apodaca, Nuevo León', title: 'Oficina México', address: 'Av. Concordia 324, Apodaca, N.L. C.P. 66636', phone: brand.phoneMX, email: brand.email, schedule: 'Lunes a viernes: 8:00 a.m. a 6:00 p.m. | Sábados: 8:00 a.m. a 2:00 p.m.' },
-  { city: 'Houston, Texas', title: 'Atención operativa EE. UU.', address: '6540 Rupley Cir, Houston TX 77087', phone: brand.phoneUS, email: brand.email, schedule: 'Lunes a viernes: 8:00 a.m. a 6:00 p.m. | Sábados: 8:00 a.m. a 2:00 p.m.' },
+  
   ...branches.map((branch) => ({
     city: branch.city,
     title: branch.title,

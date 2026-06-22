@@ -116,7 +116,7 @@ export default function HomePage() {
             </div>
           </div>
          <article className="media-card banner-card">
-  <img src="/images/Aduana10.jpg" alt="Asesoría aduanal Morenas" />
+  <img src="/images/Morenas1.jpeg" alt="Asesoría aduanal Morenas" />
 </article>
         </div>
       </section>
