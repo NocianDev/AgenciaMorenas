@@ -27,10 +27,12 @@ export default function MediaShowcase({ data }) {
           <div className="media-grid images-only-grid">
             {images.map((item, index) => (
               <article
-                className={`media-card image-media-card ${item.featured ? 'media-large' : ''} ${item.banner ? 'banner-card' : ''}`}
+                className={`media-card image-media-card ${item.featured ? 'media-large' : ''} ${item.banner ? 'banner-card' : ''} ${item.fit === 'contain' ? 'media-card--contain' : ''}`}
                 key={`${item.title}-${index}`}
               >
-                <img src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                <div className="media-image-frame">
+                  <img src={item.src} alt={item.title} loading="lazy" decoding="async" />
+                </div>
 
                 <div className="media-caption">
                   <span>{item.tag}</span>

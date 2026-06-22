@@ -159,7 +159,7 @@ export default function HomePage() {
           <div className="gallery-grid">
             {gallery.map((item) => (
               <article className="gallery-card" key={item.title}>
-                <div className="gallery-image">
+                <div className={`gallery-image ${item.fit === 'contain' ? 'gallery-image--contain' : ''}`}>
                   <img src={item.image} alt={item.title} loading="lazy" decoding="async" />
                 </div>
                 <span className="tag">{item.tag}</span>

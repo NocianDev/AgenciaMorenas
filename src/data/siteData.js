@@ -5,8 +5,9 @@ export const brand = {
   shortDescription:
     'Morenas brinda atención en asesoría aduanal, legalización de vehículos, traslados y coordinación de transporte para clientes en México y Estados Unidos que necesitan un servicio claro, directo y con seguimiento.',
   phoneMX: '+52 81 2402 0614',
-  phoneUS: '+52 81 2402 0614',
+  phoneUS: '+1 346 855 2516',
   whatsapp: '528124020614',
+  whatsappUS: '13468552516',
   email: 'paqueteriamorena@gmail.com',
   secondaryEmail: 'paqueteriamorena@gmail.com',
   address: 'Av. Concordia 324, Apodaca, Nuevo León, C.P. 66636',
@@ -147,6 +148,7 @@ export const mediaSections = {
         tag: 'Caso real',
         src: '/imagenes-nuevas/Morenas2.jpeg',
         featured: true,
+        fit: 'contain',
       },
       {
         type: 'image',
@@ -333,7 +335,7 @@ export const truckServices = [
 export const gallery = [
   { image: assets.customsVehicle, title: 'Asesoría aduanal y legalización', tag: 'Aduana', description: 'Atención para clientes que necesitan legalizar, importar o revisar requisitos de vehículos provenientes de Estados Unidos.' },
   { image: assets.containerTruck, title: 'Traslado de vehículos', tag: 'Transporte', description: 'Coordinación de unidades, plataformas y rutas para servicios de traslado hacia México.' },
-  { image: assets.operationsCenter, title: 'Atención de Morenas', tag: 'Contacto', description: 'Información de canales oficiales, teléfonos y medios de comunicación para clientes.' },
+  { image: assets.operationsCenter, title: 'Atención de Morenas', tag: 'Contacto', description: 'Información de canales oficiales, teléfonos y medios de comunicación para clientes.', fit: 'contain' },
   { image: assets.trackingMap, title: 'Rastreo por correo e ID', tag: 'Rastreo', description: 'Consulta de servicios registrados mediante correo, ID de transporte y unidad asignada.' },
 ];
 

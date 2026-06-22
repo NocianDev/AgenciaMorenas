@@ -2084,6 +2084,32 @@ select option {
   background: rgba(112, 0, 0, 0.22);
 }
 
+.gallery-card {
+  display: flex;
+  flex-direction: column;
+  min-height: 100%;
+}
+
+.gallery-card h3 {
+  margin-bottom: 10px;
+  overflow-wrap: anywhere;
+}
+
+.gallery-card p {
+  margin-bottom: 0;
+}
+
+.gallery-image--contain,
+.media-card--contain {
+  background: rgba(57, 0, 0, 0.52);
+}
+
+.gallery-image--contain img,
+.media-card--contain img {
+  object-fit: contain;
+  object-position: center;
+}
+
 .media-grid {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
@@ -2159,6 +2185,79 @@ select option {
   font-size: clamp(1.15rem, 1.7vw, 1.65rem);
   max-width: 18ch;
   line-height: 1.08;
+  overflow-wrap: anywhere;
+}
+
+.media-caption {
+  min-height: 138px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+}
+
+/* Service gallery: preserve promotional artwork and keep text outside the image. */
+.images-only-grid {
+  grid-auto-rows: auto;
+  align-items: start;
+}
+
+.images-only-grid .media-large {
+  grid-row: auto;
+}
+
+.image-media-card {
+  display: flex;
+  flex-direction: column;
+  height: auto;
+  background: rgba(74, 0, 0, 0.88);
+}
+
+.image-media-card::after {
+  display: none;
+}
+
+.media-image-frame {
+  width: 100%;
+  aspect-ratio: 4 / 3;
+  overflow: hidden;
+  background: rgba(62, 0, 0, 0.72);
+  border-bottom: 1px solid rgba(255,255,255,0.12);
+}
+
+.media-image-frame img,
+.image-media-card.media-card--contain .media-image-frame img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
+.image-media-card .media-caption {
+  position: static;
+  min-height: 0;
+  padding: 16px 18px 20px;
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.98), rgba(73, 0, 0, 0.94));
+}
+
+.image-media-card .media-caption span {
+  align-self: flex-start;
+  margin-bottom: 10px;
+}
+
+.image-media-card .media-caption h3 {
+  max-width: none;
+  font-size: clamp(1.2rem, 1.7vw, 1.55rem);
+  line-height: 1.16;
+}
+
+@media (max-width: 620px) {
+  .media-image-frame {
+    aspect-ratio: 4 / 3;
+  }
+
+  .image-media-card .media-caption {
+    padding: 15px 16px 18px;
+  }
 }
 
 .media-large {
