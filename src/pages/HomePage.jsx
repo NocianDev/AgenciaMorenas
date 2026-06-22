@@ -34,11 +34,11 @@ export default function HomePage() {
 
           <div className="hero-stack">
             <div className="hero-card large photo-card customs-card">
-              <img src="/images/Aduana11.jpg" alt="Regularización vehicular y agencia aduanal" />
+              <img src="/imagenes-nuevas/Morenas7.jpeg" alt="Vehículos transportados por Importaciones Morenas" />
               <div className="floating-badge badge-gold">Agencia aduanal</div>
             </div>
             <div className="hero-card small offset photo-card truck-card">
-              <img src="/images/Aduana2.jpg" alt="Transporte terrestre de camiones" />
+              <img src="/imagenes-nuevas/Morenas6.jpeg" alt="Unidad de Importaciones Morenas durante un traslado" />
               <div className="floating-badge badge-red">Transporte terrestre</div>
             </div>
           </div>
@@ -115,9 +115,14 @@ export default function HomePage() {
               ))}
             </div>
           </div>
-         <article className="media-card banner-card">
-  <img src="/images/Morenas1.jpeg" alt="Asesoría aduanal Morenas" />
-</article>
+          <article className="media-card banner-card">
+            <img
+              src="/images/Aduana10.jpg"
+              alt="Equipo de asesoría aduanal de Importaciones Morenas"
+              loading="lazy"
+              decoding="async"
+            />
+          </article>
         </div>
       </section>
 

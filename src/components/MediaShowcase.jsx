@@ -11,8 +11,8 @@ function getFacebookEmbedUrl(url) {
 export default function MediaShowcase({ data }) {
   if (!data?.items?.length) return null;
 
-  const images = data.items.filter((item) => item.type !== 'facebook');
-  const videos = data.items.filter((item) => item.type === 'facebook');
+  const images = data.items.filter((item) => item.type === 'image');
+  const videos = data.items.filter((item) => item.type === 'facebook' || item.type === 'video');
 
   return (
     <section className="section media-section">
@@ -30,7 +30,7 @@ export default function MediaShowcase({ data }) {
                 className={`media-card image-media-card ${item.featured ? 'media-large' : ''} ${item.banner ? 'banner-card' : ''}`}
                 key={`${item.title}-${index}`}
               >
-                <img src={item.src} alt={item.title} />
+                <img src={item.src} alt={item.title} loading="lazy" decoding="async" />
 
                 <div className="media-caption">
                   <span>{item.tag}</span>
@@ -47,6 +47,7 @@ export default function MediaShowcase({ data }) {
               {videos.map((item, index) => {
                 const embedUrl = getFacebookEmbedUrl(item.facebookUrl);
                 const isReel = item.facebookUrl?.includes('/reel/');
+                const isLocalVideo = item.type === 'video';
 
                 return (
                   <article className="video-feature-card" key={`${item.title}-${index}`}>
@@ -68,7 +69,18 @@ export default function MediaShowcase({ data }) {
 
                     <div className="video-feature-stage">
                       <div className={`video-reel-frame ${isReel ? 'is-reel' : ''}`}>
-                        {embedUrl ? (
+                        {isLocalVideo ? (
+                          <video
+                            controls
+                            playsInline
+                            preload="none"
+                            poster={item.poster}
+                            aria-label={item.title}
+                          >
+                            <source src={item.src} type="video/mp4" />
+                            Tu navegador no admite la reproducción de video.
+                          </video>
+                        ) : embedUrl ? (
                           <iframe
                             src={embedUrl}
                             title={item.title}

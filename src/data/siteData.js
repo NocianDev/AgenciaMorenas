@@ -68,7 +68,7 @@ export const navItems = [
 export const assets = {
   logo: '/images/official-logo-clean.png',
   heroCustoms: '/images/Aduana11.jpg',
-  heroTrucks: '/images/Aduana2.jpg',
+  heroTrucks: '/images/Aduana3.jpg',
   operationsCenter: '/images/Aduana10.jpg',
   customsVehicle: '/images/Aduana6.jpg',
   trackingMap: '/images/Aduana8.png',
@@ -136,17 +136,50 @@ export const facebookVideos = {
 
 export const mediaSections = {
   home: {
-    eyebrow: 'Operación Morenas',
-    title: 'Aduana, legalización y transporte en una sola atención',
+    eyebrow: 'Casos y servicios Morenas',
+    title: 'Traslados y legalizaciones que muestran nuestra operación',
     description:
-      'La página reúne imágenes reales de traslados, asesoría y vehículos atendidos por Morenas para que el cliente identifique rápidamente el tipo de servicio y los canales disponibles.',
+      'Una selección de servicios, unidades y entregas para conocer los tipos de traslado y legalización que atendemos entre Estados Unidos, México y Centroamérica.',
     items: [
-      { type: 'image', title: 'Asesoría aduanal Morena’s', tag: 'Aduana', src: '/images/Aduana10.jpg', banner: true },
-      { type: 'image', title: 'Traslado de vehículos a México', tag: 'Traslados', src: '/images/Aduana1.jpg', featured: true },
-      { type: 'facebook', title: facebookVideos.home[0].title, tag: 'Video', facebookUrl: facebookVideos.home[0].facebookUrl, image: facebookVideos.home[0].image },
-      { type: 'image', title: 'Unidades en plataforma', tag: 'Transporte', src: '/images/Aduana5.jpg' },
-      { type: 'image', title: 'Cobertura y asesoría', tag: 'Atención', src: '/images/Aduana7.jpg' },
-      { type: 'facebook', title: facebookVideos.home[1].title, tag: 'Facebook', facebookUrl: facebookVideos.home[1].facebookUrl, image: facebookVideos.home[1].image },
+      {
+        type: 'image',
+        title: 'Entrega y legalización de unidades',
+        tag: 'Caso real',
+        src: '/imagenes-nuevas/Morenas2.jpeg',
+        featured: true,
+      },
+      {
+        type: 'image',
+        title: 'Traslado de vehículos y mercancía',
+        tag: 'Cobertura',
+        src: '/imagenes-nuevas/Morenas3.jpeg',
+      },
+      {
+        type: 'image',
+        title: 'Camionetas en traslado terrestre',
+        tag: 'Transporte',
+        src: '/imagenes-nuevas/Morenas4.jpeg',
+      },
+      {
+        type: 'image',
+        title: 'Unidad asegurada en plataforma',
+        tag: 'Operación',
+        src: '/imagenes-nuevas/Morenas5.jpeg',
+      },
+      {
+        type: 'image',
+        title: 'Proceso de importación atendido',
+        tag: 'Importación',
+        src: '/imagenes-nuevas/Morenas8.jpeg',
+      },
+      {
+        type: 'video',
+        title: 'Operación Morenas en movimiento',
+        tag: 'Video',
+        description: 'Una mirada breve a la operación y coordinación de traslados de Importaciones Morenas.',
+        src: '/videos/MorenasVideo2.mp4',
+        poster: '/images/Aduana2.jpg',
+      },
     ],
   },
   customs: {
@@ -168,9 +201,16 @@ export const mediaSections = {
     description:
       'El apartado de transportes presenta imágenes de camiones, plataformas y vehículos trasladados para reforzar el servicio real de coordinación terrestre.',
     items: [
-      { type: 'image', title: 'Camión de traslado', tag: 'Camión', src: '/images/Aduana3.jpg', featured: true },
+      { type: 'image', title: 'Unidad Morenas en traslado', tag: 'Camión', src: '/imagenes-nuevas/Morenas6.jpeg', featured: true },
       { type: 'image', title: 'Vehículos en plataforma', tag: 'Ruta', src: '/images/Aduana4.jpg' },
-      { type: 'facebook', title: facebookVideos.trucks[0].title, tag: 'Video', facebookUrl: facebookVideos.trucks[0].facebookUrl, image: facebookVideos.trucks[0].image },
+      {
+        type: 'video',
+        title: 'Traslado de unidades Morenas',
+        tag: 'Video',
+        description: 'Video de apoyo para conocer el movimiento y la atención de unidades durante un traslado.',
+        src: '/videos/MorenasVideo1.mp4',
+        poster: '/images/Aduana3.jpg',
+      },
       { type: 'image', title: 'Traslado programado', tag: 'Operación', src: '/images/Aduana5.jpg' },
       { type: 'image', title: 'Desde USA a México', tag: 'Cobertura', src: '/images/Aduana1.jpg' },
     ],
