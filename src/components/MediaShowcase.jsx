@@ -43,14 +43,24 @@ export default function MediaShowcase({ data }) {
 
         {videos.length ? (
           <div className="media-video-section">
+            <SectionTitle
+              eyebrow="Galería multimedia"
+              title={data.videoTitle || 'Conoce nuestro servicio en video'}
+              description="Conoce parte de la operación, los traslados y la atención de Importaciones Morenas."
+              align="center"
+            />
             <div className="video-embed-list">
               {videos.map((item, index) => {
                 const embedUrl = getFacebookEmbedUrl(item.facebookUrl);
                 const isReel = item.facebookUrl?.includes('/reel/');
                 const isLocalVideo = item.type === 'video';
+                const isLandscape = item.orientation === 'landscape';
 
                 return (
-                  <article className="video-feature-card" key={`${item.title}-${index}`}>
+                  <article
+                    className={`video-feature-card ${isLandscape ? 'video-feature-card--landscape' : ''}`}
+                    key={`${item.title}-${index}`}
+                  >
                     <div className="video-feature-copy">
                       <span>{item.tag || 'Video'}</span>
                       <h3>{item.title}</h3>
@@ -68,12 +78,12 @@ export default function MediaShowcase({ data }) {
                     </div>
 
                     <div className="video-feature-stage">
-                      <div className={`video-reel-frame ${isReel ? 'is-reel' : ''}`}>
+                      <div className={`video-reel-frame ${isReel ? 'is-reel' : ''} ${isLandscape ? 'is-landscape' : ''}`}>
                         {isLocalVideo ? (
                           <video
                             controls
                             playsInline
-                            preload="none"
+                            preload="metadata"
                             poster={item.poster}
                             aria-label={item.title}
                           >
