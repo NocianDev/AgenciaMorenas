@@ -14,7 +14,7 @@ export default function Header() {
           <span>Aduana y transportes · Morenas</span>
           <span>
             Atención directa <span className="strip-separator">•</span>
-            <a href={`tel:${brand.phoneMX}`}>{brand.phoneMX}</a>
+            <a href={`tel:${brand.phoneUS}`}>{brand.phoneUS}</a>
           </span>
         </div>
       </div>
@@ -37,7 +37,7 @@ export default function Header() {
             </NavLink>
           ))}
           <a
-            href={`https://wa.me/${brand.whatsapp}`}
+            href={`https://wa.me/${brand.whatsappUS}`}
             className="nav-cta"
             target="_blank"
             rel="noreferrer"

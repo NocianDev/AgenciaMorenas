@@ -239,6 +239,7 @@ export const mediaSections = {
     ],
   },
   offices: {
+    layout: 'office-contact-gallery',
     eyebrow: 'Atención y cobertura',
     title: 'Puntos de contacto para clientes en México y Estados Unidos',
     description:
@@ -251,6 +252,7 @@ export const mediaSections = {
     ],
   },
   contact: {
+    layout: 'contact-direct-gallery',
     eyebrow: 'Contacto Morenas',
     title: 'Canales directos para solicitar asesoría o seguimiento',
     description:

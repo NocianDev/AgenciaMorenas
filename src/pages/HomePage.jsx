@@ -20,7 +20,7 @@ export default function HomePage() {
               Morenas atiende a clientes que necesitan asesoría aduanal, legalización de vehículos, traslados y seguimiento de servicio con canales directos de comunicación en México y Estados Unidos.
             </p>
             <div className="hero-actions">
-              <a className="btn btn-primary" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">
+              <a className="btn btn-primary" href={`https://wa.me/${brand.whatsappUS}`} target="_blank" rel="noreferrer">
                 Solicitar atención
               </a>
               <Link className="btn btn-secondary" to="/rastreo-gps">
@@ -65,7 +65,7 @@ export default function HomePage() {
             ))}
           </div>
           <div className="coverage-actions">
-            <a className="btn btn-primary" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">
+            <a className="btn btn-primary" href={`https://wa.me/${brand.whatsappUS}`} target="_blank" rel="noreferrer">
               Solicitar atención
             </a>
             <Link className="btn btn-secondary" to="/oficinas">

@@ -11,6 +11,8 @@ export default function OfficesPage() {
         title="Canales de contacto para trámites, transporte y seguimiento."
         description="Morenas mantiene canales de atención en México y Estados Unidos para orientar solicitudes, resolver dudas comerciales y dar continuidad a servicios registrados."
         image={assets.operationsCenter}
+        imageFit="balanced"
+        heroVariant="flyer"
         primaryCta={{ label: 'Llamar ahora', href: `tel:${brand.phoneMX}` }}
         secondaryCta={{ label: 'Enviar correo', href: `mailto:${brand.email}` }}
         pills={['México', 'Estados Unidos', 'WhatsApp', 'Correo']}

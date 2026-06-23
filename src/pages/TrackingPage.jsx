@@ -301,7 +301,7 @@ export default function TrackingPage() {
           </div>
 
           <aside className="tracking-side-panel">
-            <div className="card-shell gradient-panel">
+            <div className="card-shell gradient-panel tracking-operations-card">
               <img src={assets.operationsCenter} alt="Panel de rastreo Morenas" loading="lazy" decoding="async" />
             </div>
             <div className="shell-note">

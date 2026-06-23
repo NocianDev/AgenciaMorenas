@@ -15,7 +15,7 @@ export default function MediaShowcase({ data }) {
   const videos = data.items.filter((item) => item.type === 'facebook' || item.type === 'video');
 
   return (
-    <section className="section media-section">
+    <section className={`section media-section ${data.layout ? `media-section--${data.layout}` : ''}`.trim()}>
       <div className="container">
         <SectionTitle
           eyebrow={data.eyebrow}

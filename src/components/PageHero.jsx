@@ -1,8 +1,8 @@
 import { Link } from 'react-router-dom';
 
-export default function PageHero({ eyebrow, title, description, image, primaryCta, secondaryCta, pills = [] }) {
+export default function PageHero({ eyebrow, title, description, image, imageFit = 'cover', heroVariant = '', primaryCta, secondaryCta, pills = [] }) {
   return (
-    <section className="page-hero">
+    <section className={`page-hero ${heroVariant ? `page-hero--${heroVariant}` : ''}`.trim()}>
       <div className="container page-hero-grid">
         <div>
           {eyebrow ? <p className="eyebrow">{eyebrow}</p> : null}
@@ -42,7 +42,7 @@ export default function PageHero({ eyebrow, title, description, image, primaryCt
             ) : null}
           </div>
         </div>
-        <div className="visual-panel">
+        <div className={`visual-panel visual-panel--${imageFit}`}>
           <img src={image} alt={title} />
         </div>
       </div>

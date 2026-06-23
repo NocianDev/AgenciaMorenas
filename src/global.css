@@ -816,6 +816,43 @@ h3 {
   min-height: 420px;
 }
 
+/* Promotional artwork keeps its complete message instead of cropping like a photo. */
+.page-hero .visual-panel--contain {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  aspect-ratio: 8 / 3;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.96), rgba(55, 0, 0, 0.94));
+}
+
+.page-hero .visual-panel--contain img {
+  min-height: 0;
+  object-fit: contain;
+  object-position: center;
+}
+
+/* Give wide flyers a stronger presence while preserving their central message. */
+.page-hero--flyer .page-hero-grid {
+  grid-template-columns: minmax(0, 0.78fr) minmax(0, 1.22fr);
+  gap: 44px;
+}
+
+.page-hero .visual-panel--balanced {
+  display: grid;
+  place-items: center;
+  min-height: 0;
+  aspect-ratio: 11 / 5;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.96), rgba(55, 0, 0, 0.94));
+}
+
+.page-hero .visual-panel--balanced img {
+  min-height: 0;
+  object-fit: cover;
+  object-position: center;
+}
+
 .tracking-form label {
   display: block;
   margin-bottom: 10px;
@@ -1906,6 +1943,21 @@ textarea:focus {
   min-height: 420px;
 }
 
+/* Preserve the full operations image beside the quick-search form. */
+.tracking-operations-card {
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.96), rgba(55, 0, 0, 0.94));
+}
+
+.tracking-operations-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  object-position: center;
+}
+
 select {
   width: 100%;
   min-height: 52px;
@@ -2975,5 +3027,130 @@ ul {
 @media (max-width: 980px) {
   .hero-brand-title--wide {
     margin-bottom: 26px;
+  }
+
+  .page-hero--flyer .page-hero-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
+}
+
+/* Offices contact gallery: treat the promotional art as a composed set, not cropped photos. */
+.media-section--office-contact-gallery .images-only-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  align-items: stretch;
+}
+
+.media-section--office-contact-gallery .banner-card {
+  grid-column: 1 / -1;
+}
+
+.media-section--office-contact-gallery .image-media-card {
+  border-color: rgba(255, 235, 235, 0.2);
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.94), rgba(61, 0, 0, 0.9));
+  box-shadow: 0 20px 48px rgba(56, 0, 0, 0.28);
+}
+
+.media-section--office-contact-gallery .banner-card .media-image-frame {
+  aspect-ratio: 8 / 3;
+  background: linear-gradient(145deg, rgba(92, 0, 0, 0.96), rgba(44, 0, 0, 0.94));
+}
+
+.media-section--office-contact-gallery .banner-card .media-image-frame img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.media-section--office-contact-gallery .image-media-card:not(.banner-card) .media-image-frame {
+  aspect-ratio: 5 / 4;
+  background: linear-gradient(145deg, rgba(92, 0, 0, 0.92), rgba(44, 0, 0, 0.88));
+}
+
+.media-section--office-contact-gallery .image-media-card .media-caption {
+  min-height: 88px;
+  padding: 14px 18px 17px;
+}
+
+.media-section--office-contact-gallery .image-media-card .media-caption span {
+  margin-bottom: 7px;
+}
+
+@media (max-width: 680px) {
+  .media-section--office-contact-gallery .images-only-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .media-section--office-contact-gallery .banner-card {
+    grid-column: auto;
+  }
+
+  .media-section--office-contact-gallery .banner-card .media-image-frame {
+    aspect-ratio: 8 / 3;
+  }
+
+  .media-section--office-contact-gallery .image-media-card:not(.banner-card) .media-image-frame {
+    aspect-ratio: 5 / 4;
+  }
+}
+
+/* Contact page: a wider two-up composition gives the flyer cards room to breathe. */
+.media-section--contact-direct-gallery .container {
+  width: min(1360px, calc(100% - 48px));
+}
+
+.media-section--contact-direct-gallery .images-only-grid {
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 28px;
+  align-items: stretch;
+}
+
+.media-section--contact-direct-gallery .image-media-card {
+  border-color: rgba(255, 235, 235, 0.22);
+  background: linear-gradient(145deg, rgba(112, 0, 0, 0.95), rgba(61, 0, 0, 0.91));
+  box-shadow: 0 22px 54px rgba(56, 0, 0, 0.3);
+}
+
+.media-section--contact-direct-gallery .image-media-card:not(.banner-card) .media-image-frame {
+  aspect-ratio: 5 / 4;
+  background: linear-gradient(145deg, rgba(92, 0, 0, 0.92), rgba(44, 0, 0, 0.88));
+}
+
+.media-section--contact-direct-gallery .banner-card {
+  grid-column: 1 / -1;
+}
+
+.media-section--contact-direct-gallery .banner-card .media-image-frame {
+  aspect-ratio: 8 / 3;
+  background: linear-gradient(145deg, rgba(92, 0, 0, 0.96), rgba(44, 0, 0, 0.94));
+}
+
+.media-section--contact-direct-gallery .banner-card .media-image-frame img {
+  object-fit: contain;
+  object-position: center;
+}
+
+.media-section--contact-direct-gallery .image-media-card .media-caption {
+  min-height: 92px;
+  padding: 16px 20px 19px;
+}
+
+.media-section--contact-direct-gallery .image-media-card .media-caption span {
+  margin-bottom: 8px;
+}
+
+@media (max-width: 760px) {
+  .media-section--contact-direct-gallery .container {
+    width: min(1360px, calc(100% - 22px));
+  }
+
+  .media-section--contact-direct-gallery .images-only-grid {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .media-section--contact-direct-gallery .banner-card {
+    grid-column: auto;
   }
 }
