@@ -7,9 +7,9 @@ export default function TrucksPage() {
   return (
     <>
       <PageHero
-        eyebrow="Transporte terrestre"
-        title="Transporte de camiones con registro de ruta y unidad asignada."
-        description="Morenas coordina servicios terrestres donde el cliente puede registrar una solicitud, recibir un ID de transporte y consultar el trayecto asociado a su correo."
+        eyebrow="Traslados de vehículos"
+        title="Movemos carros, camionetas y camiones de USA a México."
+        description="Coordina tu traslado con Morenas y consulta el avance con un folio sencillo, sin depender de llamadas repetidas."
         image={assets.containerTruck}
         primaryCta={{ label: 'Crear solicitud', href: '/rastreo-gps' }}
         secondaryCta={{ label: 'Cotizar por WhatsApp', href: `https://wa.me/${brand.whatsapp}`, target: '_blank' }}

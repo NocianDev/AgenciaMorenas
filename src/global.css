@@ -2840,6 +2840,87 @@ select option {
   }
 }
 
+/* 2026 visual refresh: a bright, centered commercial presentation. */
+:root {
+  --bg: #ffffff;
+  --bg-soft: #fff5f5;
+  --panel: #ffffff;
+  --panel-strong: #fffafa;
+  --panel-fade: #fff5f5;
+  --text: #241316;
+  --muted: #69565a;
+  --line: #f0d8da;
+  --line-strong: #ddbdc1;
+  --red: #b30d22;
+  --red-strong: #df172f;
+  --gold: #b30d22;
+  --gold-soft: #e71d36;
+  --steel: #b30d22;
+  --shadow: 0 18px 44px rgba(104, 18, 31, 0.12);
+  --shadow-soft: 0 10px 26px rgba(104, 18, 31, 0.10);
+  --max-width: 1280px;
+}
+
+body { color: var(--text); background: #fff; }
+p, ul { color: var(--muted); }
+.section { padding: 72px 0; }
+.soft-section, .coverage-section { background: #fff6f6; border-color: #f3dadd; }
+.site-header { background: rgba(255,255,255,.96); border-bottom-color: #f1dfe1; box-shadow: 0 3px 18px rgba(94, 11, 22, .06); }
+.header-strip { color: #fff; background: linear-gradient(90deg, #8f0618, #c8102e); border: 0; }
+.strip-inner { color: #fff; }
+.strip-inner a { color: #fff; }
+.nav-link { color: #57363b; }
+.nav-link:hover, .nav-link.is-active { color: var(--red); background: #fff0f1; }
+.nav-cta, .btn-primary { color: #fff; background: linear-gradient(135deg, #a6091d, #dc1730); box-shadow: 0 10px 22px rgba(179, 13, 34, .20); }
+.nav-cta:hover, .btn-primary:hover { box-shadow: 0 14px 30px rgba(179, 13, 34, .28); }
+.btn-secondary { color: var(--red); background: #fff; border-color: #ddbdc1; box-shadow: none; }
+.btn-secondary:hover, .text-link:hover { background: #fff0f1; }
+.eyebrow, .card-kicker, .footer-kicker { color: var(--red); }
+h1, h2, h3 { color: #49131b; }
+.section-title { text-align: center; max-width: 760px; margin-left: auto; margin-right: auto; }
+.section-title h2, .section-title .section-description { margin-left: auto; margin-right: auto; max-width: 28ch; }
+.section-title .section-description { max-width: 64ch; }
+
+.home-hero { padding: 54px 0 64px; background: linear-gradient(180deg, #fff 0%, #fff8f8 100%); }
+.home-hero::before, .home-hero::after, .page-hero::before, .page-hero::after { display: none; }
+.home-hero-content { display: flex; flex-direction: column; align-items: center; text-align: center; }
+.hero-brand-title { color: var(--red); text-align: center; align-items: center; margin: 0 auto 28px; }
+.hero-brand-title span { color: #dc1730; }
+.hero-brand-title strong { color: #8f0618; }
+.hero-flyer-frame { width: min(100%, 1180px); padding: 10px; background: #fff; border: 1px solid #eed3d6; border-radius: 22px; box-shadow: var(--shadow); }
+.hero-flyer-frame img { width: 100%; height: auto; object-fit: contain; border-radius: 14px; }
+.home-lead { max-width: 76ch; margin: 30px auto 0; font-size: clamp(1rem, 1.5vw, 1.13rem); color: #60494d; }
+.hero-actions, .pill-row, .coverage-actions { justify-content: center; }
+.pill, .tag { color: #8f0618; background: #fff; border-color: #e8c8cc; }
+
+.service-card, .value-card, .detail-card, .office-card, .gallery-card, .process-card, .faq-item, .form-card, .tracking-card, .visual-panel, .card-shell { background: #fff; border-color: #efd8db; box-shadow: var(--shadow-soft); backdrop-filter: none; }
+.service-card:hover, .gallery-card:hover, .value-card:hover, .detail-card:hover, .office-card:hover, .process-card:hover, .faq-item:hover { border-color: #d9959d; }
+.service-image, .gallery-image, .media-image-frame, .photo-frame, .visual-panel { background: #fff7f7; border-color: #edd5d8; }
+.service-image img, .gallery-image img, .media-image-frame img, .media-card img, .visual-panel img, .card-shell img, .photo-frame img { object-fit: contain !important; object-position: center !important; }
+.media-card, .image-media-card { background: #fff; border-color: #efd8db; box-shadow: var(--shadow-soft); }
+.image-media-card .media-caption { background: #fff; }
+.image-media-card .media-caption h3, .media-caption h3 { color: #49131b; }
+.media-caption span, .text-link { color: var(--red); }
+.coverage-card { background: #fff; border-color: #efd8db; box-shadow: var(--shadow-soft); text-align: center; }
+.coverage-card span, .coverage-card h3 { color: var(--red); }
+.value-grid, .card-grid, .gallery-grid, .process-grid, .faq-list { text-align: center; }
+.value-card, .process-card, .faq-item, .detail-card, .service-card, .gallery-card { align-items: center; }
+.service-card ul { text-align: left; width: 100%; }
+.site-footer { color: #fff; background: linear-gradient(135deg, #750714, #b30d22); border: 0; }
+.site-footer h3, .site-footer .footer-title, .site-footer .footer-branch strong { color: #fff; }
+.site-footer p, .footer-links a, .footer-links span, .footer-branch span, .footer-coverage { color: #ffe9eb; }
+.footer-branch, .footer-bottom { border-color: rgba(255,255,255,.22); }
+
+@media (max-width: 768px) {
+  .section { padding: 52px 0; }
+  .home-hero { padding: 34px 0 48px; }
+  .hero-flyer-frame { padding: 5px; border-radius: 14px; }
+  .hero-flyer-frame img { border-radius: 10px; }
+  .home-lead { margin-top: 22px; }
+  .hero-actions { width: 100%; }
+  .hero-actions .btn { flex: 1 1 220px; }
+}
+
 /* Contrast and hierarchy refinement for the red brand surface. */
 h1,
 h2,
@@ -3154,3 +3235,20 @@ ul {
     grid-column: auto;
   }
 }
+
+/* Keep the bright system in force after page-specific gallery rules. */
+.media-section--office-contact-gallery .image-media-card,
+.media-section--contact-direct-gallery .image-media-card { background: #fff; border-color: #efd8db; box-shadow: var(--shadow-soft); }
+.media-section--office-contact-gallery .image-media-card .media-caption,
+.media-section--contact-direct-gallery .image-media-card .media-caption { background: #fff; }
+.media-section--office-contact-gallery .media-image-frame,
+.media-section--contact-direct-gallery .media-image-frame { background: #fff7f7; }
+.hero-brand-title--wide { text-align: center; padding-left: 0; }
+.hero-brand-title--wide::after { margin-left: auto; margin-right: auto; background: #d81730; }
+.media-card.banner-card { aspect-ratio: 16 / 9; min-height: 0; display: grid; place-items: center; background: #fff7f7; }
+.media-card.banner-card img { width: 100%; height: 100%; object-fit: contain !important; }
+.page-hero-grid { text-align: center; }
+.page-hero-grid h1, .page-hero-grid .page-hero-text { margin-left: auto; margin-right: auto; }
+.page-hero-grid .pill-row, .page-hero-grid .hero-actions { justify-content: center; }
+.site-footer, .footer-grid { text-align: center; }
+.footer-branches { justify-items: center; }

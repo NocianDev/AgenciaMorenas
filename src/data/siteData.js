@@ -275,33 +275,33 @@ export const heroHighlights = [
 
 export const homeServices = [
   {
-    title: 'Agencia Aduanal',
+    title: 'Legaliza o importa tu vehículo',
     path: '/agencia-aduanal',
-    eyebrow: 'Asesoría y legalización',
+    eyebrow: 'Aduana y documentos',
     image: assets.heroCustoms,
     summary:
-      'Morenas orienta a clientes que necesitan legalizar, importar o regularizar vehículos, revisando información clave y manteniendo comunicación durante el avance del servicio.',
-    points: ['Revisión inicial del caso', 'Orientación documental', 'Legalización vehicular', 'Seguimiento de avances'],
+      'Te orientamos para legalizar, importar o regularizar tu vehículo, con una revisión clara de la información que necesitas preparar.',
+    points: ['Revisamos tu caso', 'Te orientamos con documentos', 'Legalización de vehículos', 'Seguimiento directo'],
     accent: 'gold',
   },
   {
-    title: 'Transporte de Camiones',
+    title: 'Movemos carros, camionetas y camiones',
     path: '/transporte-camiones',
-    eyebrow: 'Traslados y coordinación',
+    eyebrow: 'Traslados desde USA a México',
     image: assets.heroTrucks,
     summary:
-      'El servicio de transporte se enfoca en coordinar unidades, registrar origen y destino, asignar un ID de seguimiento y mantener visible el estatus del recorrido.',
-    points: ['Traslado de vehículos', 'Unidad asignada', 'Ruta registrada', 'Comunicación con el cliente'],
+      'Coordinamos el traslado de tus vehículos con información de origen, destino y una forma sencilla de consultar el avance.',
+    points: ['Carros, camionetas y camiones', 'Origen y destino claros', 'Folio de seguimiento', 'Atención durante el traslado'],
     accent: 'red',
   },
   {
-    title: 'Rastreo para Clientes',
+    title: 'Consulta el avance de tu traslado',
     path: '/rastreo-gps',
-    eyebrow: 'Consulta por correo',
+    eyebrow: 'Rastreo sencillo',
     image: assets.trackingMap,
     summary:
-      'El cliente puede consultar un servicio con su correo o ID de transporte para revisar unidad asignada, trayecto, estado actual y eventos principales.',
-    points: ['Búsqueda por correo', 'ID de transporte', 'Unidad y trayecto', 'Eventos del servicio'],
+      'Con tu correo o folio puedes revisar el estado de tu servicio, la unidad asignada y los avances principales del recorrido.',
+    points: ['Búsqueda por correo', 'Folio de servicio', 'Unidad y ruta', 'Actualizaciones del traslado'],
     accent: 'steel',
   },
 ];
