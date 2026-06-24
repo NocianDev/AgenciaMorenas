@@ -13,7 +13,7 @@ export default function Layout() {
       <Footer />
       <a
         className="floating-wa"
-        href={`https://wa.me/${brand.whatsappUS}?text=${encodeURIComponent('Hola, quiero información sobre sus servicios.')}`}
+        href="https://wa.me/528124020614?text=Hola%2C%20quiero%20informaci%C3%B3n%20sobre%20sus%20servicios"
         target="_blank"
         rel="noreferrer"
         aria-label="Abrir WhatsApp"
