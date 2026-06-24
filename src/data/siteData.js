@@ -111,24 +111,24 @@ export const facebookVideos = {
   ],
   tracking: [
     {
-      title: 'Seguimiento del servicio',
-      description: 'Consulta de servicio, unidad asignada y avances principales para clientes con transporte registrado.',
+      title: 'Consulta el avance de tu servicio',
+      description: 'Revisa de forma sencilla la información y los avances principales de tu traslado.',
       facebookUrl: 'https://www.facebook.com/reel/1623486238978442',
       image: '/images/Aduana8.png',
     },
   ],
   offices: [
     {
-      title: 'Atención y presencia de Morenas',
-      description: 'Presencia de Morenas, puntos de atención y cobertura operativa para trámites y transportes.',
+      title: 'Atención Morenas en México y Estados Unidos',
+      description: 'Conoce nuestros puntos de atención y recibe apoyo directo para tus trámites o traslados.',
       facebookUrl: 'https://www.facebook.com/reel/2009021290021482',
       image: '/images/Aduana10.jpg',
     },
   ],
   contact: [
     {
-      title: 'Mensaje para clientes',
-      description: 'Canales oficiales para solicitar asesoría, resolver dudas y dar seguimiento a servicios registrados.',
+      title: 'Estamos para ayudarte',
+      description: 'Escríbenos para resolver tus dudas, pedir asesoría o conocer el avance de tu servicio.',
       facebookUrl: 'https://www.facebook.com/reel/3933716700253060',
       image: '/images/Aduana7.jpg',
     },
@@ -187,7 +187,7 @@ export const mediaSections = {
         type: 'video',
         title: 'Traslado de unidades Morenas',
         tag: 'Video',
-        description: 'Conoce el movimiento y la coordinación de unidades durante un traslado.',
+        description: 'Conoce cómo movemos vehículos y mantenemos la comunicación durante el traslado.',
         src: '/videos/MorenasVideo1.mp4',
         poster: '/imagenes-nuevas/Morenas6.jpeg',
       },

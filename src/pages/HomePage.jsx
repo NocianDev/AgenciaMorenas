@@ -67,7 +67,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section soft-section">
+      <section className="section soft-section home-confidence-section">
         <div className="container split-section">
           <div>
             <SectionTitle eyebrow="Operación y confianza" title="Atención clara, desde la primera pregunta" description="Te ayudamos a identificar el servicio correcto, pedir atención y revisar el avance de tu traslado sin dar vueltas entre distintos canales." align="center" />
