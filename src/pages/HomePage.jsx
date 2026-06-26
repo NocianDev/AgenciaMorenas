@@ -51,7 +51,7 @@ export default function HomePage() {
         </div>
       </section>
 
-      <section className="section">
+      <section className="section home-services-section">
         <div className="container">
           <SectionTitle eyebrow="Servicios" title="Lo que necesitas para mover o legalizar tu vehículo" description="Elige el servicio que buscas, conoce cómo te ayudamos y comunícate con nosotros por WhatsApp, teléfono o correo." align="center" />
           <div className="card-grid service-grid three-up">

@@ -137,6 +137,7 @@ export const facebookVideos = {
 
 export const mediaSections = {
   home: {
+    layout: 'home-operation-gallery',
     eyebrow: 'Casos y servicios Morenas',
     title: 'Traslados y legalizaciones que muestran nuestra operación',
     description:
