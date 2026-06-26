@@ -195,6 +195,7 @@ export const mediaSections = {
     ],
   },
   customs: {
+    layout: 'customs-operation-gallery',
     eyebrow: 'Agencia aduanal',
     title: 'Asesoría para legalización, importación y regularización vehicular',
     description:
@@ -208,6 +209,7 @@ export const mediaSections = {
     ],
   },
   trucks: {
+    layout: 'trucks-operation-gallery',
     eyebrow: 'Transportes',
     title: 'Traslados y movimientos con unidades en plataforma',
     description:
@@ -228,6 +230,7 @@ export const mediaSections = {
     ],
   },
   tracking: {
+    layout: 'tracking-operation-gallery',
     eyebrow: 'Rastreo de servicio',
     title: 'Consulta por correo, ID y unidad asignada',
     description:
