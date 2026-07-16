@@ -1,195 +1,445 @@
+require('dotenv').config();
+const cors = require('cors');
+
 const express = require('express');
+const crypto = require('crypto');
+const prisma = require('./prisma.cjs');
 
 const app = express();
 const port = process.env.PORT || 4000;
 
+const cookieParser = require('cookie-parser');
+
+const authRoutes = require('./routes/auth.routes.cjs');
+
+const {
+  authRequired,
+  requireRole,
+} = require('./middleware/auth.cjs');
+
+app.use(
+  cors({
+    origin: ['http://localhost:5173'],
+    credentials: true,
+    methods: [
+      'GET',
+      'POST',
+      'PATCH',
+      'PUT',
+      'DELETE',
+    ],
+    allowedHeaders: ['Content-Type'],
+  }),
+);
+
+app.use(express.json());
+app.use(cookieParser());
+
 app.use(express.json());
 
-const units = [
-  {
-    id: 'MOR-401',
-    company: 'Morenas',
-    unitLabel: 'Tractocamión 401',
-    route: 'Monterrey → Laredo',
-    status: 'En ruta',
-    speedKmh: 67,
-    ignition: true,
-    driver: 'Operador asignado',
-    lastUpdate: 'Hoy · 10:42 a.m.',
-    position: { lat: 25.6866, lng: -100.3161 },
-    events: [
-      { time: '08:15', title: 'Salida registrada', detail: 'La unidad salió del punto de origen.' },
-      { time: '09:40', title: 'Avance de ruta', detail: 'La unidad reportó tránsito en el tramo principal.' },
-      { time: '10:42', title: 'Actualización GPS', detail: 'La unidad continúa en ruta con señal activa.' },
-    ],
-  },
-  {
-    id: 'MOR-722',
-    company: 'Morenas',
-    unitLabel: 'Camión 722',
-    route: 'Saltillo → Monterrey',
-    status: 'Programado',
-    speedKmh: 39,
-    ignition: true,
-    driver: 'Operador en tránsito',
-    lastUpdate: 'Hoy · 11:08 a.m.',
-    position: { lat: 25.4267, lng: -100.9959 },
-    events: [
-      { time: '07:55', title: 'Unidad asignada', detail: 'La unidad fue asignada al servicio registrado.' },
-      { time: '09:12', title: 'Servicio programado', detail: 'La ruta quedó confirmada para seguimiento operativo.' },
-      { time: '11:08', title: 'Monitoreo activo', detail: 'El servicio cuenta con seguimiento disponible para el cliente.' },
-    ],
-  },
-  {
-    id: 'MOR-318',
-    company: 'Morenas',
-    unitLabel: 'Unidad 318',
-    route: 'Nuevo Laredo → Apodaca',
-    status: 'En revisión',
-    speedKmh: 0,
-    ignition: false,
-    driver: 'Operador en espera',
-    lastUpdate: 'Hoy · 09:54 a.m.',
-    position: { lat: 27.4763, lng: -99.5164 },
-    events: [
-      { time: '06:48', title: 'Servicio registrado', detail: 'La solicitud fue recibida para coordinación.' },
-      { time: '08:23', title: 'Revisión operativa', detail: 'Se verifican datos de unidad y ruta antes de salida.' },
-      { time: '09:54', title: 'Último estatus', detail: 'Unidad en espera con seguimiento activo.' },
-    ],
-  },
-];
+function createTrackingCode() {
+  const year = new Date().getFullYear().toString().slice(-2);
+  const random = Math.floor(10000 + Math.random() * 90000);
 
-let counter = 25003;
-
-const orders = [
-  {
-    trackingId: 'MOR-25001',
-    email: 'cliente@morenas.com',
-    clientName: 'Cliente Morenas',
-    phone: '+52 812 402 0614',
-    serviceType: 'Transporte terrestre',
-    origin: 'Apodaca, Nuevo León',
-    destination: 'Laredo, Texas',
-    cargo: 'Carga terrestre en camión',
-    requestedDate: '2026-05-04',
-    unitId: 'MOR-401',
-    status: 'En ruta',
-    createdAt: '2026-05-04T09:10:00.000Z',
-    events: [
-      { time: '09:10', title: 'Solicitud registrada', detail: 'El servicio fue creado con el correo cliente@morenas.com.' },
-      { time: '09:25', title: 'Unidad asignada', detail: 'Se asignó la unidad MOR-401 para el recorrido.' },
-      { time: '10:42', title: 'Unidad en ruta', detail: 'El trayecto Apodaca, Nuevo León → Laredo, Texas se encuentra en seguimiento.' },
-    ],
-  },
-  {
-    trackingId: 'MOR-25002',
-    email: 'cliente@morenas.com',
-    clientName: 'Cliente Morenas',
-    phone: '+52 812 402 0614',
-    serviceType: 'Regularización vehicular',
-    origin: 'Houston, Texas',
-    destination: 'Apodaca, Nuevo León',
-    cargo: 'Documentación vehicular',
-    requestedDate: '2026-05-05',
-    unitId: 'MOR-318',
-    status: 'En revisión',
-    createdAt: '2026-05-04T10:00:00.000Z',
-    events: [
-      { time: '10:00', title: 'Caso recibido', detail: 'La solicitud quedó vinculada al correo del cliente.' },
-      { time: '10:18', title: 'Documentación en revisión', detail: 'El equipo revisa los datos proporcionados para continuar.' },
-    ],
-  },
-];
-
-function createOrder(payload = {}) {
-  const unit = units[counter % units.length];
-  const trackingId = `MOR-${counter++}`;
-  const now = new Date();
-  const time = now.toLocaleTimeString('es-MX', { hour: '2-digit', minute: '2-digit' });
-
-  const order = {
-    trackingId,
-    email: String(payload.email || '').trim().toLowerCase(),
-    clientName: payload.name || 'Cliente Morenas',
-    phone: payload.phone || '',
-    serviceType: payload.serviceType || 'Transporte terrestre',
-    origin: payload.origin || 'Origen por confirmar',
-    destination: payload.destination || 'Destino por confirmar',
-    cargo: payload.cargo || 'Servicio por confirmar',
-    requestedDate: payload.date || '',
-    unitId: unit.id,
-    status: payload.serviceType?.toLowerCase().includes('regularización') || payload.serviceType?.toLowerCase().includes('importación') ? 'En revisión' : 'Registrado',
-    createdAt: now.toISOString(),
-    events: [
-      { time, title: 'Solicitud registrada', detail: 'El servicio fue creado correctamente en la plataforma.' },
-      { time, title: 'Unidad vinculada', detail: `Se asignó la unidad ${unit.id} como referencia operativa.` },
-    ],
-  };
-
-  orders.unshift(order);
-  return order;
+  return `MOR-${year}${random}`;
 }
 
-app.get('/api/health', (_req, res) => {
-  res.json({ ok: true, service: 'morenas-client-tracking-backend' });
-});
+function createTrackingToken() {
+  return crypto.randomBytes(32).toString('hex');
+}
 
-app.get('/api/tracking', (_req, res) => {
-  res.json({ ok: true, units: units.map(({ id, unitLabel, route, status, lastUpdate }) => ({ id, unitLabel, route, status, lastUpdate })) });
-});
+app.use(
+  '/api/clients',
+  authRequired,
+  requireRole('OWNER', 'DISPATCHER'),
+);
 
-app.get('/api/tracking/unit', (req, res) => {
-  const id = String(req.query.id || '').trim().toUpperCase();
+app.use(
+  '/api/vehicles',
+  authRequired,
+  requireRole('OWNER', 'DISPATCHER'),
+);
 
-  if (!id) {
-    return res.status(400).json({
+app.use(
+  '/api/orders',
+  authRequired,
+  requireRole('OWNER', 'DISPATCHER'),
+);
+
+app.get('/api/health', async (_req, res) => {
+  try {
+    await prisma.$queryRaw`SELECT 1`;
+
+    res.json({
+      ok: true,
+      database: true,
+      service: 'morenas-logistics-backend',
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
       ok: false,
-      message: 'Falta el ID de la unidad.',
-      availableUnits: units.map((item) => item.id),
+      database: false,
+      message: 'No se pudo conectar con la base de datos.',
     });
   }
+});
 
-  const unit = units.find((item) => item.id.toUpperCase() === id);
+app.use('/api/auth', authRoutes);
 
-  if (!unit) {
-    return res.status(404).json({
+app.get('/api/clients', async (_req, res) => {
+  try {
+    const clients = await prisma.client.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        orders: true,
+      },
+    });
+
+    res.json({
+      ok: true,
+      clients,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
       ok: false,
-      message: 'Unidad no encontrada.',
-      availableUnits: units.map((item) => item.id),
+      message: 'No se pudieron consultar los clientes.',
     });
   }
-
-  return res.status(200).json(unit);
 });
 
-app.get('/api/tracking/:id', (req, res) => {
-  const unit = units.find((item) => item.id.toUpperCase() === String(req.params.id).toUpperCase());
-  if (!unit) {
-    return res.status(404).json({ ok: false, message: 'Unidad no encontrada', availableUnits: units.map((item) => item.id) });
+app.post('/api/clients', async (req, res) => {
+  try {
+    const {
+      contactName,
+      companyName,
+      email,
+      phone,
+      billingAddress,
+      taxId,
+      notes,
+    } = req.body;
+
+    if (!contactName || !email) {
+      return res.status(400).json({
+        ok: false,
+        message: 'El nombre y el correo son obligatorios.',
+      });
+    }
+
+    const client = await prisma.client.create({
+      data: {
+        contactName: String(contactName).trim(),
+        companyName: companyName ? String(companyName).trim() : null,
+        email: String(email).trim().toLowerCase(),
+        phone: phone ? String(phone).trim() : null,
+        billingAddress: billingAddress
+          ? String(billingAddress).trim()
+          : null,
+        taxId: taxId ? String(taxId).trim() : null,
+        notes: notes ? String(notes).trim() : null,
+      },
+    });
+
+    res.status(201).json({
+      ok: true,
+      client,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudo crear el cliente.',
+    });
   }
-  return res.json(unit);
 });
 
-app.get('/api/orders', (_req, res) => {
-  res.json({ ok: true, orders });
-});
+app.get('/api/vehicles', async (_req, res) => {
+  try {
+    const vehicles = await prisma.vehicle.findMany({
+      orderBy: {
+        internalCode: 'asc',
+      },
+    });
 
-app.post('/api/orders', (req, res) => {
-  const order = createOrder(req.body || {});
-  res.status(201).json({ ok: true, order });
-});
+    res.json({
+      ok: true,
+      vehicles,
+    });
+  } catch (error) {
+    console.error(error);
 
-app.get('/api/orders/by-email', (req, res) => {
-  const email = String(req.query.email || '').trim().toLowerCase();
-  res.json({ ok: true, orders: orders.filter((order) => order.email === email) });
-});
-
-app.get('/api/orders/:id', (req, res) => {
-  const order = orders.find((item) => item.trackingId.toUpperCase() === String(req.params.id).toUpperCase());
-  if (!order) {
-    return res.status(404).json({ ok: false, message: 'No encontramos un servicio con ese ID.' });
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudieron consultar las unidades.',
+    });
   }
-  res.json({ ok: true, order });
+});
+
+app.post('/api/vehicles', async (req, res) => {
+  try {
+    const {
+      internalCode,
+      plateNumber,
+      brand,
+      model,
+      year,
+      vehicleType,
+    } = req.body;
+
+    if (!internalCode) {
+      return res.status(400).json({
+        ok: false,
+        message: 'El código interno de la unidad es obligatorio.',
+      });
+    }
+
+    const vehicle = await prisma.vehicle.create({
+      data: {
+        internalCode: String(internalCode).trim().toUpperCase(),
+        plateNumber: plateNumber
+          ? String(plateNumber).trim().toUpperCase()
+          : null,
+        brand: brand ? String(brand).trim() : null,
+        model: model ? String(model).trim() : null,
+        year: year ? Number(year) : null,
+        vehicleType: vehicleType ? String(vehicleType).trim() : null,
+      },
+    });
+
+    res.status(201).json({
+      ok: true,
+      vehicle,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudo crear la unidad.',
+    });
+  }
+});
+
+app.get('/api/orders', async (_req, res) => {
+  try {
+    const orders = await prisma.order.findMany({
+      orderBy: {
+        createdAt: 'desc',
+      },
+      include: {
+        client: true,
+        vehicle: true,
+        driver: true,
+        statusHistory: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+    });
+
+    res.json({
+      ok: true,
+      orders,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudieron consultar los pedidos.',
+    });
+  }
+});
+
+app.post('/api/orders', async (req, res) => {
+  try {
+    const {
+      clientId,
+      vehicleId,
+      serviceType,
+      originAddress,
+      destinationAddress,
+      cargoDescription,
+      cargoWeightKg,
+      requestedDate,
+    } = req.body;
+
+    if (
+      !clientId ||
+      !serviceType ||
+      !originAddress ||
+      !destinationAddress
+    ) {
+      return res.status(400).json({
+        ok: false,
+        message:
+          'Cliente, servicio, origen y destino son obligatorios.',
+      });
+    }
+
+    const order = await prisma.$transaction(async (transaction) => {
+      const createdOrder = await transaction.order.create({
+        data: {
+          trackingCode: createTrackingCode(),
+          trackingToken: createTrackingToken(),
+          clientId,
+          vehicleId: vehicleId || null,
+          serviceType: String(serviceType).trim(),
+          originAddress: String(originAddress).trim(),
+          destinationAddress: String(destinationAddress).trim(),
+          cargoDescription: cargoDescription
+            ? String(cargoDescription).trim()
+            : null,
+          cargoWeightKg: cargoWeightKg
+            ? Number(cargoWeightKg)
+            : null,
+          requestedDate: requestedDate
+            ? new Date(requestedDate)
+            : null,
+          status: vehicleId ? 'UNIT_ASSIGNED' : 'REQUESTED',
+        },
+      });
+
+      await transaction.orderStatusHistory.create({
+        data: {
+          orderId: createdOrder.id,
+          newStatus: createdOrder.status,
+          notes: 'Pedido creado en el sistema.',
+        },
+      });
+
+      return createdOrder;
+    });
+
+    res.status(201).json({
+      ok: true,
+      order,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudo crear el pedido.',
+    });
+  }
+});
+
+app.patch('/api/orders/:id/status', async (req, res) => {
+  try {
+    const orderId = req.params.id;
+    const { status, notes } = req.body;
+
+    if (!status) {
+      return res.status(400).json({
+        ok: false,
+        message: 'Debes indicar el nuevo estado.',
+      });
+    }
+
+    const existingOrder = await prisma.order.findUnique({
+      where: {
+        id: orderId,
+      },
+    });
+
+    if (!existingOrder) {
+      return res.status(404).json({
+        ok: false,
+        message: 'Pedido no encontrado.',
+      });
+    }
+
+    const updatedOrder = await prisma.$transaction(
+      async (transaction) => {
+        const updated = await transaction.order.update({
+          where: {
+            id: orderId,
+          },
+          data: {
+            status,
+          },
+        });
+
+        await transaction.orderStatusHistory.create({
+          data: {
+            orderId,
+            previousStatus: existingOrder.status,
+            newStatus: status,
+            notes: notes ? String(notes).trim() : null,
+          },
+        });
+
+        return updated;
+      },
+    );
+
+    res.json({
+      ok: true,
+      order: updatedOrder,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudo cambiar el estado del pedido.',
+    });
+  }
+});
+
+app.get('/api/orders/:id', async (req, res) => {
+  try {
+    const order = await prisma.order.findFirst({
+      where: {
+        OR: [
+          {
+            id: req.params.id,
+          },
+          {
+            trackingCode: req.params.id.toUpperCase(),
+          },
+        ],
+      },
+      include: {
+        client: true,
+        vehicle: true,
+        driver: true,
+        statusHistory: {
+          orderBy: {
+            createdAt: 'asc',
+          },
+        },
+      },
+    });
+
+    if (!order) {
+      return res.status(404).json({
+        ok: false,
+        message: 'Pedido no encontrado.',
+      });
+    }
+
+    res.json({
+      ok: true,
+      order,
+    });
+  } catch (error) {
+    console.error(error);
+
+    res.status(500).json({
+      ok: false,
+      message: 'No se pudo consultar el pedido.',
+    });
+  }
 });
 
 app.listen(port, () => {

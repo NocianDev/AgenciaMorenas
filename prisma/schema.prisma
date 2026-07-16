@@ -1,0 +1,220 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+enum UserRole {
+  OWNER
+  DISPATCHER
+  DRIVER
+  CLIENT
+}
+
+enum OrderStatus {
+  REQUESTED
+  UNDER_REVIEW
+  QUOTED
+  AWAITING_PAYMENT
+  PAID
+  SCHEDULED
+  UNIT_ASSIGNED
+  READY_TO_DEPART
+  IN_TRANSIT
+  AT_CUSTOMS
+  DELIVERED
+  CANCELLED
+}
+
+enum VehicleStatus {
+  AVAILABLE
+  ASSIGNED
+  IN_TRANSIT
+  MAINTENANCE
+  OUT_OF_SERVICE
+}
+
+enum PaymentStatus {
+  PENDING
+  PARTIALLY_PAID
+  PAID
+  FAILED
+  REFUNDED
+  CANCELLED
+}
+
+model User {
+  id            String               @id @default(cuid())
+  name          String
+  email         String               @unique
+  passwordHash  String
+  role          UserRole
+  active        Boolean              @default(true)
+  createdAt     DateTime             @default(now())
+  updatedAt     DateTime             @updatedAt
+  client        Client?
+  driver        Driver?
+  statusChanges OrderStatusHistory[]
+}
+
+model Client {
+  id             String   @id @default(cuid())
+  userId         String?  @unique
+  companyName    String?
+  contactName    String
+  email          String
+  phone          String?
+  billingAddress String?
+  taxId          String?
+  notes          String?
+  createdAt      DateTime @default(now())
+  updatedAt      DateTime @updatedAt
+  user           User?    @relation(fields: [userId], references: [id])
+  orders         Order[]
+
+  @@index([email])
+}
+
+model Driver {
+  id                String    @id @default(cuid())
+  userId            String?   @unique
+  fullName          String
+  phone             String?
+  licenseNumber     String?
+  licenseExpiration DateTime?
+  active            Boolean   @default(true)
+  createdAt         DateTime  @default(now())
+  updatedAt         DateTime  @updatedAt
+  user              User?     @relation(fields: [userId], references: [id])
+  orders            Order[]
+}
+
+model Vehicle {
+  id            String        @id @default(cuid())
+  internalCode  String        @unique
+  plateNumber   String?       @unique
+  brand         String?
+  model         String?
+  year          Int?
+  vehicleType   String?
+  gpsDeviceId   String?       @unique
+  status        VehicleStatus @default(AVAILABLE)
+  active        Boolean       @default(true)
+  lastLatitude  Float?
+  lastLongitude Float?
+  lastGpsAt     DateTime?
+  createdAt     DateTime      @default(now())
+  updatedAt     DateTime      @updatedAt
+  orders        Order[]
+  gpsPositions  GpsPosition[]
+}
+
+model Order {
+  id                   String               @id @default(cuid())
+  trackingCode         String               @unique
+  clientId             String
+  vehicleId            String?
+  driverId             String?
+  serviceType          String
+  originAddress        String
+  originLatitude       Float?
+  originLongitude      Float?
+  destinationAddress   String
+  destinationLatitude  Float?
+  destinationLongitude Float?
+  cargoDescription     String?
+  cargoWeightKg        Float?
+  requestedDate        DateTime?
+  status               OrderStatus          @default(REQUESTED)
+  paymentStatus        PaymentStatus        @default(PENDING)
+  quotedAmount         Decimal?             @db.Decimal(12, 2)
+  currency             String               @default("MXN")
+  trackingToken        String               @unique
+  trackingEnabled      Boolean              @default(false)
+  createdAt            DateTime             @default(now())
+  updatedAt            DateTime             @updatedAt
+  client               Client               @relation(fields: [clientId], references: [id])
+  vehicle              Vehicle?             @relation(fields: [vehicleId], references: [id])
+  driver               Driver?              @relation(fields: [driverId], references: [id])
+  statusHistory        OrderStatusHistory[]
+  quotes               Quote[]
+  payments             Payment[]
+
+  @@index([clientId])
+  @@index([vehicleId])
+  @@index([driverId])
+  @@index([status])
+}
+
+model OrderStatusHistory {
+  id             String       @id @default(cuid())
+  orderId        String
+  changedById    String?
+  previousStatus OrderStatus?
+  newStatus      OrderStatus
+  notes          String?
+  latitude       Float?
+  longitude      Float?
+  createdAt      DateTime     @default(now())
+  order          Order        @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  changedBy      User?        @relation(fields: [changedById], references: [id])
+
+  @@index([orderId])
+}
+
+model GpsPosition {
+  id         String   @id @default(cuid())
+  vehicleId  String
+  latitude   Float
+  longitude  Float
+  speedKmh   Float?
+  heading    Float?
+  ignition   Boolean?
+  accuracy   Float?
+  recordedAt DateTime
+  receivedAt DateTime @default(now())
+  vehicle    Vehicle  @relation(fields: [vehicleId], references: [id], onDelete: Cascade)
+
+  @@index([vehicleId, recordedAt])
+}
+
+model Quote {
+  id             String    @id @default(cuid())
+  orderId        String
+  subtotal       Decimal   @db.Decimal(12, 2)
+  tax            Decimal   @default(0) @db.Decimal(12, 2)
+  additionalFees Decimal   @default(0) @db.Decimal(12, 2)
+  discount       Decimal   @default(0) @db.Decimal(12, 2)
+  total          Decimal   @db.Decimal(12, 2)
+  currency       String    @default("MXN")
+  status         String    @default("DRAFT")
+  validUntil     DateTime?
+  notes          String?
+  createdAt      DateTime  @default(now())
+  updatedAt      DateTime  @updatedAt
+  order          Order     @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  payments       Payment[]
+
+  @@index([orderId])
+}
+
+model Payment {
+  id                      String        @id @default(cuid())
+  orderId                 String
+  quoteId                 String?
+  provider                String        @default("STRIPE")
+  stripeCheckoutSessionId String?       @unique
+  stripePaymentIntentId   String?       @unique
+  amount                  Decimal       @db.Decimal(12, 2)
+  currency                String        @default("MXN")
+  status                  PaymentStatus @default(PENDING)
+  paidAt                  DateTime?
+  createdAt               DateTime      @default(now())
+  updatedAt               DateTime      @updatedAt
+  order                   Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  quote                   Quote?        @relation(fields: [quoteId], references: [id])
+
+  @@index([orderId])
+}

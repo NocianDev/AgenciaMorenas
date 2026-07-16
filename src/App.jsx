@@ -7,6 +7,8 @@ import TrackingPage from './pages/TrackingPage';
 import OfficesPage from './pages/OfficesPage';
 import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
+import AdminPage from './pages/AdminPage';
+import AdminLoginPage from './pages/AdminLoginPage';
 
 export default function App() {
   return (
@@ -18,6 +20,9 @@ export default function App() {
         <Route path="/rastreo-gps" element={<TrackingPage />} />
         <Route path="/oficinas" element={<OfficesPage />} />
         <Route path="/contacto" element={<ContactPage />} />
+        <Route path="/admin" element={<AdminPage />} />
+        <Route path="/admin/login" element={<AdminLoginPage />} />
+        <Route path="/admin" element={<AdminPage />} />
         <Route path="*" element={<NotFoundPage />} />
       </Route>
     </Routes>
