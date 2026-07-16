@@ -87,3 +87,22 @@ export function createOrder(order) {
     body: JSON.stringify(order),
   });
 }
+
+export function deactivateVehicle(vehicleId) {
+  return request(`/api/vehicles/${vehicleId}/deactivate`, {
+    method: 'PATCH',
+  });
+}
+
+export function activateVehicle(vehicleId) {
+  return request(`/api/vehicles/${vehicleId}/activate`, {
+    method: 'PATCH',
+  });
+}
+
+export const getDrivers = () => request('/api/drivers');
+export const createDriver = (driver) => request('/api/drivers', { method: 'POST', body: JSON.stringify(driver) });
+export const updateDriver = (id, driver) => request(`/api/drivers/${id}`, { method: 'PATCH', body: JSON.stringify(driver) });
+export const deactivateDriver = (id) => request(`/api/drivers/${id}`, { method: 'DELETE' });
+export const updateOrder = (id, order) => request(`/api/orders/${id}`, { method: 'PATCH', body: JSON.stringify(order) });
+export const addOrderNote = (id, note) => request(`/api/orders/${id}/notes`, { method: 'POST', body: JSON.stringify(note) });

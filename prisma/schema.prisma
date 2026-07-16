@@ -45,6 +45,15 @@ enum PaymentStatus {
   CANCELLED
 }
 
+enum OrderNoteType {
+  NOTE
+  DELAY
+  CUSTOMS
+  DAMAGE
+  DOCUMENT
+  OTHER
+}
+
 model User {
   id            String               @id @default(cuid())
   name          String
@@ -57,6 +66,7 @@ model User {
   client        Client?
   driver        Driver?
   statusChanges OrderStatusHistory[]
+  orderNotes    OrderNote[]
 }
 
 model Client {
@@ -141,11 +151,25 @@ model Order {
   statusHistory        OrderStatusHistory[]
   quotes               Quote[]
   payments             Payment[]
+  notes                OrderNote[]
 
   @@index([clientId])
   @@index([vehicleId])
   @@index([driverId])
   @@index([status])
+}
+
+model OrderNote {
+  id        String        @id @default(cuid())
+  orderId   String
+  authorId  String
+  type      OrderNoteType @default(NOTE)
+  message   String
+  createdAt DateTime      @default(now())
+  order     Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  author    User          @relation(fields: [authorId], references: [id])
+
+  @@index([orderId, createdAt])
 }
 
 model OrderStatusHistory {

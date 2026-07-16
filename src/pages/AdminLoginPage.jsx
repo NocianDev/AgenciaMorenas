@@ -21,8 +21,8 @@ export default function AdminLoginPage() {
   useEffect(() => {
     async function checkSession() {
       try {
-        await getCurrentUser();
-        navigate('/admin', {
+        const response = await getCurrentUser();
+        navigate(['OWNER', 'DISPATCHER'].includes(response.user.role) ? '/admin' : '/', {
           replace: true,
         });
       } catch {
@@ -49,9 +49,9 @@ export default function AdminLoginPage() {
       setLoading(true);
       setError('');
 
-      await login(form.email, form.password);
+      const response = await login(form.email, form.password);
 
-      navigate('/admin', {
+      navigate(['OWNER', 'DISPATCHER'].includes(response.user.role) ? '/admin' : '/', {
         replace: true,
       });
     } catch (requestError) {

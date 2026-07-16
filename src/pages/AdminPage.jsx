@@ -1,50 +1,79 @@
-import { useCallback, useEffect, useState } from 'react';
+import {
+  useCallback,
+  useEffect,
+  useMemo,
+  useRef,
+  useState,
+} from 'react';
+
 import { useNavigate } from 'react-router-dom';
 
-import ClientForm from '../components/admin/ClientForm';
-import VehicleForm from '../components/admin/VehicleForm';
-import OrderForm from '../components/admin/OrderForm';
-
 import {
+  activateVehicle,
   changeOrderStatus,
+  deactivateDriver,
+  deactivateVehicle,
   getClients,
   getCurrentUser,
+  getDrivers,
   getOrders,
   getVehicles,
   logout,
 } from '../services/api';
 
-const STATUS_LABELS = {
-  REQUESTED: 'Solicitud recibida',
-  UNDER_REVIEW: 'En revisión',
-  QUOTED: 'Cotizado',
-  AWAITING_PAYMENT: 'Pendiente de pago',
-  PAID: 'Pagado',
-  SCHEDULED: 'Programado',
-  UNIT_ASSIGNED: 'Unidad asignada',
-  READY_TO_DEPART: 'Listo para salir',
-  IN_TRANSIT: 'En ruta',
-  AT_CUSTOMS: 'En aduana',
-  DELIVERED: 'Entregado',
-  CANCELLED: 'Cancelado',
+import ClientForm from '../components/admin/ClientForm';
+import VehicleForm from '../components/admin/VehicleForm';
+import OrderForm from '../components/admin/OrderForm';
+import DriverForm from '../components/admin/DriverForm';
+import DashboardSummary from '../components/admin/DashboardSummary';
+import AdminFilters from '../components/admin/AdminFilters';
+import OrderCard from '../components/admin/OrderCard';
+import OrderEditForm from '../components/admin/OrderEditForm';
+
+const emptyFilters = {
+  search: '',
+  status: '',
+  vehicleId: '',
+  driverId: '',
 };
 
-const STATUS_OPTIONS = Object.entries(STATUS_LABELS);
+const ROLE_LABELS = {
+  OWNER: 'Propietario',
+  DISPATCHER: 'Despachador',
+  DRIVER: 'Operador',
+  CLIENT: 'Cliente',
+};
+
+const VEHICLE_STATUS_LABELS = {
+  AVAILABLE: 'Disponible',
+  ASSIGNED: 'Asignada',
+  IN_TRANSIT: 'En ruta',
+  MAINTENANCE: 'En mantenimiento',
+  OUT_OF_SERVICE: 'Fuera de servicio',
+};
 
 export default function AdminPage() {
   const navigate = useNavigate();
+  const editOrderRef = useRef(null);
 
-  const [orders, setOrders] = useState([]);
-  const [clients, setClients] = useState([]);
-  const [vehicles, setVehicles] = useState([]);
-  const [user, setUser] = useState(null);
+  const [data, setData] = useState({
+    orders: [],
+    clients: [],
+    vehicles: [],
+    drivers: [],
+    user: null,
+  });
 
   const [loading, setLoading] = useState(true);
-  const [updatingId, setUpdatingId] = useState('');
   const [error, setError] = useState('');
+  const [success, setSuccess] = useState('');
   const [activeForm, setActiveForm] = useState('');
+  const [editing, setEditing] = useState(null);
+  const [editingDriver, setEditingDriver] = useState(null);
+  const [updating, setUpdating] = useState('');
+  const [filters, setFilters] = useState(emptyFilters);
 
-  const loadData = useCallback(async () => {
+  const load = useCallback(async () => {
     try {
       setError('');
 
@@ -53,35 +82,125 @@ export default function AdminPage() {
         ordersResponse,
         clientsResponse,
         vehiclesResponse,
+        driversResponse,
       ] = await Promise.all([
         getCurrentUser(),
         getOrders(),
         getClients(),
         getVehicles(),
+        getDrivers(),
       ]);
 
-      setUser(userResponse.user);
-      setOrders(ordersResponse.orders || []);
-      setClients(clientsResponse.clients || []);
-      setVehicles(vehiclesResponse.vehicles || []);
-    } catch (requestError) {
-      if (requestError.status === 401) {
-        navigate('/admin/login', {
+      if (
+        !['OWNER', 'DISPATCHER'].includes(
+          userResponse.user.role,
+        )
+      ) {
+        navigate('/', {
           replace: true,
         });
 
         return;
       }
 
-      setError(requestError.message);
+      setData({
+        user: userResponse.user,
+        orders: ordersResponse.orders || [],
+        clients: clientsResponse.clients || [],
+        vehicles: vehiclesResponse.vehicles || [],
+        drivers: driversResponse.drivers || [],
+      });
+    } catch (requestError) {
+      if (requestError.status === 401) {
+        navigate('/admin/login', {
+          replace: true,
+        });
+      } else if (requestError.status === 403) {
+        navigate('/', {
+          replace: true,
+        });
+      } else {
+        setError(requestError.message);
+      }
     } finally {
       setLoading(false);
     }
   }, [navigate]);
 
   useEffect(() => {
-    loadData();
-  }, [loadData]);
+    load();
+  }, [load]);
+
+  const orders = useMemo(() => {
+    return data.orders.filter((order) => {
+      const search = filters.search.trim().toLowerCase();
+
+      const matchesSearch =
+        !search ||
+        [
+          order.trackingCode,
+          order.client?.contactName,
+          order.client?.companyName,
+          order.client?.phone,
+        ].some((value) =>
+          value?.toLowerCase().includes(search),
+        );
+
+      const matchesStatus =
+        !filters.status ||
+        order.status === filters.status;
+
+      const matchesVehicle =
+        !filters.vehicleId ||
+        order.vehicleId === filters.vehicleId;
+
+      const matchesDriver =
+        !filters.driverId ||
+        order.driverId === filters.driverId;
+
+      return (
+        matchesSearch &&
+        matchesStatus &&
+        matchesVehicle &&
+        matchesDriver
+      );
+    });
+  }, [data.orders, filters]);
+
+  function handleEditOrder(order) {
+    setEditing(order);
+    setError('');
+    setSuccess('');
+
+    window.setTimeout(() => {
+      editOrderRef.current?.scrollIntoView({
+        behavior: 'smooth',
+        block: 'start',
+      });
+    }, 80);
+  }
+
+  async function handleStatusChange(id, value) {
+    try {
+      setUpdating(id);
+      setError('');
+      setSuccess('');
+
+      await changeOrderStatus(
+        id,
+        value,
+        `Estado actualizado desde el panel a ${value}.`,
+      );
+
+      setSuccess('Estado actualizado correctamente.');
+
+      await load();
+    } catch (requestError) {
+      setError(requestError.message);
+    } finally {
+      setUpdating('');
+    }
+  }
 
   async function handleLogout() {
     try {
@@ -93,32 +212,43 @@ export default function AdminPage() {
     }
   }
 
-  async function handleStatusChange(orderId, status) {
+  async function handleDeactivateVehicle(vehicle) {
+    const confirmed = window.confirm(
+      `¿Seguro que deseas desactivar la unidad ${vehicle.internalCode}?`,
+    );
+
+    if (!confirmed) {
+      return;
+    }
+
     try {
-      setUpdatingId(orderId);
       setError('');
+      setSuccess('');
 
-      await changeOrderStatus(
-        orderId,
-        status,
-        `Estado actualizado desde el panel administrativo a ${
-          STATUS_LABELS[status]
-        }.`,
+      await deactivateVehicle(vehicle.id);
+      await load();
+
+      setSuccess(
+        `La unidad ${vehicle.internalCode} fue desactivada.`,
       );
-
-      await loadData();
     } catch (requestError) {
-      if (requestError.status === 401) {
-        navigate('/admin/login', {
-          replace: true,
-        });
-
-        return;
-      }
-
       setError(requestError.message);
-    } finally {
-      setUpdatingId('');
+    }
+  }
+
+  async function handleActivateVehicle(vehicle) {
+    try {
+      setError('');
+      setSuccess('');
+
+      await activateVehicle(vehicle.id);
+      await load();
+
+      setSuccess(
+        `La unidad ${vehicle.internalCode} fue reactivada.`,
+      );
+    } catch (requestError) {
+      setError(requestError.message);
     }
   }
 
@@ -135,28 +265,31 @@ export default function AdminPage() {
     <main className="admin-page">
       <section className="admin-heading">
         <div>
-          <p className="admin-eyebrow">Importaciones Morenas</p>
+          <p className="admin-eyebrow">
+            Importaciones Morenas
+          </p>
 
           <h1>Control de pedidos y rutas</h1>
 
           <p>
-            Consulta los servicios, crea registros y actualiza su
-            estado operativo.
+            Administra la operación logística desde un solo
+            lugar.
           </p>
         </div>
 
         <div className="admin-heading-actions">
-          {user && (
-            <div className="admin-current-user">
-              <strong>{user.name}</strong>
-              <span>{user.role}</span>
-            </div>
-          )}
+          <div className="admin-current-user">
+            <strong>{data.user?.name}</strong>
+
+            <span>
+              {ROLE_LABELS[data.user?.role] ||
+                data.user?.role}
+            </span>
+          </div>
 
           <button
             type="button"
-            className="admin-refresh-button"
-            onClick={loadData}
+            onClick={load}
           >
             Actualizar
           </button>
@@ -172,45 +305,32 @@ export default function AdminPage() {
       </section>
 
       <section className="admin-actions">
-        <button
-          type="button"
-          onClick={() =>
-            setActiveForm(
-              activeForm === 'client' ? '' : 'client',
-            )
-          }
-        >
-          Nuevo cliente
-        </button>
-
-        <button
-          type="button"
-          onClick={() =>
-            setActiveForm(
-              activeForm === 'vehicle' ? '' : 'vehicle',
-            )
-          }
-        >
-          Nueva unidad
-        </button>
-
-        <button
-          type="button"
-          onClick={() =>
-            setActiveForm(
-              activeForm === 'order' ? '' : 'order',
-            )
-          }
-        >
-          Nuevo pedido
-        </button>
+        {[
+          ['client', 'Nuevo cliente'],
+          ['vehicle', 'Nueva unidad'],
+          ['driver', 'Nuevo operador'],
+          ['order', 'Nuevo pedido'],
+        ].map(([value, label]) => (
+          <button
+            type="button"
+            key={value}
+            onClick={() =>
+              setActiveForm(
+                activeForm === value ? '' : value,
+              )
+            }
+          >
+            {label}
+          </button>
+        ))}
       </section>
 
       {activeForm === 'client' && (
         <ClientForm
           onCreated={async () => {
-            await loadData();
+            await load();
             setActiveForm('');
+            setSuccess('Cliente registrado.');
           }}
         />
       )}
@@ -218,181 +338,211 @@ export default function AdminPage() {
       {activeForm === 'vehicle' && (
         <VehicleForm
           onCreated={async () => {
-            await loadData();
+            await load();
             setActiveForm('');
+            setSuccess('Unidad registrada.');
+          }}
+        />
+      )}
+
+      {activeForm === 'driver' && (
+        <DriverForm
+          driver={editingDriver}
+          onCancel={() => {
+            setActiveForm('');
+            setEditingDriver(null);
+          }}
+          onSaved={async () => {
+            await load();
+            setActiveForm('');
+            setEditingDriver(null);
+            setSuccess('Operador guardado.');
           }}
         />
       )}
 
       {activeForm === 'order' && (
         <OrderForm
-          clients={clients}
-          vehicles={vehicles}
+          clients={data.clients}
+          vehicles={data.vehicles.filter(
+            (vehicle) =>
+              vehicle.active &&
+              vehicle.status !== 'IN_TRANSIT',
+          )}
           onCreated={async () => {
-            await loadData();
+            await load();
             setActiveForm('');
+            setSuccess('Pedido creado.');
           }}
         />
       )}
 
+      {editing && (
+        <div
+          ref={editOrderRef}
+          className="admin-edit-form-anchor"
+        >
+          <OrderEditForm
+            order={editing}
+            clients={data.clients}
+            vehicles={data.vehicles}
+            drivers={data.drivers}
+            onCancel={() => setEditing(null)}
+            onSaved={async () => {
+              setEditing(null);
+              await load();
+              setSuccess('Pedido actualizado.');
+            }}
+          />
+        </div>
+      )}
+
       {error && (
-        <div className="admin-error" role="alert">
+        <div
+          className="admin-error"
+          role="alert"
+        >
           {error}
         </div>
       )}
 
-      <section className="admin-summary">
-        <article>
-          <strong>{orders.length}</strong>
-          <span>Pedidos totales</span>
-        </article>
+      {success && (
+        <div
+          className="admin-success"
+          role="status"
+        >
+          {success}
+        </div>
+      )}
 
-        <article>
-          <strong>
-            {
-              orders.filter(
-                (order) => order.status === 'IN_TRANSIT',
-              ).length
-            }
-          </strong>
-          <span>En ruta</span>
-        </article>
+      <DashboardSummary {...data} />
 
-        <article>
-          <strong>
-            {
-              orders.filter(
-                (order) => order.status === 'DELIVERED',
-              ).length
-            }
-          </strong>
-          <span>Entregados</span>
-        </article>
+      <section className="admin-vehicles">
+        <h2>Unidades</h2>
+
+        <div>
+          {data.vehicles.length ? (
+            data.vehicles.map((vehicle) => (
+              <article key={vehicle.id}>
+                <strong>{vehicle.internalCode}</strong>
+
+                <span>
+                  {vehicle.plateNumber || 'Sin placas'} ·{' '}
+                  {vehicle.brand || 'Sin marca'}{' '}
+                  {vehicle.model || ''}
+                </span>
+
+                <span>
+                  Estado:{' '}
+                  {VEHICLE_STATUS_LABELS[vehicle.status] ||
+                    vehicle.status}
+                </span>
+
+                <span>
+                  {vehicle.active ? 'Activa' : 'Inactiva'}
+                </span>
+
+                {vehicle.active ? (
+                  <button
+                    type="button"
+                    onClick={() =>
+                      handleDeactivateVehicle(vehicle)
+                    }
+                  >
+                    Desactivar
+                  </button>
+                ) : (
+                  <button
+  type="button"
+  className="admin-vehicle-activate-button"
+  onClick={() =>
+    handleActivateVehicle(vehicle)
+  }
+>
+  Reactivar
+</button>
+                )}
+              </article>
+            ))
+          ) : (
+            <p>No hay unidades registradas.</p>
+          )}
+        </div>
       </section>
 
-      <section className="admin-orders">
-        {orders.length === 0 ? (
-          <div className="admin-empty">
-            Todavía no hay pedidos registrados.
-          </div>
-        ) : (
-          orders.map((order) => (
-            <article
-              className="admin-order-card"
-              key={order.id}
-            >
-              <header>
-                <div>
-                  <span className="admin-tracking-code">
-                    {order.trackingCode}
-                  </span>
+      <section className="admin-drivers">
+        <h2>Operadores</h2>
 
-                  <h2>
-                    {order.client?.companyName ||
-                      order.client?.contactName ||
-                      'Cliente'}
-                  </h2>
-                </div>
+        <div>
+          {data.drivers.map((driver) => (
+            <article key={driver.id}>
+              <strong>{driver.fullName}</strong>
 
-                <span
-                  className={`admin-status admin-status-${order.status.toLowerCase()}`}
+              <span>
+                {driver.licenseNumber || 'Sin licencia'} ·{' '}
+                {driver.active ? 'Activo' : 'Inactivo'}
+              </span>
+
+              <button
+                type="button"
+                onClick={() => {
+                  setEditingDriver(driver);
+                  setActiveForm('driver');
+                }}
+              >
+                Consultar / editar
+              </button>
+
+              {driver.active && (
+                <button
+                  type="button"
+                  onClick={async () => {
+                    try {
+                      setError('');
+                      setSuccess('');
+
+                      await deactivateDriver(driver.id);
+                      await load();
+
+                      setSuccess(
+                        'Operador desactivado.',
+                      );
+                    } catch (requestError) {
+                      setError(requestError.message);
+                    }
+                  }}
                 >
-                  {STATUS_LABELS[order.status] || order.status}
-                </span>
-              </header>
-
-              <div className="admin-order-grid">
-                <div>
-                  <span>Contacto</span>
-
-                  <strong>
-                    {order.client?.contactName || 'Sin nombre'}
-                  </strong>
-
-                  <small>
-                    {order.client?.phone || 'Sin teléfono'}
-                  </small>
-                </div>
-
-                <div>
-                  <span>Origen</span>
-                  <strong>{order.originAddress}</strong>
-                </div>
-
-                <div>
-                  <span>Destino</span>
-                  <strong>{order.destinationAddress}</strong>
-                </div>
-
-                <div>
-                  <span>Unidad</span>
-
-                  <strong>
-                    {order.vehicle?.internalCode ||
-                      'Sin unidad asignada'}
-                  </strong>
-
-                  <small>
-                    {order.vehicle?.plateNumber || ''}
-                  </small>
-                </div>
-              </div>
-
-              <div className="admin-status-control">
-                <label htmlFor={`status-${order.id}`}>
-                  Cambiar estado
-                </label>
-
-                <select
-                  id={`status-${order.id}`}
-                  value={order.status}
-                  disabled={updatingId === order.id}
-                  onChange={(event) =>
-                    handleStatusChange(
-                      order.id,
-                      event.target.value,
-                    )
-                  }
-                >
-                  {STATUS_OPTIONS.map(([value, label]) => (
-                    <option key={value} value={value}>
-                      {label}
-                    </option>
-                  ))}
-                </select>
-
-                {updatingId === order.id && (
-                  <span>Guardando...</span>
-                )}
-              </div>
-
-              <details className="admin-history">
-                <summary>
-                  Ver historial (
-                  {order.statusHistory?.length || 0})
-                </summary>
-
-                <ol>
-                  {(order.statusHistory || []).map((event) => (
-                    <li key={event.id}>
-                      <strong>
-                        {STATUS_LABELS[event.newStatus] ||
-                          event.newStatus}
-                      </strong>
-
-                      <span>
-                        {new Date(
-                          event.createdAt,
-                        ).toLocaleString('es-MX')}
-                      </span>
-
-                      {event.notes && <p>{event.notes}</p>}
-                    </li>
-                  ))}
-                </ol>
-              </details>
+                  Desactivar
+                </button>
+              )}
             </article>
+          ))}
+        </div>
+      </section>
+
+      <AdminFilters
+        filters={filters}
+        setFilters={setFilters}
+        vehicles={data.vehicles}
+        drivers={data.drivers}
+      />
+
+      <section className="admin-orders">
+        {orders.length ? (
+          orders.map((order) => (
+            <OrderCard
+              key={order.id}
+              order={order}
+              updating={updating === order.id}
+              onStatus={handleStatusChange}
+              onEdit={handleEditOrder}
+              onReload={load}
+            />
           ))
+        ) : (
+          <div className="admin-empty">
+            No hay pedidos que coincidan con los filtros.
+          </div>
         )}
       </section>
     </main>
