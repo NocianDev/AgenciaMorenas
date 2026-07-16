@@ -138,6 +138,7 @@ export default function AdminPage() {
       const matchesSearch =
         !search ||
         [
+          order.trackingNumber,
           order.trackingCode,
           order.client?.contactName,
           order.client?.companyName,

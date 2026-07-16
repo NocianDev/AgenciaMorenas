@@ -50,7 +50,7 @@ export default function OrderForm({
 
       setForm(INITIAL_STATE);
       setMessage(
-        `Pedido ${response.order.trackingCode} creado correctamente.`,
+        `Pedido ${response.order.trackingNumber || response.order.trackingCode} creado correctamente.`,
       );
 
       onCreated?.(response.order);

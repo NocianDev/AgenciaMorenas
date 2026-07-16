@@ -137,6 +137,8 @@ app.use(
   require('./routes/auth.routes.cjs'),
 );
 
+app.use('/api/tracking', require('./routes/tracking.routes.cjs'));
+
 /*
  * Protección para las rutas administrativas.
  */

@@ -49,6 +49,10 @@ export function getOrders() {
   return request('/api/orders');
 }
 
+export function getPublicTracking(trackingNumber) {
+  return request(`/api/tracking/${encodeURIComponent(trackingNumber)}`);
+}
+
 export function getClients() {
   return request('/api/clients');
 }

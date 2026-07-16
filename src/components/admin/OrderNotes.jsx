@@ -13,6 +13,7 @@ const NOTE_TYPE_LABELS = {
 export default function OrderNotes({ order, onAdded }) {
   const [type, setType] = useState('NOTE');
   const [message, setMessage] = useState('');
+  const [isPublic, setIsPublic] = useState(false);
   const [error, setError] = useState('');
   const [loading, setLoading] = useState(false);
 
@@ -26,10 +27,12 @@ export default function OrderNotes({ order, onAdded }) {
       await addOrderNote(order.id, {
         type,
         message,
+        isPublic,
       });
 
       setMessage('');
       setType('NOTE');
+      setIsPublic(false);
 
       await onAdded?.();
     } catch (requestError) {
@@ -72,6 +75,7 @@ export default function OrderNotes({ order, onAdded }) {
         <button type="submit" disabled={loading}>
           {loading ? 'Agregando...' : 'Agregar'}
         </button>
+        <label className="admin-check"><input type="checkbox" checked={isPublic} onChange={(event) => setIsPublic(event.target.checked)} disabled={loading} />Visible para el cliente</label>
       </form>
 
       {error && (
@@ -85,6 +89,7 @@ export default function OrderNotes({ order, onAdded }) {
           <li key={note.id}>
             <strong>
               {NOTE_TYPE_LABELS[note.type] || note.type}
+              {' · '}{note.isPublic ? 'Pública' : 'Interna'}
             </strong>
 
             <span>{note.message}</span>

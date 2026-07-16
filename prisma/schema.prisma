@@ -124,6 +124,7 @@ model Vehicle {
 model Order {
   id                   String               @id @default(cuid())
   trackingCode         String               @unique
+  trackingNumber       String               @unique
   clientId             String
   vehicleId            String?
   driverId             String?
@@ -165,6 +166,7 @@ model OrderNote {
   authorId  String
   type      OrderNoteType @default(NOTE)
   message   String
+  isPublic  Boolean       @default(false)
   createdAt DateTime      @default(now())
   order     Order         @relation(fields: [orderId], references: [id], onDelete: Cascade)
   author    User          @relation(fields: [authorId], references: [id])
