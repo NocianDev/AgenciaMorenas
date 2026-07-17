@@ -149,6 +149,10 @@ model Order {
   cargoDescription     String?
   cargoWeightKg        Float?
   requestedDate        DateTime?
+  vehicleMake          String?
+  vehicleModel         String?
+  vehicleYear          Int?
+  vehicleVin           String?
   status               OrderStatus          @default(REQUESTED)
   paymentStatus        PaymentStatus        @default(PENDING)
   totalAmountCents     Int?

@@ -42,6 +42,17 @@ const include = {
   client: true,
   vehicle: true,
   driver: true,
+  serviceRequest: {
+    select: {
+      cargoDescription: true,
+      cargoWeightKg: true,
+      requestedDate: true,
+      vehicleMake: true,
+      vehicleModel: true,
+      vehicleYear: true,
+      vehicleVin: true,
+    },
+  },
   statusHistory: {
     orderBy: {
       createdAt: 'asc',

@@ -1,7 +1,7 @@
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
 import MediaShowcase from '../components/MediaShowcase';
-import { assets, brand, coverageCities, offices, mediaSections, operatingCoverage } from '../data/siteData';
+import { brand, coverageCities, offices, mediaSections, operatingCoverage } from '../data/siteData';
 
 export default function OfficesPage() {
   return (
@@ -10,9 +10,9 @@ export default function OfficesPage() {
         eyebrow="Oficinas y atención"
         title="Canales de contacto para trámites, transporte y seguimiento."
         description="Morenas mantiene canales de atención en México y Estados Unidos para orientar solicitudes, resolver dudas comerciales y dar continuidad a servicios registrados."
-        image={assets.operationsCenter}
-        imageFit="balanced"
-        heroVariant="flyer"
+        image="/imagen-reemplazo/MorenasCambio1.jpeg"
+        imageFit="contain"
+        heroVariant="contact-request"
         primaryCta={{ label: 'Llamar ahora', href: `tel:${brand.phoneMX}` }}
         secondaryCta={{ label: 'Enviar correo', href: `mailto:${brand.email}` }}
         pills={['México', 'Estados Unidos', 'WhatsApp', 'Correo']}

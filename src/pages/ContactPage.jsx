@@ -2,7 +2,7 @@ import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
 import MediaShowcase from '../components/MediaShowcase';
 import { Link } from 'react-router-dom';
-import { branches, brand, mediaSections } from '../data/siteData';
+import { assets, branches, brand, mediaSections } from '../data/siteData';
 
 export default function ContactPage() {
   return (
@@ -11,9 +11,7 @@ export default function ContactPage() {
         eyebrow="Contacto"
         title="Atención para agencia aduanal, transporte y rastreo."
         description="Comunícate con Morenas para resolver dudas sobre regularización vehicular, importación, coordinación de camiones o consulta de un servicio registrado."
-        image="/imagen-reemplazo/MorenasCambio1.jpeg"
-        imageFit="contain"
-        heroVariant="contact-request"
+        image={assets.heroCustoms}
         primaryCta={{ label: 'Solicitar servicio', href: '/solicitar-servicio' }}
         secondaryCta={{ label: 'Escribir por WhatsApp', href: `https://wa.me/${brand.whatsapp}`, target: '_blank' }}
         pills={['WhatsApp', 'Llamada', 'Correo', 'Oficina']}
