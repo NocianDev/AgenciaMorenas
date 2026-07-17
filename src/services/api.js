@@ -49,8 +49,20 @@ export function getOrders() {
   return request('/api/orders');
 }
 
-export function getPublicTracking(trackingNumber) {
-  return request(`/api/tracking/${encodeURIComponent(trackingNumber)}`);
+export function getPublicTracking(token) {
+  return request(`/api/tracking/token/${encodeURIComponent(token)}`);
+}
+
+export function createPublicCheckoutSession(token) {
+  return request(`/api/tracking/token/${encodeURIComponent(token)}/create-checkout-session`, { method: 'POST' });
+}
+
+export function updateOrderAmount(id, totalAmountCents, confirmPaidUpdate = false) {
+  return request(`/api/orders/${id}/amount`, { method: 'PATCH', body: JSON.stringify({ totalAmountCents, confirmPaidUpdate }) });
+}
+
+export function createAdminCheckoutSession(id) {
+  return request(`/api/orders/${id}/create-checkout-session`, { method: 'POST' });
 }
 
 export function getClients() {

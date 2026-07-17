@@ -61,7 +61,7 @@ export const navItems = [
   { label: 'Inicio', path: '/' },
   { label: 'Agencia Aduanal', path: '/agencia-aduanal' },
   { label: 'Transporte', path: '/transporte-camiones' },
-  { label: 'Rastreo', path: '/rastreo-gps' },
+  { label: 'Rastreo', path: '/rastreo' },
   { label: 'Oficinas', path: '/oficinas' },
   { label: 'Contacto', path: '/contacto' },
 ];

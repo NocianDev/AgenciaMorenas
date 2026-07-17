@@ -2,6 +2,7 @@ const router = require('express').Router();
 const crypto = require('crypto');
 
 const prisma = require('../prisma.cjs');
+const { createCheckoutSession } = require('../utils/stripe.cjs');
 
 const {
   asyncRoute,
@@ -193,6 +194,8 @@ async function validateAssignments(
 }
 
 function fields(body) {
+  const totalAmountCents = body.totalAmountCents == null || body.totalAmountCents === '' ? null : Number(body.totalAmountCents);
+  if (totalAmountCents !== null && (!Number.isSafeInteger(totalAmountCents) || totalAmountCents <= 0)) throw new HttpError(400, 'El monto debe ser un número entero de centavos mayor a cero.');
   const result = {
     clientId: assertId(
       body.clientId,
@@ -235,6 +238,8 @@ function fields(body) {
         )
       : null,
   };
+
+  if (Object.prototype.hasOwnProperty.call(body, 'totalAmountCents')) result.totalAmountCents = totalAmountCents;
 
   if (
     !result.serviceType ||
@@ -628,6 +633,32 @@ router.post(
       ok: true,
       note,
     });
+  }),
+);
+
+router.patch(
+  '/:id/amount',
+  asyncRoute(async (req, res) => {
+    const id = assertId(req.params.id);
+    const totalAmountCents = Number(req.body.totalAmountCents);
+    if (!Number.isSafeInteger(totalAmountCents) || totalAmountCents <= 0) throw new HttpError(400, 'El monto debe ser un número entero de centavos mayor a cero.');
+    const previous = await prisma.order.findUnique({ where: { id }, select: { paymentStatus: true } });
+    if (!previous) throw new HttpError(404, 'Pedido no encontrado.');
+    if (previous.paymentStatus === 'PAID' && req.body.confirmPaidUpdate !== true) throw new HttpError(409, 'Este pedido ya está pagado. Confirma explícitamente para modificar el monto.');
+    const order = await prisma.order.update({ where: { id }, data: { totalAmountCents, currency: 'mxn' } });
+    res.json({ ok: true, order });
+  }),
+);
+
+router.post(
+  '/:id/create-checkout-session',
+  asyncRoute(async (req, res) => {
+    const id = assertId(req.params.id);
+    const order = await prisma.order.findUnique({ where: { id }, select: { id: true, trackingNumber: true, trackingToken: true, serviceType: true, totalAmountCents: true, paymentStatus: true } });
+    if (!order) throw new HttpError(404, 'Pedido no encontrado.');
+    const session = await createCheckoutSession(order);
+    await prisma.order.update({ where: { id }, data: { stripeCheckoutSessionId: session.id } });
+    res.json({ ok: true, url: session.url });
   }),
 );
 

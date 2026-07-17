@@ -18,6 +18,7 @@ export default function App() {
         <Route path="/agencia-aduanal" element={<CustomsPage />} />
         <Route path="/transporte-camiones" element={<TrucksPage />} />
         <Route path="/rastreo-gps" element={<TrackingPage />} />
+        <Route path="/rastreo" element={<TrackingPage />} />
         <Route path="/oficinas" element={<OfficesPage />} />
         <Route path="/contacto" element={<ContactPage />} />
         <Route path="/admin" element={<AdminPage />} />

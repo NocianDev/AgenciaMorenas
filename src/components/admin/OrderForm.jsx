@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   cargoDescription: '',
   cargoWeightKg: '',
   requestedDate: '',
+  totalAmount: '',
 };
 
 export default function OrderForm({
@@ -46,6 +47,9 @@ export default function OrderForm({
           ? Number(form.cargoWeightKg)
           : null,
         requestedDate: form.requestedDate || null,
+        totalAmountCents: form.totalAmount
+          ? Math.round(Number(form.totalAmount) * 100)
+          : null,
       });
 
       setForm(INITIAL_STATE);
@@ -164,6 +168,11 @@ export default function OrderForm({
             value={form.cargoWeightKg}
             onChange={handleChange}
           />
+        </label>
+
+        <label>
+          Monto total en MXN
+          <input type="number" min="0.01" step="0.01" name="totalAmount" value={form.totalAmount} onChange={handleChange} placeholder="4500.00" />
         </label>
       </div>
 

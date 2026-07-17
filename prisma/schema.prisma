@@ -140,8 +140,12 @@ model Order {
   requestedDate        DateTime?
   status               OrderStatus          @default(REQUESTED)
   paymentStatus        PaymentStatus        @default(PENDING)
+  totalAmountCents     Int?
+  stripeCheckoutSessionId String?            @unique
+  stripePaymentIntentId   String?
+  paidAt               DateTime?
   quotedAmount         Decimal?             @db.Decimal(12, 2)
-  currency             String               @default("MXN")
+  currency             String               @default("mxn")
   trackingToken        String               @unique
   trackingEnabled      Boolean              @default(false)
   createdAt            DateTime             @default(now())

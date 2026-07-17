@@ -94,6 +94,9 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 
+// Stripe necesita el cuerpo sin transformar para verificar la firma.
+app.use('/api/stripe', require('./routes/stripe.routes.cjs'));
+
 app.use(
   express.json({
     limit: '1mb',

@@ -6,6 +6,7 @@
   "scripts": {
     "dev": "vite",
     "backend": "node server/index.cjs",
+    "backfill:tracking-tokens": "node server/backfill-tracking-tokens.cjs",
     "build": "node ./node_modules/vite/bin/vite.js build",
     "preview": "vite preview"
   },
@@ -21,7 +22,8 @@
     "pg": "^8.22.0",
     "react": "18.3.1",
     "react-dom": "18.3.1",
-    "react-router-dom": "6.30.1"
+    "react-router-dom": "6.30.1",
+    "stripe": "^22.3.2"
   },
   "devDependencies": {
     "@vitejs/plugin-react": "4.3.4",

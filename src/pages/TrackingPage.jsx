@@ -1,4 +1,4 @@
-import { useRef, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 
 import PageHero from '../components/PageHero';
 import SectionTitle from '../components/SectionTitle';
@@ -11,6 +11,7 @@ import {
 } from '../data/siteData';
 
 import {
+  createPublicCheckoutSession,
   getPublicTracking,
 } from '../services/api';
 
@@ -39,19 +40,7 @@ const PAYMENT_LABELS = {
 };
 
 export default function TrackingPage() {
-  const [trackingNumber, setTrackingNumber] =
-    useState(() => {
-      const searchParams =
-        new URLSearchParams(
-          window.location.search,
-        );
-
-      return (
-        searchParams
-          .get('tracking')
-          ?.toUpperCase() || ''
-      );
-    });
+  const [trackingToken, setTrackingToken] = useState('');
 
   const [tracking, setTracking] =
     useState(null);
@@ -62,52 +51,74 @@ export default function TrackingPage() {
   const [error, setError] =
     useState('');
 
+  const [paymentNotice, setPaymentNotice] = useState('');
+  const [paymentLoading, setPaymentLoading] = useState(false);
+  const activeTokenRef = useRef('');
+
   const trackingInputRef =
     useRef(null);
 
-  async function search(event) {
-    event.preventDefault();
-
-    const value =
-      trackingNumber
-        .trim()
-        .toUpperCase();
-
+  const loadTracking = useCallback(async (token) => {
+    const value = token.trim();
     if (!value) {
-      setError(
-        'Ingresa tu número de rastreo.',
-      );
-
+      setError('Ingresa tu clave privada de rastreo.');
       setTracking(null);
       trackingInputRef.current?.focus();
-
       return;
     }
 
     setLoading(true);
     setError('');
     setTracking(null);
-
     try {
-      const response =
-        await getPublicTracking(value);
-
-      setTracking(
-        response.tracking,
-      );
-
-      setTrackingNumber(
-        response.tracking.trackingNumber,
-      );
+      const response = await getPublicTracking(value);
+      activeTokenRef.current = value;
+      setTracking(response.tracking);
+      setTrackingToken('');
     } catch (requestError) {
-      setError(
-        requestError.message ||
-          'No se pudo consultar el pedido.',
-      );
+      setError(requestError.message || 'No se pudo consultar el pedido.');
     } finally {
       setLoading(false);
     }
+  }, []);
+
+  useEffect(() => {
+    const params = new URLSearchParams(window.location.search);
+    const token = params.get('token');
+    const payment = params.get('payment');
+    if (payment === 'success') setPaymentNotice('Pago recibido. Estamos confirmando el estado.');
+    if (payment === 'cancelled') setPaymentNotice('El pago fue cancelado. Puedes intentarlo nuevamente.');
+    if (token) {
+      window.history.replaceState({}, '', '/rastreo');
+      loadTracking(token);
+      if (payment === 'success') {
+        const retryId = window.setTimeout(() => loadTracking(token), 2000);
+        return () => window.clearTimeout(retryId);
+      }
+    }
+  }, [loadTracking]);
+
+  async function search(event) {
+    event.preventDefault();
+    await loadTracking(trackingToken);
   }
+
+  async function payNow() {
+    if (!activeTokenRef.current) return;
+    try {
+      setPaymentLoading(true);
+      setError('');
+      const response = await createPublicCheckoutSession(activeTokenRef.current);
+      window.location.assign(response.url);
+    } catch (requestError) {
+      setError(requestError.message || 'No fue posible iniciar el pago.');
+      setPaymentLoading(false);
+    }
+  }
+
+  const formattedAmount = tracking?.totalAmountCents
+    ? new Intl.NumberFormat('es-MX', { style: 'currency', currency: 'MXN' }).format(tracking.totalAmountCents / 100)
+    : null;
 
   const currentIndex =
     tracking?.timeline?.indexOf(
@@ -124,7 +135,7 @@ export default function TrackingPage() {
       <PageHero
         eyebrow="Seguimiento de pedidos"
         title="Consulta el avance de tu pedido."
-        description="Revisa cada etapa del proceso con el número de rastreo proporcionado por Importaciones Morenas. No se muestran ubicaciones GPS."
+        description="Abre tu enlace privado para revisar cada etapa del proceso. No se muestran ubicaciones GPS."
         image={assets.trackingMap}
         primaryCta={{
           label: 'Rastrear pedido',
@@ -150,30 +161,30 @@ export default function TrackingPage() {
           <SectionTitle
             eyebrow="Consulta pública"
             title="¿Dónde está mi pedido?"
-            description="Escribe el folio con formato MOR-AAAA-000001."
+            description="El enlace privado consulta el pedido automáticamente. También puedes pegar aquí la clave recibida."
           />
 
           <form
             className="tracking-search"
             onSubmit={search}
           >
-            <label htmlFor="trackingNumber">
-              Número de rastreo
+            <label htmlFor="trackingToken">
+              Clave privada de rastreo
             </label>
 
             <div>
               <input
                 ref={trackingInputRef}
-                id="trackingNumber"
-                name="trackingNumber"
+                id="trackingToken"
+                name="trackingToken"
                 type="text"
-                value={trackingNumber}
+                value={trackingToken}
                 onChange={(event) =>
-                  setTrackingNumber(
-                    event.target.value.toUpperCase(),
+                  setTrackingToken(
+                    event.target.value.trim(),
                   )
                 }
-                placeholder="MOR-2026-000001"
+                placeholder="Pega aquí la clave recibida por WhatsApp"
                 autoComplete="off"
                 spellCheck="false"
               />
@@ -189,6 +200,8 @@ export default function TrackingPage() {
               </button>
             </div>
           </form>
+
+          {paymentNotice && <div className="alert-ok" role="status">{paymentNotice}</div>}
 
           {loading && (
             <div
@@ -222,8 +235,8 @@ export default function TrackingPage() {
                 </strong>
 
                 <p>
-                  Ten a la mano el número recibido
-                  al registrar tu pedido.
+                  Abre el enlace privado o pega la clave
+                  recibida por WhatsApp.
                 </p>
               </div>
             )}
@@ -326,6 +339,11 @@ export default function TrackingPage() {
                       tracking.paymentStatus}
                   </strong>
                 </div>
+
+                <div>
+                  <span>Monto total</span>
+                  <strong>{formattedAmount || 'Pendiente de asignar'}</strong>
+                </div>
               </div>
 
               <section className="process-timeline">
@@ -388,8 +406,8 @@ export default function TrackingPage() {
                   ?.length ? (
                   <ul>
                     {tracking.publicNotes.map(
-                      (note) => (
-                        <li key={note.id}>
+                      (note, index) => (
+                        <li key={`${note.createdAt}-${index}`}>
                           <p>
                             {note.message}
                           </p>
@@ -412,6 +430,12 @@ export default function TrackingPage() {
                   </p>
                 )}
               </section>
+
+              {tracking.totalAmountCents > 0 && tracking.paymentStatus !== 'PAID' && (
+                <button type="button" className="btn btn-primary tracking-pay-button" onClick={payNow} disabled={paymentLoading}>
+                  {paymentLoading ? 'Abriendo pago…' : `Pagar ahora${formattedAmount ? ` · ${formattedAmount}` : ''}`}
+                </button>
+              )}
 
               <a
                 className="btn btn-secondary tracking-whatsapp"
