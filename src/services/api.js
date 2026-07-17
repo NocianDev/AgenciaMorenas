@@ -122,3 +122,7 @@ export const updateDriver = (id, driver) => request(`/api/drivers/${id}`, { meth
 export const deactivateDriver = (id) => request(`/api/drivers/${id}`, { method: 'DELETE' });
 export const updateOrder = (id, order) => request(`/api/orders/${id}`, { method: 'PATCH', body: JSON.stringify(order) });
 export const addOrderNote = (id, note) => request(`/api/orders/${id}/notes`, { method: 'POST', body: JSON.stringify(note) });
+export const createServiceRequest = (data) => request('/api/service-requests', { method: 'POST', body: JSON.stringify(data) });
+export const getServiceRequests = (filters = {}) => { const query = new URLSearchParams(Object.entries(filters).filter(([, value]) => value)); return request(`/api/service-requests${query.size ? `?${query}` : ''}`); };
+export const updateServiceRequestStatus = (id, status, reason = '') => request(`/api/service-requests/${id}/status`, { method: 'PATCH', body: JSON.stringify({ status, reason }) });
+export const convertServiceRequest = (id) => request(`/api/service-requests/${id}/convert`, { method: 'POST' });

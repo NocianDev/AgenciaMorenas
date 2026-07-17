@@ -106,15 +106,13 @@ export default function Header() {
             </NavLink>
           ))}
 
-          <a
-            href={`https://wa.me/${brand.whatsapp}`}
+          <Link
+            to="/solicitar-servicio"
             className="nav-cta"
-            target="_blank"
-            rel="noreferrer"
             onClick={closeMenu}
           >
             Solicitar atención
-          </a>
+          </Link>
         </nav>
 
         <button

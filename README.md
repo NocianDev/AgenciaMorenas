@@ -107,6 +107,36 @@ La web convierte automáticamente ese link a embed de Facebook.
 - `/api/orders/by-email?email=cliente@morenas.com`
 - `/api/orders/MOR-25001`
 
-## Nota
+## Persistencia
 
-El sistema de rastreo funciona como demo en memoria. Para producción con datos persistentes se recomienda conectar MongoDB, Supabase, Firebase o PostgreSQL.
+El backend principal usa PostgreSQL/Supabase mediante Prisma. Los archivos bajo `api/` pertenecen a una integración anterior y no sustituyen las rutas persistentes de `server/` usadas por el panel actual.
+
+## Backend, base de datos y variables
+
+El panel, las solicitudes públicas, los pedidos y el rastreo privado usan PostgreSQL mediante Prisma 7. Copia `.env.example` a `.env` y completa localmente `DATABASE_URL` y un `JWT_SECRET` de al menos 32 caracteres. Nunca guardes `.env` en Git.
+
+```bash
+npm install
+npx prisma generate
+npx prisma migrate deploy
+node server/create-owner.cjs
+```
+
+Inicia `npm run backend` y `npm run dev` en terminales separadas. `CORS_ORIGIN` debe contener los orígenes del frontend separados por comas y `FRONTEND_URL` debe apuntar al dominio público usado para construir enlaces privados.
+
+## Probar solicitudes y conversión
+
+1. Abre `/solicitar-servicio`, completa los campos obligatorios y conserva el folio `SOL`.
+2. Entra en `/admin/login` como OWNER o DISPATCHER.
+3. En “Solicitudes de servicio”, marca la solicitud en revisión o como contactada.
+4. Usa “Aprobar y convertir”. La transacción reutiliza el cliente por correo o crea uno, genera un único pedido `MOR`, historial y token privado.
+5. Edita el pedido resultante para asignar monto, unidad, operador, estado y notas. Las notas internas nunca aparecen en el rastreo público.
+6. Una solicitud rechazada conserva su motivo y no crea pedido; una convertida devuelve el pedido existente si se intenta convertir de nuevo.
+
+## Stripe Checkout
+
+Stripe es opcional al arrancar. Para pruebas locales configura `STRIPE_SECRET_KEY=sk_test_...`, ejecuta Stripe CLI y reenvía eventos al endpoint `/api/stripe/webhook`; coloca el `whsec_...` temporal de `stripe listen` únicamente en el `.env` local. Para producción en Render configura manualmente una clave `sk_live_...` y el `STRIPE_WEBHOOK_SECRET` del webhook live que apunta al backend de Render. No reutilices el secreto de Stripe CLI en producción. Al usar Checkout alojado no hace falta una clave publicable en el frontend.
+
+## Despliegue
+
+En Render deben configurarse manualmente `DATABASE_URL`, `JWT_SECRET`, `CORS_ORIGIN`, `FRONTEND_URL`, `STRIPE_SECRET_KEY` y `STRIPE_WEBHOOK_SECRET`; ejecuta `npx prisma migrate deploy` como parte segura del despliegue. En Vercel configura `VITE_API_URL` con la URL del backend. Las claves y secretos nunca deben añadirse al repositorio.

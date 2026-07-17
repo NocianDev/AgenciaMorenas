@@ -29,6 +29,7 @@ import DashboardSummary from '../components/admin/DashboardSummary';
 import AdminFilters from '../components/admin/AdminFilters';
 import OrderCard from '../components/admin/OrderCard';
 import OrderEditForm from '../components/admin/OrderEditForm';
+import ServiceRequestsPanel from '../components/admin/ServiceRequestsPanel';
 
 const emptyFilters = {
   search: '',
@@ -417,6 +418,8 @@ export default function AdminPage() {
       )}
 
       <DashboardSummary {...data} />
+
+      <ServiceRequestsPanel onOrderCreated={async () => { await load(); setSuccess('La solicitud se convirtió en cliente y pedido.'); }} />
 
       <section className="admin-vehicles">
         <h2>Unidades</h2>

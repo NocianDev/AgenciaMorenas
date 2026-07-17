@@ -9,6 +9,8 @@ import ContactPage from './pages/ContactPage';
 import NotFoundPage from './pages/NotFoundPage';
 import AdminPage from './pages/AdminPage';
 import AdminLoginPage from './pages/AdminLoginPage';
+import ServiceRequestPage from './pages/ServiceRequestPage';
+import PrivacyPage from './pages/PrivacyPage';
 
 export default function App() {
   return (
@@ -21,6 +23,8 @@ export default function App() {
         <Route path="/rastreo" element={<TrackingPage />} />
         <Route path="/oficinas" element={<OfficesPage />} />
         <Route path="/contacto" element={<ContactPage />} />
+        <Route path="/solicitar-servicio" element={<ServiceRequestPage />} />
+        <Route path="/aviso-de-privacidad" element={<PrivacyPage />} />
         <Route path="/admin" element={<AdminPage />} />
         <Route path="/admin/login" element={<AdminLoginPage />} />
         <Route path="*" element={<NotFoundPage />} />

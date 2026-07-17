@@ -30,6 +30,14 @@ export const branches = [
     title: 'Sucursal Nuevo Laredo',
     address: 'Av. Ocampo 1600, Ferrocarril, 88040 Nuevo Laredo, Tamps.',
   },
+  {
+    city: 'Reynosa',
+    title: 'Sucursal Reynosa',
+    address: 'Blvd. Luis Donaldo Colosio 1498, Reynosa, Tamaulipas',
+    addressLines: ['Blvd. Luis Donaldo Colosio 1498', 'Reynosa, Tamaulipas'],
+    mapUrl: 'https://www.google.com/maps/search/?api=1&query=Blvd.%20Luis%20Donaldo%20Colosio%201498%2C%20Reynosa%2C%20Tamaulipas',
+    addressOnly: true,
+  },
 ];
 
 export const coverageCities = ['Tijuana', 'Nogales', 'Nuevo Laredo', 'Reynosa'];
@@ -352,9 +360,11 @@ export const offices = [
     city: branch.city,
     title: branch.title,
     address: branch.address,
-    phone: brand.phoneMX,
-    email: brand.email,
-    schedule: 'Lunes a viernes: 8:00 a.m. a 6:00 p.m. | Sábados: 8:00 a.m. a 2:00 p.m.',
+    phone: branch.addressOnly ? null : brand.phoneMX,
+    email: branch.addressOnly ? null : brand.email,
+    schedule: branch.addressOnly ? null : 'Lunes a viernes: 8:00 a.m. a 6:00 p.m. | Sábados: 8:00 a.m. a 2:00 p.m.',
+    addressLines: branch.addressLines,
+    mapUrl: branch.mapUrl,
   })),
   { city: 'Cobertura adicional', title: 'Cobertura operativa', address: coverageCities.join(' · '), phone: brand.phoneMX, email: brand.email, schedule: 'Lunes a viernes: 8:00 a.m. a 6:00 p.m. | Sábados: 8:00 a.m. a 2:00 p.m.' },
 ];

@@ -45,7 +45,7 @@ export default function HomePage() {
             {operatingCoverage.map((item) => <article className="coverage-card" key={item.city}><span>{item.city}</span><h3>{item.focus}</h3><p>{item.text}</p></article>)}
           </div>
           <div className="coverage-actions">
-            <a className="btn btn-primary" href={`https://wa.me/${brand.whatsapp}`} target="_blank" rel="noreferrer">Solicitar atención</a>
+            <Link className="btn btn-primary" to="/solicitar-servicio">Solicitar atención</Link>
             <Link className="btn btn-secondary" to="/oficinas">Ver oficinas</Link>
           </div>
         </div>

@@ -30,12 +30,13 @@ export default function OfficesPage() {
               <article className="office-card" key={office.city}>
                 <span className="tag">{office.city}</span>
                 <h3>{office.title}</h3>
-                <p>{office.address}</p>
+                {office.addressLines ? office.addressLines.map((line) => <p key={line}>{line}</p>) : <p>{office.address}</p>}
                 <ul>
-                  <li>{office.phone}</li>
-                  <li>{office.email}</li>
-                  <li>{office.schedule}</li>
+                  {office.phone && <li>{office.phone}</li>}
+                  {office.email && <li>{office.email}</li>}
+                  {office.schedule && <li>{office.schedule}</li>}
                 </ul>
+                {office.mapUrl && <a className="text-link" href={office.mapUrl} target="_blank" rel="noreferrer">Ver en Google Maps</a>}
               </article>
             ))}
           </div>
